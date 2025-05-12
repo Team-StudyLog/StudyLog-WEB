@@ -4,11 +4,13 @@ import type {RouteObject} from "react-router-dom";
 import RootLayout from "./layout/RootLayout.tsx";
 import NotFound from "../pages/status/error/NotFound.tsx";
 import exampleRoutes from "./exampleRoutes.tsx";
+import authRoutes from "./authRoutes.tsx";
 
 const allRoutes = [
     ...exampleRoutes,
     ...homeRoutes,
-    ...myPageRoutes
+    ...myPageRoutes,
+    ...authRoutes
 ]
 
 const pageRoutes: RouteObject[] = [
