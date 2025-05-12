@@ -1,23 +1,24 @@
 const examplePages = {
-    EXAMPLE: '/example',
-}
+  EXAMPLE: "/example",
+};
 
 const homePages = {
-    HOMEPAGE: '/',
-}
+  HOMEPAGE: "/",
+};
 
 const myPages = {
-    MYPAGE: '/mypage',
-}
+  MYPAGE: "/mypage",
+};
 
 const authPages = {
-    LOGINPAGE: '/login',
-    KAKAO_REDIRECTION: '/kakao/redirection',
-}
+  LOGINPAGE: "/login",
+  KAKAO_REDIRECTION: "/oauth",
+  GOOGLE_REDIRECTION: "/oauth/google/callback",
+};
 
 export default {
-    ...examplePages,
-    ...homePages,
-    ...myPages,
-    ...authPages,
-}
+  ...examplePages,
+  ...homePages,
+  ...myPages,
+  ...authPages,
+};
