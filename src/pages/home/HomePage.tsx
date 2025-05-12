@@ -1,12 +1,12 @@
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const HomePage = () => {
-  const { goLoginPage } = useEasyNavigate();
+  const { goMyPage, goLoginPage } = useEasyNavigate();
   return (
     <>
       <div className={`flex-col`}>
-        <header className={`flex justify-between`}>
-          <p>홈페이지</p>
+        <header className={`flex justify-between text-xl p-4`}>
+          <p onClick={goMyPage}>마이페이지</p>
           <p onClick={goLoginPage}>로그인</p>
         </header>
       </div>

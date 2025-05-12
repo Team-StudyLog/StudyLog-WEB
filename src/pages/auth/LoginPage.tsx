@@ -1,6 +1,11 @@
+import { loginPageStyle } from "./LoginPage.styles.ts";
+
 const LoginPage = () => {
   const handleGoogleLogin = () => {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_GOOGLE_AUTH_REDIRECT_URL}&response_type=code&scope=email`;
+    const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
+      import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID
+    }&redirect_uri=${import.meta.env.VITE_GOOGLE_AUTH_REDIRECT_URL}&response_type=code&scope=email`;
+    window.location.replace(googleLoginUrl);
   };
 
   const handleKakaoLogin = () => {
@@ -12,9 +17,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div
-        className={`flex flex-col h-screen justify-center items-center gap-4`}
-      >
+      <div className={loginPageStyle}>
         <button
           className={`bg-amber-300 font-semibold rounded-lg px-4 py-2`}
           onClick={handleKakaoLogin}
