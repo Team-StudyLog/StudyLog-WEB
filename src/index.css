@@ -1,5 +1,56 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: PretendardRegular;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../src/assets/fonts/Pretendard-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardMedium;
+  font-style: normal;
+  font-weight: 500;
+  src: url('../src/assets/fonts/Pretendard-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardSemiBold;
+  font-style: normal;
+  font-weight: 600;
+  src: url('../src/assets/fonts/Pretendard-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardBold;
+  font-style: normal;
+  font-weight: 700;
+  src: url('../src/assets/fonts/Pretendard-Bold.ttf') format('truetype');
+}
+
+@layer utilities {
+  .font-head1-bold {
+    font-family: PretendardBold, sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body01-regular {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body02-semibold {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+}
+
 @theme {
   --color-green-100: #BBEFDA;
   --color-green-200: #52D38A;

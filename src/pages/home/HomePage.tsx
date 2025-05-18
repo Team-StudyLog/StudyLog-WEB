@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <>
       <div className={`flex-col`}>
-        <header className={`flex justify-between text-xl p-4`}>
+        <header className={`flex justify-between font-head1-bold p-4`}>
           <p onClick={goMyPage} className={`text-red`}>
             마이페이지
           </p>
