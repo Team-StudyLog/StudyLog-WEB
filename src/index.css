@@ -4,6 +4,7 @@
   --color-green-100: #BBEFDA;
   --color-green-200: #52D38A;
   --color-green-300: #44D496;
+  --color-green-400: linear-gradient(to bottom, var(--color-green-300), var(--color-green-200));
   --color-green-500: #17B36F;
   --color-red: #FD7563;
 
