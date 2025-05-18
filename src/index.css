@@ -29,25 +29,122 @@
 }
 
 @layer utilities {
-  .font-head1-bold {
+  .font-head01-bold-24 {
     font-family: PretendardBold, sans-serif;
     font-size: 2.4rem;
     letter-spacing: -0.6px;
     line-height: normal;
   }
 
-  .font-body01-regular {
+  .font-head02-bold-20 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head03-bold-18 {
+      font-family: PretendardBold, sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-head04-bold-16 {
+      font-family: PretendardBold, sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-head05-semibold-20 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head06-semibold-16 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head07-medium-20 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head08-medium-18 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head09-regular-18 {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body01-bold-14 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body02-semibold-14 {
+      font-family: PretendardSemiBold, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body03-semibold-12 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body04-medium-16 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+  }
+
+  .font-body05-medium-14 {
+      font-family: PretendardMedium, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body06-regular-16 {
     font-family: PretendardRegular, sans-serif;
     font-size: 1.4rem;
     letter-spacing: -0.6px;
     line-height: normal;
   }
 
-  .font-body02-semibold {
-    font-family: PretendardSemiBold, sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: -0.6px;
-    line-height: normal;
+  .font-body07-regular-14 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body08-regular-12 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
   }
 }
 
@@ -90,6 +187,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 62.5%;
 }
 
 #root {
