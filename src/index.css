@@ -1,5 +1,189 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: PretendardRegular;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../src/assets/fonts/Pretendard-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardMedium;
+  font-style: normal;
+  font-weight: 500;
+  src: url('../src/assets/fonts/Pretendard-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardSemiBold;
+  font-style: normal;
+  font-weight: 600;
+  src: url('../src/assets/fonts/Pretendard-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardBold;
+  font-style: normal;
+  font-weight: 700;
+  src: url('../src/assets/fonts/Pretendard-Bold.ttf') format('truetype');
+}
+
+@layer utilities {
+  .font-head01-bold-24 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head02-bold-20 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head03-bold-18 {
+      font-family: PretendardBold, sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-head04-bold-16 {
+      font-family: PretendardBold, sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-head05-semibold-20 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head06-semibold-16 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head07-medium-20 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head08-medium-18 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head09-regular-18 {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body01-bold-14 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body02-semibold-14 {
+      font-family: PretendardSemiBold, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body03-semibold-12 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body04-medium-16 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+  }
+
+  .font-body05-medium-14 {
+      font-family: PretendardMedium, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body06-regular-16 {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body07-regular-14 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body08-regular-12 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body09-medium-10 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body10-regular-10 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+}
+
+@theme {
+  --color-green-100: #BBEFDA;
+  --color-green-200: #52D38A;
+  --color-green-300: #44D496;
+  --color-green-400: linear-gradient(to bottom, var(--color-green-300), var(--color-green-200));
+  --color-green-500: #17B36F;
+  --color-green-600: #036239;
+  --color-red: #FD7563;
+
+  /*Gray Scale*/
+  --color-white: #FFFFFF;
+  --color-gray-100: #F8F8F8;
+  --color-gray-200: #EEEEEE;
+  --color-gray-300: #E4E4E4;
+  --color-gray-400: #D9D9D9;
+  --color-gray-500:#9E9E9E;
+  --color-gray-600: #616161;
+  --color-gray-700: #212222;
+
+  --color-kakao-yellow: #FAE100;
+}
+
 :root {
   --min-width: 375px;
   --max-width: 430px;
@@ -18,6 +202,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 62.5%;
 }
 
 #root {
