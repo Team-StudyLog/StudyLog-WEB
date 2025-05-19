@@ -146,6 +146,20 @@
       letter-spacing: -0.6px;
       line-height: normal;
   }
+
+  .font-body09-medium-10 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body10-regular-10 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
 }
 
 @theme {
