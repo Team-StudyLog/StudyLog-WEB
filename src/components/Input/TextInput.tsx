@@ -5,6 +5,7 @@ interface TextInputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   type?: "title" | "content";
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  id: string;
   placeholder?: string;
   maxLength?: number;
   errorText?: string;
@@ -14,6 +15,7 @@ const TextInput = ({
   type = "title",
   value,
   onChange,
+  id,
   placeholder = "제목을 입력하세요",
   maxLength = 20,
   errorText = "",
@@ -30,6 +32,7 @@ const TextInput = ({
         `}
       >
         <textarea
+          id={id}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
