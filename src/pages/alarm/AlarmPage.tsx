@@ -1,8 +1,9 @@
+import TextHeader from "../../components/Header/TextHeader.tsx";
+
 const AlarmPage = () => {
   return (
-    <div>
-      <h1>Alarm Page</h1>
-      <p>This is the alarm page content.</p>
+    <div className={`flex flex-col`}>
+      <TextHeader text={"알림"} />
     </div>
   );
 };
