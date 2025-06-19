@@ -1,4 +1,4 @@
-import useEasyNavigate from "../hooks/useEasyNavigate.ts";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import { Bell, User } from "lucide-react";
 
 const Header = () => {

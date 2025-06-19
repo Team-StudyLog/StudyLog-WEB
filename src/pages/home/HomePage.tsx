@@ -1,5 +1,5 @@
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
-import Header from "../../components/Header.tsx";
+import Header from "../../components/Header/Header.tsx";
 import FloatingActionButton from "../../components/Button/FloatingActionButton.tsx";
 
 const HomePage = () => {
