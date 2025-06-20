@@ -9,6 +9,7 @@ import BottomButton from "../../components/Button/BottomButton.tsx";
 const HomePage = () => {
   const { isOpen } = useModalInfo();
   const { openModal } = useModalActions();
+
   const [bottomSheetState, setBottomSheetState] =
     useState<BottomSheetState>("closed");
   return (
@@ -18,7 +19,10 @@ const HomePage = () => {
         <button onClick={openModal} className={`font-body01-bold-14`}>
           모달 열기
         </button>
-        <button onClick={() => setBottomSheetState("default")}>
+        <button
+          className={`font-body01-bold-14`}
+          onClick={() => setBottomSheetState("default")}
+        >
           바텀시트 열기
         </button>
 

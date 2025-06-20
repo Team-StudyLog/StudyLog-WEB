@@ -15,7 +15,6 @@ interface ModalState {
 export const useModalStore = create(
   immer<ModalState>((set) => ({
     isOpen: false,
-    movie: null,
     actions: {
       openModal: () =>
         set((state) => {
