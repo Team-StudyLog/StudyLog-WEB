@@ -79,7 +79,7 @@ const BottomSheet = ({
     <>
       <motion.div
         className={bottomSheetStyle}
-        initial="default"
+        initial="closed"
         animate={animateState}
         variants={variants}
         transition={{ type: "spring", bounce: 0, duration: 0.5 }}
