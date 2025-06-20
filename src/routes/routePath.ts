@@ -16,9 +16,14 @@ const authPages = {
   GOOGLE_REDIRECTION: "/oauth/google/callback",
 };
 
+const alarmPages = {
+  ALARM: "/alarm",
+};
+
 export default {
   ...examplePages,
   ...homePages,
   ...myPages,
   ...authPages,
+  ...alarmPages,
 };

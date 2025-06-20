@@ -19,11 +19,16 @@ const useEasyNavigate = () => {
     navigate(routePath.MYPAGE);
   };
 
+  const goAlarmPage = () => {
+    navigate(routePath.ALARM);
+  };
+
   return {
     goBack,
     goLoginPage,
     goHomePage,
     goMyPage,
+    goAlarmPage,
   };
 };
 
