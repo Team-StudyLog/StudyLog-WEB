@@ -3,6 +3,6 @@ export const bottomSheetStyle =
 
 export const handler = "mx-auto w-12 h-1 rounded-full bg-gray-300";
 
-export const content = "h-[calc(100%-0.4rem)] w-full px-4";
+export const content = "h-[calc(100% - 0.4rem)] w-full px-4";
 
 export const overlayStyle = "fixed inset-0 bg-black/30 z-40";
