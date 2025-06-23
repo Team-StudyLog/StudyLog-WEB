@@ -5,6 +5,8 @@ import backgroundImage from "../../assets/main-background.jpg";
 import ProfileSection from "./components/ProfileSection.tsx";
 import { mockUser } from "../../data/mockUser.ts";
 import HomeButton from "./components/HomeButton.tsx";
+import CategorySection from "./components/CategorySection.tsx";
+import { mockCategories } from "../../data/mockCategories.ts";
 
 const HomePage = () => {
   return (
@@ -23,6 +25,7 @@ const HomePage = () => {
             <HomeButton type={"archive"} onClick={() => {}} />
             <HomeButton type={"quiz"} onClick={() => {}} />
           </div>
+          <CategorySection categories={mockCategories} />
         </div>
       </div>
     </>
