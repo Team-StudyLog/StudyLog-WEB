@@ -15,6 +15,14 @@ const useEasyNavigate = () => {
     navigate(routePath.HOMEPAGE);
   };
 
+  const goRecordPage = () => {
+    navigate(routePath.RECORD);
+  };
+
+  const goQuizPage = () => {
+    navigate(routePath.QUIZ);
+  };
+
   const goMyPage = () => {
     navigate(routePath.MYPAGE);
   };
@@ -23,12 +31,19 @@ const useEasyNavigate = () => {
     navigate(routePath.ALARM);
   };
 
+  const goFriendPage = () => {
+    navigate(routePath.FRIEND);
+  };
+
   return {
     goBack,
     goLoginPage,
     goHomePage,
+    goRecordPage,
+    goQuizPage,
     goMyPage,
     goAlarmPage,
+    goFriendPage,
   };
 };
 

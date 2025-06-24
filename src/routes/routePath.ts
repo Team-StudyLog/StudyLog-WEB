@@ -6,8 +6,21 @@ const homePages = {
   HOMEPAGE: "/",
 };
 
+const recordPages = {
+  RECORD: "/record",
+  RECORD_DETAIL: "/record/:recordId",
+  RECORD_EDIT: "/record/edit/:recordId",
+  RECORD_WRITE: "/record/write",
+};
+
+const quizPages = {
+  QUIZ: "/quiz",
+  QUIZ_DETAIL: "/quiz/:quizId",
+};
+
 const myPages = {
   MYPAGE: "/mypage",
+  MYPAGE_EDIT: "/mypage/edit",
 };
 
 const authPages = {
@@ -20,10 +33,18 @@ const alarmPages = {
   ALARM: "/alarm",
 };
 
+const friendPages = {
+  FRIEND: "/friend",
+  FRIEND_ADD: "/friend/add",
+};
+
 export default {
   ...examplePages,
   ...homePages,
+  ...recordPages,
+  ...quizPages,
   ...myPages,
   ...authPages,
   ...alarmPages,
+  ...friendPages,
 };

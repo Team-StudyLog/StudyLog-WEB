@@ -10,10 +10,12 @@ import { mockCategories } from "../../data/mockCategories.ts";
 import React, { useRef, useState } from "react";
 import mockStreaks from "../../data/mockStreaks.ts";
 import Streak from "./components/Streak.tsx";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const HomePage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { goRecordPage, goQuizPage } = useEasyNavigate();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -52,8 +54,8 @@ const HomePage = () => {
         <div className={`flex flex-col items-center px-[26px]`}>
           <ProfileSection user={mockUser} />
           <div className={`flex w-full justify-between gap-x-[11px]`}>
-            <HomeButton type={"archive"} onClick={() => {}} />
-            <HomeButton type={"quiz"} onClick={() => {}} />
+            <HomeButton type={"archive"} onClick={goRecordPage} />
+            <HomeButton type={"quiz"} onClick={goQuizPage} />
           </div>
           <Streak streakDays={70} streaks={mockStreaks} />
           <CategorySection categories={mockCategories} />
