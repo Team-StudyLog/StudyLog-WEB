@@ -6,7 +6,7 @@ interface HomeButtonProps {
   onClick: () => void;
 }
 
-const HomeButton = ({ type, onClick }: HomeButtonProps) => {
+const NavigateButton = ({ type, onClick }: HomeButtonProps) => {
   return (
     <div
       className={`flex flex-1 flex-col bg-white rounded-[18px] px-[16px] pt-[27px] pb-[21px] cursor-pointer`}
@@ -27,4 +27,4 @@ const HomeButton = ({ type, onClick }: HomeButtonProps) => {
   );
 };
 
-export default HomeButton;
+export default NavigateButton;

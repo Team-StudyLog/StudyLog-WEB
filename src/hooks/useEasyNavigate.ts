@@ -15,6 +15,10 @@ const useEasyNavigate = () => {
     navigate(routePath.HOMEPAGE);
   };
 
+  const goMainPage = (code: string) => {
+    navigate(routePath.MAIN.replace(":code", code));
+  };
+
   const goRecordPage = () => {
     navigate(routePath.RECORD);
   };
@@ -38,6 +42,7 @@ const useEasyNavigate = () => {
   return {
     goBack,
     goLoginPage,
+    goMainPage,
     goHomePage,
     goRecordPage,
     goQuizPage,

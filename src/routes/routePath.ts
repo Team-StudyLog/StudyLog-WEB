@@ -6,6 +6,10 @@ const homePages = {
   HOMEPAGE: "/",
 };
 
+const mainPages = {
+  MAIN: "/:code",
+};
+
 const recordPages = {
   RECORD: "/record",
   RECORD_DETAIL: "/record/:recordId",
@@ -41,6 +45,7 @@ const friendPages = {
 export default {
   ...examplePages,
   ...homePages,
+  ...mainPages,
   ...recordPages,
   ...quizPages,
   ...myPages,
