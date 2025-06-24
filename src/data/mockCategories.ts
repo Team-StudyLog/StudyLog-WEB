@@ -1,10 +1,10 @@
-export type Category = {
+export type CategoryT = {
   id: number;
   name: string;
   count: number;
 };
 
-export const mockCategories: Category[] = [
+export const mockCategories: CategoryT[] = [
   { id: 1, name: "미적분", count: 104 },
   { id: 2, name: "선형대수", count: 80 },
   { id: 3, name: "확률과 통계", count: 65 },

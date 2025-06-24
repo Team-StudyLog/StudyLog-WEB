@@ -1,7 +1,7 @@
-import type { Category } from "../../../data/mockCategories.ts";
+import type { CategoryT } from "../../../data/mockCategories.ts";
 
 interface CategorySectionProps {
-  categories: Category[];
+  categories: CategoryT[];
 }
 
 const CategorySection = (categories: CategorySectionProps) => {
@@ -30,7 +30,7 @@ const CategoryItem = ({
   category,
 }: {
   rank: number;
-  category: Category;
+  category: CategoryT;
 }) => {
   return (
     <div className={`flex flex-col w-full mt-[20px]`}>

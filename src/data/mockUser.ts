@@ -1,4 +1,4 @@
-export type User = {
+export type UserT = {
   id: number;
   name: string;
   description: string;
@@ -7,7 +7,7 @@ export type User = {
   level: number;
 };
 
-export const mockUser: User = {
+export const mockUser: UserT = {
   id: 1,
   name: "가을",
   description:

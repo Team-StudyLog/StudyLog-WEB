@@ -1,10 +1,10 @@
 import LevelChip from "./LevelChip.tsx";
 import { Share2 } from "lucide-react";
-import type { User } from "../../../data/mockUser.ts";
+import type { UserT } from "../../../data/mockUser.ts";
 import handleShare from "../../../utils/handleShare.ts";
 
 interface ProfileSectionProps {
-  user: User;
+  user: UserT;
 }
 
 const ProfileSection = ({ user }: ProfileSectionProps) => {

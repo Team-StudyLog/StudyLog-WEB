@@ -1,11 +1,11 @@
 import { Search } from "lucide-react";
-import type { Friend } from "../../../data/mockFriends.ts";
+import type { FriendT } from "../../../data/mockFriends.ts";
 
 interface FriendHeaderProps {
-  friends: Friend[];
+  friends: FriendT[];
 }
 
-const UserProfile = ({ id, name, profileImageUrl }: Friend) => {
+const UserProfile = ({ id, name, profileImageUrl }: FriendT) => {
   return (
     <div
       key={id}

@@ -1,10 +1,10 @@
-export type Friend = {
+export type FriendT = {
   id: number;
   name: string;
   profileImageUrl: string;
 };
 
-export const mockFriends: Friend[] = [
+export const mockFriends: FriendT[] = [
   {
     id: 1,
     name: "가을",
