@@ -7,7 +7,9 @@ const homePages = {
 };
 
 const mainPages = {
+  CODE: "/:code",
   MAIN: "/:code",
+  OTHER_USER: "/:code",
 };
 
 const recordPages = {

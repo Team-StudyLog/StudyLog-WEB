@@ -27,7 +27,7 @@ const Streak = ({ streakDays, streaks }: StreakProps) => {
 
   return (
     <section
-      className={`flex flex-col w-full rounded-[18px] bg-white px-[16px] py-[20px] mt-[22px]`}
+      className={`flex flex-col w-full rounded-[18px] bg-white px-[16px] py-[20px]`}
     >
       <div className={`flex gap-x-[2px] items-center`}>
         <Leaf size={18} className={`text-gray-500`} />

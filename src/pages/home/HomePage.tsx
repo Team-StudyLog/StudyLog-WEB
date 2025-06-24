@@ -1,9 +1,15 @@
 import Header from "../../components/Header/Header.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import BottomButton from "../../components/Button/BottomButton.tsx";
+import { useEffect } from "react";
 
 const HomePage = () => {
+  useEffect(() => {
+    localStorage.setItem("myCode", "UX320");
+  }, []);
+
   const { goMainPage } = useEasyNavigate();
+
   const code = "UX320";
   return (
     <div className={`flex flex-col`}>

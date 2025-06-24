@@ -52,8 +52,10 @@ const MainPage = () => {
         />
 
         <div className={`flex flex-col items-center px-[26px]`}>
-          <ProfileSection user={mockUser} />
-          <div className={`flex w-full justify-between gap-x-[11px]`}>
+          <ProfileSection user={mockUser} type={"me"} />
+          <div
+            className={`flex w-full justify-between gap-x-[11px] mt-[8px] mb-[30px]`}
+          >
             <NavigateButton type={"archive"} onClick={goRecordPage} />
             <NavigateButton type={"quiz"} onClick={goQuizPage} />
           </div>
