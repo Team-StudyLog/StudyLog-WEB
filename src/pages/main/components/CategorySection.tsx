@@ -4,13 +4,13 @@ interface CategorySectionProps {
   categories: CategoryT[];
 }
 
-const CategorySection = (categories: CategorySectionProps) => {
+const CategorySection = ({ categories }: CategorySectionProps) => {
   return (
     <div className={`flex flex-col mt-[30px] w-full mb-[40px]`}>
       <h3 className={`font-head03-bold-18 text-gray-700`}>인기 카테고리</h3>
       <div className={`flex flex-col`}>
-        {categories.categories.length > 0 ? (
-          categories.categories.map((category, index) => (
+        {categories.length > 0 ? (
+          categories.map((category, index) => (
             <CategoryItem key={index} rank={index + 1} category={category} />
           ))
         ) : (
