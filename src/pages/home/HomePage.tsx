@@ -30,7 +30,7 @@ const HomePage = () => {
         <div className={homeSubTextWrapper}>
           <p className={`text-gray-500`}>로그인을 하면&nbsp;</p>
           <p className={`text-green-300`}>공부를 기록</p>
-          <p className={`text-gray-500`}>&nbsp;할 수 있어요!</p>
+          <p className={`text-gray-500`}>할 수 있어요!</p>
         </div>
       </div>
       <BottomButton text={`로그인 하기`} onClick={goLoginPage} />

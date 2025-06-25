@@ -7,43 +7,25 @@ import { mockUser } from "../../data/mockUser.ts";
 import NavigateButton from "./components/NavigateButton.tsx";
 import CategorySection from "./components/CategorySection.tsx";
 import { mockCategories } from "../../data/mockCategories.ts";
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import mockStreaks from "../../data/mockStreaks.ts";
 import Streak from "./components/Streak.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
+import ImageInput from "../../components/Input/ImageInput.tsx";
+import useImageInput from "../../hooks/useImageInput.ts";
 
 const MainPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { fileInputRef, handleImageChange, handleImageClick } =
+    useImageInput(setSelectedImage);
   const { goRecordPage, goQuizPage } = useEasyNavigate();
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-    }
-  };
-
-  const handleImageClick = () => {
-    fileInputRef.current?.click(); // 숨겨진 input을 클릭
-  };
 
   return (
     <>
       <div className={`flex flex-col`}>
         <Header />
         <FriendHeader friends={mockFriends} />
-        {/* 숨겨진 input */}
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleImageChange}
-        />
-
-        {/* 클릭 시 input 트리거 */}
+        <ImageInput ref={fileInputRef} onChange={handleImageChange} />
         <img
           src={selectedImage || backgroundImage}
           alt="메인 배경 이미지"
