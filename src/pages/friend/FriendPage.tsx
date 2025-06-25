@@ -3,6 +3,7 @@ import SearchInput from "../../components/Input/SearchInput.tsx";
 import { useMemo, useState } from "react";
 import { mockFriends } from "../../data/mockFriends.ts";
 import FriendItem from "./components/FriendItem.tsx";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const FriendPage = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -13,6 +14,8 @@ const FriendPage = () => {
     );
   }, [keyword]);
 
+  const { goFriendAddPage } = useEasyNavigate();
+
   return (
     <div className={`flex flex-col`}>
       <TextHeader text={"친구 목록"} />
@@ -20,6 +23,7 @@ const FriendPage = () => {
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         type={"friend"}
+        onClick={goFriendAddPage}
       />
       <div className={`flex flex-col px-[26px]`}>
         <div className={`flex font-head05-semibold-20 mt-[20px]`}>

@@ -47,6 +47,10 @@ const useEasyNavigate = () => {
     navigate(routePath.FRIEND);
   };
 
+  const goFriendAddPage = () => {
+    navigate(routePath.FRIEND_ADD);
+  };
+
   return {
     goBack,
     goLoginPage,
@@ -59,6 +63,7 @@ const useEasyNavigate = () => {
     goMyPageEdit,
     goAlarmPage,
     goFriendPage,
+    goFriendAddPage,
   };
 };
 
