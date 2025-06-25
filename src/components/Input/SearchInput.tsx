@@ -17,29 +17,31 @@ const SearchInput = ({
   onClick = () => {},
 }: SearchInputProps) => {
   return (
-    <div
-      className={`flex w-full bg-white rounded-[10px] border border-gray-400 p-[17px] gap-[11px]`}
-    >
-      <Search size={18} className={`text-gray-500`} />
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className={`flex-1 font-body05-medium-14 text-gray-700 placeholder-gray-500
+    <div className={`px-[20px] py-[16px]`}>
+      <div
+        className={`flex w-full bg-white rounded-[10px] border border-gray-400 p-[17px] gap-[11px]`}
+      >
+        <Search size={18} className={`text-gray-500`} />
+        <input
+          type="text"
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          className={`flex-1 font-body05-medium-14 text-gray-700 placeholder-gray-500
         outline-none bg-transparent`}
-        onClick={onClick}
-      />
-      {type === "default" && (
-        <EllipsisVertical size={18} className={`text-gray-500`} />
-      )}
-      {type === "friend" && (
-        <UserRoundPlus
-          size={18}
-          className={`text-gray-500`}
           onClick={onClick}
         />
-      )}
+        {type === "default" && (
+          <EllipsisVertical size={18} className={`text-gray-500`} />
+        )}
+        {type === "friend" && (
+          <UserRoundPlus
+            size={18}
+            className={`text-gray-500`}
+            onClick={onClick}
+          />
+        )}
+      </div>
     </div>
   );
 };
