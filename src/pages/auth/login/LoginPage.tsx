@@ -3,8 +3,8 @@ import {
   loginContainer,
   loginPageStyle,
 } from "./LoginPage.styles.ts";
-import SocialLoginButton from "../../components/Button/SocialLoginButton.tsx";
-import IcLoginLogo from "../../assets/ic-login-logo.png";
+import SocialLoginButton from "../../../components/Button/SocialLoginButton.tsx";
+import IcLoginLogo from "../../../assets/ic-login-logo.png";
 
 const LoginPage = () => {
   const handleGoogleLogin = () => {

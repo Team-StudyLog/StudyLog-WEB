@@ -33,6 +33,7 @@ const authPages = {
   LOGINPAGE: "/login",
   KAKAO_REDIRECTION: "/oauth",
   GOOGLE_REDIRECTION: "/oauth/google/callback",
+  SIGNUP: "/signup",
 };
 
 const alarmPages = {
