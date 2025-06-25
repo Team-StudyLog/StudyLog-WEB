@@ -20,6 +20,8 @@ const Redirection = ({ platform }: RedirectionProps) => {
     if (code) {
       console.log("OAuth code:", code);
       console.log(platform);
+
+      // 초기 유저라면
       goSignupPage();
     }
   }, [code, platform, goSignupPage]);

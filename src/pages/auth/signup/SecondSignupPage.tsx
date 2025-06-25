@@ -4,6 +4,7 @@ import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
 import { useState } from "react";
 import { signupContent, signupHeaderWrapper } from "./SignupPage.styles.ts";
+import { storageKey } from "../../../constants/storageKey.ts";
 
 interface SecondSignupPageProps {
   selectedImage: string | null;
@@ -23,6 +24,7 @@ const SecondSignupPage = ({ selectedImage }: SecondSignupPageProps) => {
     console.log(selectedImage);
     console.log(nickname);
     console.log(description);
+    localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
   };
 
   return (

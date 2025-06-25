@@ -10,10 +10,11 @@ import {
   homeSubTextWrapper,
   homeUserProfile,
 } from "./HomePage.styles.ts";
+import { storageKey } from "../../constants/storageKey.ts";
 
 const HomePage = () => {
   useEffect(() => {
-    localStorage.setItem("myCode", "UX320");
+    localStorage.setItem(storageKey.USER_CODE, "UX320");
   }, []);
 
   const { goLoginPage } = useEasyNavigate();
