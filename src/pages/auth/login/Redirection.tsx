@@ -18,7 +18,6 @@ const Redirection = ({ platform }: RedirectionProps) => {
 
   useEffect(() => {
     if (code) {
-      alert(`${platform} 로그인 성공!`);
       console.log("OAuth code:", code);
       console.log(platform);
       goSignupPage();
