@@ -10,7 +10,10 @@ const SignupPage = () => {
 
   return (
     <div className={signupPageStyle}>
-      <TextHeader text={`회원가입`} />
+      <TextHeader
+        text={`회원가입`}
+        onClick={currentPage === 2 ? () => setCurrentPage(1) : undefined}
+      />
       {currentPage === 1 ? (
         <FirstSignupPage
           selectedImage={selectedImage}
