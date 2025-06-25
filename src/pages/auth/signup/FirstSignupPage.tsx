@@ -32,6 +32,7 @@ const FirstSignupPage = ({
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
+
   return (
     <>
       <div className={signupContent}>
@@ -56,7 +57,6 @@ const FirstSignupPage = ({
                 src={selectedImage}
                 alt="프로필 이미지"
                 className={firstSignupSelectedImage}
-                onClick={handleImageClick}
               />
             ) : (
               <User size={60} className={`text-gray-500`} />
