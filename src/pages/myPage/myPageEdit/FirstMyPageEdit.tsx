@@ -6,21 +6,21 @@ import {
   firstSignupSelectedImage,
   signupContent,
   signupHeaderWrapper,
-} from "./SignupPage.styles.ts";
+} from "../../auth/signup/SignupPage.styles.ts";
 import ImageInput from "../../../components/Input/ImageInput.tsx";
 import useImageInput from "../../../hooks/useImageInput.ts";
 
-interface FirstSignupPageProps {
+interface FirstMyPageEditProps {
   selectedImage: string | null;
   setSelectedImage: (image: string) => void;
   onNext: () => void;
 }
 
-const FirstSignupPage = ({
+const FirstMyPageEdit = ({
   selectedImage,
   setSelectedImage,
   onNext,
-}: FirstSignupPageProps) => {
+}: FirstMyPageEditProps) => {
   const { fileInputRef, handleImageChange, handleImageClick } =
     useImageInput(setSelectedImage);
 
@@ -58,4 +58,4 @@ const FirstSignupPage = ({
   );
 };
 
-export default FirstSignupPage;
+export default FirstMyPageEdit;

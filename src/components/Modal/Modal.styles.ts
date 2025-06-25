@@ -1,5 +1,5 @@
 export const modalBackdrop =
-  "fixed inset-0 flex items-center justify-center bg-black/30 z-50";
+  "fixed inset-0 flex items-center justify-center bg-black/10 z-50";
 
 export const modalBackground = "flex flex-col bg-white rounded-[20px] p-[24px]";
 

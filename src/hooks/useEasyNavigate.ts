@@ -35,12 +35,20 @@ const useEasyNavigate = () => {
     navigate(routePath.MYPAGE);
   };
 
+  const goMyPageEdit = () => {
+    navigate(routePath.MYPAGE_EDIT);
+  };
+
   const goAlarmPage = () => {
     navigate(routePath.ALARM);
   };
 
   const goFriendPage = () => {
     navigate(routePath.FRIEND);
+  };
+
+  const goFriendAddPage = () => {
+    navigate(routePath.FRIEND_ADD);
   };
 
   return {
@@ -52,8 +60,10 @@ const useEasyNavigate = () => {
     goRecordPage,
     goQuizPage,
     goMyPage,
+    goMyPageEdit,
     goAlarmPage,
     goFriendPage,
+    goFriendAddPage,
   };
 };
 
