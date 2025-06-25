@@ -11,12 +11,16 @@ const useEasyNavigate = () => {
     navigate(routePath.LOGINPAGE);
   };
 
+  const goSignupPage = () => {
+    navigate(routePath.SIGNUP);
+  };
+
   const goHomePage = () => {
     navigate(routePath.HOMEPAGE);
   };
 
   const goCodePage = (code: string) => {
-    navigate(routePath.CODE.replace(":code", code));
+    navigate(routePath.CODE.replace(":code", code), { replace: true });
   };
 
   const goRecordPage = () => {
@@ -42,7 +46,8 @@ const useEasyNavigate = () => {
   return {
     goBack,
     goLoginPage,
-    goMainPage: goCodePage,
+    goSignupPage,
+    goCodePage,
     goHomePage,
     goRecordPage,
     goQuizPage,

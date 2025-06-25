@@ -8,7 +8,6 @@ interface TextInputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;
   placeholder?: string;
   maxLength?: number;
-  errorText?: string;
 }
 
 const TextInput = ({
@@ -18,16 +17,14 @@ const TextInput = ({
   id,
   placeholder = "제목을 입력하세요",
   maxLength = 20,
-  errorText = "",
 }: TextInputProps) => {
   const isError = value.length > maxLength;
 
   return (
     <div className="flex flex-col gap-[6px] w-full">
       <div
-        className={`
+        className={`bg-white rounded-[8px] border p-[20px] w-full
         ${type === "title" ? "flex" : "flex-col"} 
-        bg-white rounded-[8px] border p-[20px] w-full
           ${isError ? "border-red" : "border-gray-400"}
         `}
       >
@@ -53,10 +50,12 @@ const TextInput = ({
           /{maxLength}
         </div>
       </div>
-      {isError && errorText && (
+      {isError && (
         <div className="flex items-center gap-2 ps-1 text-red">
           <Info size={12} />
-          <span className="font-body09-medium-10">{errorText}</span>
+          <span className="font-body09-medium-10">
+            {maxLength}자 내외로 입력해주세요
+          </span>
         </div>
       )}
     </div>

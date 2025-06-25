@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
+import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 
 interface RedirectionProps {
   platform: "kakao" | "google";
@@ -14,16 +14,17 @@ const Redirection = ({ platform }: RedirectionProps) => {
   //   ? usePostKakaoLogin()
   //   : usePostGoogleLogin();
 
-  const { goHomePage } = useEasyNavigate();
+  const { goSignupPage } = useEasyNavigate();
 
   useEffect(() => {
     if (code) {
-      alert(`${platform} 로그인 성공!`);
       console.log("OAuth code:", code);
       console.log(platform);
-      goHomePage();
+
+      // 초기 유저라면
+      goSignupPage();
     }
-  }, [code, platform, goHomePage]);
+  }, [code, platform, goSignupPage]);
 
   return <></>;
 };

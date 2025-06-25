@@ -133,7 +133,7 @@ const MiniStreakItem = ({ level }: { level: number }) => {
     <div className={`flex items-center`}>
       <p className={`font-body08-regular-12 text-gray-500`}>{ranges[level]}</p>
       <div
-        className={`rounded-[4px] size-[12px] ms-[2px] ${bgColors[level]}`}
+        className={`rounded-[4px] h-[12px] w-[12px] ms-[2px] ${bgColors[level]}`}
       />
     </div>
   );
