@@ -29,7 +29,6 @@ const SearchInput = ({
           placeholder={placeholder}
           className={`flex-1 font-body05-medium-14 text-gray-700 placeholder-gray-500
         outline-none bg-transparent`}
-          onClick={onClick}
         />
         {type === "default" && (
           <EllipsisVertical size={18} className={`text-gray-500`} />
