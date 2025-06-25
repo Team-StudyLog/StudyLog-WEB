@@ -1,11 +1,17 @@
 import TextHeader from "../../components/Header/TextHeader.tsx";
 import SearchInput from "../../components/Input/SearchInput.tsx";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { mockFriends } from "../../data/mockFriends.ts";
 import FriendItem from "./components/FriendItem.tsx";
 
 const FriendPage = () => {
   const [keyword, setKeyword] = useState<string>("");
+  const filteredFriends = useMemo(() => {
+    const lowerKeyword = keyword.trim().toLowerCase();
+    return mockFriends.filter((friend) =>
+      friend.name.toLowerCase().includes(lowerKeyword)
+    );
+  }, [keyword]);
 
   return (
     <div className={`flex flex-col`}>
@@ -21,12 +27,16 @@ const FriendPage = () => {
           <p className={`text-green-300`}>{mockFriends.length}</p>
         </div>
         <hr className={`w-full mt-[16px] text-gray-300`} />
-        {mockFriends.length > 0 ? (
-          mockFriends.map((friend, index) => (
+        {filteredFriends.length > 0 ? (
+          filteredFriends.map((friend, index) => (
             <FriendItem key={index} friend={friend} />
           ))
         ) : (
-          <p className={`text-gray-500 mt-[40px]`}>친구가 없어요</p>
+          <p
+            className={`flex w-full justify-center font-body05-medium-14 text-gray-500 mt-[40px]`}
+          >
+            {mockFriends.length > 0 ? "해당 친구가 없어요" : "친구가 없어요"}
+          </p>
         )}
       </div>
     </div>
