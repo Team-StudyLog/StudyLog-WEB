@@ -31,6 +31,10 @@ const useEasyNavigate = () => {
     navigate(routePath.QUIZ);
   };
 
+  const goQuizDetailPage = (quizId: number) => {
+    navigate(routePath.QUIZ_DETAIL.replace(":quizId", String(quizId)));
+  };
+
   const goMyPage = () => {
     navigate(routePath.MYPAGE);
   };
@@ -59,6 +63,7 @@ const useEasyNavigate = () => {
     goHomePage,
     goRecordPage,
     goQuizPage,
+    goQuizDetailPage,
     goMyPage,
     goMyPageEdit,
     goAlarmPage,

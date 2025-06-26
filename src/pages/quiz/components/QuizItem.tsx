@@ -1,5 +1,6 @@
 import type { QuizT } from "../../../data/mockQuizzes.ts";
 import CategoryDot from "../../../components/Chips/CategoryDot.tsx";
+import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 
 interface QuizItemProps {
   quiz: QuizT;
@@ -15,10 +16,14 @@ const QuizItem = ({ quiz }: QuizItemProps) => {
         ? "text-kakao-yellow"
         : "text-red";
 
+  const { goQuizDetailPage } = useEasyNavigate();
+
   return (
     <div
       className="flex w-full justify-between items-start gap-x-[10px] bg-white rounded-[10px] px-[18px] py-[20.5px] mb-[10px]"
-      onClick={() => {}}
+      onClick={() => {
+        goQuizDetailPage(quiz.id);
+      }}
     >
       <section className="flex">
         <CategoryDot color={quiz.color} />
