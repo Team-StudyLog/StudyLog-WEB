@@ -6,7 +6,8 @@ import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import MyPageItem from "./components/MyPageItem.tsx";
 
 const MyPage = () => {
-  const { goFriendPage, goMyPageEdit } = useEasyNavigate();
+  const { goHomePage, goFriendPage, goMyPageEdit } = useEasyNavigate();
+
   return (
     <div className={`flex flex-col h-screen`}>
       <TextHeader text={"마이페이지"} />
@@ -64,8 +65,21 @@ const MyPage = () => {
         <h3 className={`font-head06-semibold-16 text-gray-700 py-[16px]`}>
           기타
         </h3>
-        <MyPageItem text={`로그아웃`} onClick={() => {}} />
-        <MyPageItem text={`회원탈퇴`} onClick={() => {}} isRed={true} />
+        <MyPageItem
+          text={`로그아웃`}
+          onClick={() => {
+            goHomePage();
+            localStorage.clear();
+          }}
+        />
+        <MyPageItem
+          text={`회원탈퇴`}
+          onClick={() => {
+            goHomePage();
+            localStorage.clear();
+          }}
+          isRed={true}
+        />
       </div>
     </div>
   );
