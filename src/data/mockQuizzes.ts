@@ -4,6 +4,7 @@ export type QuizT = {
   category: string;
   color: string;
   level: "easy" | "medium" | "hard";
+  date: string;
 };
 
 export const mockQuizzes: QuizT[] = [
@@ -13,6 +14,7 @@ export const mockQuizzes: QuizT[] = [
     category: "미적분",
     color: "#FFB6C1",
     level: "easy",
+    date: "2023-10-01",
   },
   {
     id: 2,
@@ -20,6 +22,7 @@ export const mockQuizzes: QuizT[] = [
     category: "미적분",
     color: "#FFB6C1",
     level: "medium",
+    date: "2023-10-02",
   },
   {
     id: 3,
@@ -27,6 +30,7 @@ export const mockQuizzes: QuizT[] = [
     category: "미적분",
     color: "#FFB6C1",
     level: "hard",
+    date: "2023-10-03",
   },
   {
     id: 4,
@@ -34,6 +38,7 @@ export const mockQuizzes: QuizT[] = [
     category: "기하와 벡터",
     color: "#ADD8E6",
     level: "easy",
+    date: "2023-10-04",
   },
   {
     id: 5,
@@ -41,6 +46,7 @@ export const mockQuizzes: QuizT[] = [
     category: "기하와 벡터",
     color: "#ADD8E6",
     level: "medium",
+    date: "2023-10-05",
   },
   {
     id: 6,
@@ -48,6 +54,7 @@ export const mockQuizzes: QuizT[] = [
     category: "스프링",
     color: "#90EE90",
     level: "hard",
+    date: "2023-10-06",
   },
   {
     id: 7,
@@ -55,6 +62,7 @@ export const mockQuizzes: QuizT[] = [
     category: "스프링",
     color: "#90EE90",
     level: "easy",
+    date: "2023-10-07",
   },
   {
     id: 8,
@@ -62,6 +70,7 @@ export const mockQuizzes: QuizT[] = [
     category: "스프링",
     color: "#90EE90",
     level: "medium",
+    date: "2023-10-08",
   },
   {
     id: 9,
@@ -69,6 +78,7 @@ export const mockQuizzes: QuizT[] = [
     category: "자바",
     color: "#FFD700",
     level: "hard",
+    date: "2023-10-09",
   },
   {
     id: 10,
@@ -76,6 +86,7 @@ export const mockQuizzes: QuizT[] = [
     category: "자바",
     color: "#FFD700",
     level: "easy",
+    date: "2023-10-10",
   },
   {
     id: 11,
@@ -83,6 +94,7 @@ export const mockQuizzes: QuizT[] = [
     category: "자바",
     color: "#FFD700",
     level: "medium",
+    date: "2023-10-11",
   },
   {
     id: 12,
@@ -90,5 +102,6 @@ export const mockQuizzes: QuizT[] = [
     category: "자바",
     color: "#FFD700",
     level: "hard",
+    date: "2023-10-12",
   },
 ];

@@ -10,10 +10,11 @@ const QuizPage = () => {
   const [keyword, setKeyword] = useState<string>("");
   const [category, setCategory] = useState<string | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
+
   const filteredQuizzes = useMemo(() => {
     const lowerKeyword = keyword.trim().toLowerCase();
     if (!lowerKeyword) {
-      return mockQuizzes; // keyword가 비어 있으면 전체 mockQuizzes 반환
+      return mockQuizzes;
     }
     return mockQuizzes.filter((quiz) =>
       quiz.title.toLowerCase().includes(lowerKeyword)

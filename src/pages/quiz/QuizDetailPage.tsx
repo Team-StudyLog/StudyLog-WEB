@@ -7,7 +7,7 @@ import QuizCard from "./components/QuizCard.tsx";
 import { useState } from "react";
 
 const QuizDetailPage = () => {
-  const { goRecordPage } = useEasyNavigate();
+  const { goRecordDetailPage } = useEasyNavigate();
   const [flipped, setFlipped] = useState(false);
 
   return (
@@ -38,7 +38,7 @@ const QuizDetailPage = () => {
         <ButtonWithArrow
           text={"기록 보러가기"}
           className={"font-head06-semibold-16"}
-          onClick={goRecordPage}
+          onClick={() => goRecordDetailPage(1)}
         />
       </section>
       <BottomButton
