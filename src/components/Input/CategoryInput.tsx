@@ -1,5 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 interface CategoryInputProps {
   id: string;
@@ -16,6 +17,7 @@ const CategoryInput = ({
 }: CategoryInputProps) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { goCategoryPage } = useEasyNavigate();
 
   const handleOutsideClick = (e: MouseEvent) => {
     if (
@@ -61,6 +63,7 @@ const CategoryInput = ({
             </li>
           ))}
           <li
+            onClick={goCategoryPage}
             className={`px-[18px] py-[12px] hover:bg-gray-100 text-gray-500 font-body07-regular-14 cursor-pointer`}
           >
             + 카테고리 추가하기

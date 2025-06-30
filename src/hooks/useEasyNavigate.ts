@@ -39,6 +39,10 @@ const useEasyNavigate = () => {
     navigate(routePath.RECORD_WRITE);
   };
 
+  const goCategoryPage = () => {
+    navigate(routePath.CATEGORY);
+  };
+
   const goQuizPage = () => {
     navigate(routePath.QUIZ);
   };
@@ -77,6 +81,7 @@ const useEasyNavigate = () => {
     goRecordDetailPage,
     goRecordEditPage,
     goRecordWritePage,
+    goCategoryPage,
     goQuizPage,
     goQuizDetailPage,
     goMyPage,

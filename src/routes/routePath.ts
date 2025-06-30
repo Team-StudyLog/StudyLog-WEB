@@ -17,6 +17,7 @@ const recordPages = {
   RECORD_DETAIL: "/record/:recordId",
   RECORD_EDIT: "/record/edit/:recordId",
   RECORD_WRITE: "/record/write",
+  CATEGORY: "/category",
 };
 
 const quizPages = {
