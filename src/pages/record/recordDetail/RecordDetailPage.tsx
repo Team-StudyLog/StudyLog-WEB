@@ -13,7 +13,7 @@ import RecordQuizItem from "./RecordQuizItem.tsx";
 import { mockRecordQuizzes } from "../../../data/mockRecordQuizzes.ts";
 
 const RecordDetailPage = () => {
-  const isQuizGenerated = mockRecordQuizzes.length > 0;
+  const isQuizGenerated = false;
   const [bottomSheetState, setBottomSheetState] =
     useState<BottomSheetState>("closed");
   const [quizLevel, setQuizLevel] = useState<string | undefined>();
@@ -27,7 +27,7 @@ const RecordDetailPage = () => {
 
   const handleDelete = () => {
     if (!content) return;
-    console.log("기록 삭제");
+    alert("기록이 삭제되었습니다.");
     closeModal();
   };
 

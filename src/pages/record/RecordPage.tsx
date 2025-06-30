@@ -5,11 +5,14 @@ import FilterChip from "../../components/Chips/FilterChip.tsx";
 import RecordItem from "./RecordItem.tsx";
 import { mockRecords } from "../../data/mockRecords.ts";
 import FloatingActionButton from "../../components/Button/FloatingActionButton.tsx";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const RecordPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [category, setCategory] = useState<string | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
+
+  const { goRecordWritePage } = useEasyNavigate();
 
   return (
     <div className={`flex flex-col`}>
@@ -19,7 +22,10 @@ const RecordPage = () => {
         onChange={(e) => setSearchValue(e.target.value)}
         placeholder={"제목으로 기록을 검색하세요"}
       />
-      <FloatingActionButton onClick={() => {}} text={"기록하러 가기"} />
+      <FloatingActionButton
+        onClick={goRecordWritePage}
+        text={"기록하러 가기"}
+      />
       <section className={`flex flex-col px-[26px] mt-[20px]`}>
         <h2 className={`font-head05-semibold-20 text-gray-700`}>
           나의 아카이빙

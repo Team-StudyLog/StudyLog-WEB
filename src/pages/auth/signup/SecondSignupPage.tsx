@@ -3,7 +3,7 @@ import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
 import { useState } from "react";
-import { signupContent, signupHeaderWrapper } from "./SignupPage.styles.ts";
+import { formContent, formHeaderWrapper } from "./SignupPage.styles.ts";
 import { storageKey } from "../../../constants/storageKey.ts";
 
 interface SecondSignupPageProps {
@@ -29,8 +29,8 @@ const SecondSignupPage = ({ selectedImage }: SecondSignupPageProps) => {
 
   return (
     <>
-      <div className={signupContent}>
-        <div className={`${signupHeaderWrapper} mb-[8px]`}>
+      <div className={formContent}>
+        <div className={`${formHeaderWrapper} mb-[8px]`}>
           <p className={`text-gray-700`}>2</p>
           <p className={`text-gray-400`}>/2</p>
         </div>

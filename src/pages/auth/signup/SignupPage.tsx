@@ -2,14 +2,14 @@ import TextHeader from "../../../components/Header/TextHeader.tsx";
 import { useState } from "react";
 import FirstSignupPage from "./FirstSignupPage.tsx";
 import SecondSignupPage from "./SecondSignupPage.tsx";
-import { signupPageStyle } from "./SignupPage.styles.ts";
+import { formPageStyle } from "./SignupPage.styles.ts";
 
 const SignupPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <div className={signupPageStyle}>
+    <div className={formPageStyle}>
       <TextHeader
         text={`회원가입`}
         onClick={currentPage === 2 ? () => setCurrentPage(1) : undefined}

@@ -4,8 +4,8 @@ import {
   firstSignupImageBackground,
   firstSignupImageWrapper,
   firstSignupSelectedImage,
-  signupContent,
-  signupHeaderWrapper,
+  formContent,
+  formHeaderWrapper,
 } from "../../auth/signup/SignupPage.styles.ts";
 import ImageInput from "../../../components/Input/ImageInput.tsx";
 import useImageInput from "../../../hooks/useImageInput.ts";
@@ -26,8 +26,8 @@ const FirstMyPageEdit = ({
 
   return (
     <>
-      <div className={signupContent}>
-        <div className={signupHeaderWrapper}>
+      <div className={formContent}>
+        <div className={formHeaderWrapper}>
           <p className={`text-gray-700`}>1</p>
           <p className={`text-gray-400`}>/2</p>
         </div>

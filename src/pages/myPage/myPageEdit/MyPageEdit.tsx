@@ -1,5 +1,5 @@
 import TextHeader from "../../../components/Header/TextHeader.tsx";
-import { signupPageStyle } from "../../auth/signup/SignupPage.styles.ts";
+import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
 import { useState } from "react";
 import FirstMyPageEdit from "./FirstMyPageEdit.tsx";
 import SecondMyPageEdit from "./SecondMyPageEdit.tsx";
@@ -11,7 +11,7 @@ const MyPageEdit = () => {
   );
 
   return (
-    <div className={signupPageStyle}>
+    <div className={formPageStyle}>
       <TextHeader
         text={"프로필 수정"}
         onClick={currentPage === 2 ? () => setCurrentPage(1) : undefined}

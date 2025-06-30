@@ -35,6 +35,10 @@ const useEasyNavigate = () => {
     navigate(routePath.RECORD_EDIT.replace(":recordId", String(recordId)));
   };
 
+  const goRecordWritePage = () => {
+    navigate(routePath.RECORD_WRITE);
+  };
+
   const goQuizPage = () => {
     navigate(routePath.QUIZ);
   };
@@ -72,6 +76,7 @@ const useEasyNavigate = () => {
     goRecordPage,
     goRecordDetailPage,
     goRecordEditPage,
+    goRecordWritePage,
     goQuizPage,
     goQuizDetailPage,
     goMyPage,

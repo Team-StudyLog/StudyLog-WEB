@@ -4,8 +4,8 @@ import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
 import { useState } from "react";
 import {
-  signupContent,
-  signupHeaderWrapper,
+  formContent,
+  formHeaderWrapper,
 } from "../../auth/signup/SignupPage.styles.ts";
 
 interface SecondMyPageEditProps {
@@ -30,8 +30,8 @@ const SecondMyPageEdit = ({ selectedImage }: SecondMyPageEditProps) => {
 
   return (
     <>
-      <div className={signupContent}>
-        <div className={`${signupHeaderWrapper} mb-[8px]`}>
+      <div className={formContent}>
+        <div className={`${formHeaderWrapper} mb-[8px]`}>
           <p className={`text-gray-700`}>2</p>
           <p className={`text-gray-400`}>/2</p>
         </div>
