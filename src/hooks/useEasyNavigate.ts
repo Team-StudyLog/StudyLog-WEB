@@ -43,12 +43,6 @@ const useEasyNavigate = () => {
     navigate(routePath.CATEGORY);
   };
 
-  const goCategoryEditPage = (categoryId: number) => {
-    navigate(
-      routePath.CATEGORY_EDIT.replace(":categoryId", String(categoryId))
-    );
-  };
-
   const goQuizPage = () => {
     navigate(routePath.QUIZ);
   };
@@ -88,7 +82,6 @@ const useEasyNavigate = () => {
     goRecordEditPage,
     goRecordWritePage,
     goCategoryPage,
-    goCategoryEditPage,
     goQuizPage,
     goQuizDetailPage,
     goMyPage,

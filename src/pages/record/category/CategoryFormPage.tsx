@@ -9,11 +9,7 @@ import { useState } from "react";
 import BottomButton from "../../../components/Button/BottomButton.tsx";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 
-interface CategoryFormPageProps {
-  type: "write" | "edit";
-}
-
-const CategoryFormPage = ({ type }: CategoryFormPageProps) => {
+const CategoryFormPage = () => {
   const { goBack } = useEasyNavigate();
   const [categoryName, setCategoryName] = useState("");
   const [categoryColor, setCategoryColor] = useState<string | null>(null);
@@ -31,15 +27,13 @@ const CategoryFormPage = ({ type }: CategoryFormPageProps) => {
   ];
 
   const handleSubmit = () => {
-    const actionMessage = type === "write" ? "추가" : "수정";
-    alert(`카테고리가 ${actionMessage}되었습니다.`);
     console.log(categoryName, categoryColor);
     goBack();
   };
 
   return (
     <div className={formPageStyle}>
-      <TextHeader text={type === "write" ? "카테고리 추가" : "카테고리 편집"} />
+      <TextHeader text={"카테고리 추가"} />
       <div className={`${formContent} mt-[33px]`}>
         <InputLabel
           label={"카테고리 이름을 입력해주세요"}

@@ -25,11 +25,7 @@ const recordRoutes: RouteType[] = [
   },
   {
     path: routePath.CATEGORY,
-    element: <CategoryFormPage type={"write"} />,
-  },
-  {
-    path: routePath.CATEGORY_EDIT,
-    element: <CategoryFormPage type={"edit"} />,
+    element: <CategoryFormPage />,
   },
 ];
 
