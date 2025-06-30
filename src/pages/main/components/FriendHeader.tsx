@@ -39,7 +39,7 @@ const UserProfile = ({ id, name, profileImageUrl }: FriendT) => {
       key={id}
       className={`flex flex-col items-center justify-center shrink-0`}
       onClick={() => {
-        goCodePage(String(name));
+        goCodePage(String(id));
       }}
     >
       <img

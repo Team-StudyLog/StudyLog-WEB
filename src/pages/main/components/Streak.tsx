@@ -91,7 +91,7 @@ const StreakItem = ({ streak }: { streak: StreakT }) => {
   const colorIndex =
     streak.count === 0
       ? 0
-      : Math.min(Math.floor((streak.count - 1) / 5) + 1, 4);
+      : Math.min(Math.floor((streak.count - 1) / 5) + 1, bgColors.length - 1);
 
   return (
     <div className="relative group w-full">
