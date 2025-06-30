@@ -4,30 +4,30 @@ import {
   firstSignupImageBackground,
   firstSignupImageWrapper,
   firstSignupSelectedImage,
-  signupContent,
-  signupHeaderWrapper,
+  formContent,
+  formHeaderWrapper,
 } from "./SignupPage.styles.ts";
 import ImageInput from "../../../components/Input/ImageInput.tsx";
 import useImageInput from "../../../hooks/useImageInput.ts";
 
-interface FirstSignupPageProps {
+interface FirstUserFormPageProps {
   selectedImage: string | null;
   setSelectedImage: (image: string) => void;
   onNext: () => void;
 }
 
-const FirstSignupPage = ({
+const FirstUserFormPage = ({
   selectedImage,
   setSelectedImage,
   onNext,
-}: FirstSignupPageProps) => {
+}: FirstUserFormPageProps) => {
   const { fileInputRef, handleImageChange, handleImageClick } =
     useImageInput(setSelectedImage);
 
   return (
     <>
-      <div className={signupContent}>
-        <div className={signupHeaderWrapper}>
+      <div className={formContent}>
+        <div className={formHeaderWrapper}>
           <p className={`text-gray-700`}>1</p>
           <p className={`text-gray-400`}>/2</p>
         </div>
@@ -58,4 +58,4 @@ const FirstSignupPage = ({
   );
 };
 
-export default FirstSignupPage;
+export default FirstUserFormPage;

@@ -1,19 +1,19 @@
 import TextHeader from "../../../components/Header/TextHeader.tsx";
-import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
-import FirstRecordFormPage from "../FirstRecordFormPage.tsx";
-import SecondRecordFormPage from "../SecondRecordFormPage.tsx";
 import { useState } from "react";
+import SecondRecordFormPage from "../SecondRecordFormPage.tsx";
+import FirstRecordFormPage from "../FirstRecordFormPage.tsx";
+import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
 
-const RecordEditPage = () => {
+const RecordWritePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState<string>("미적분");
-  const [title, setTitle] = useState("삼각함수와 도함수");
-  const [content, setContent] = useState("너무 어려워요");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   return (
     <div className={formPageStyle}>
       <TextHeader
-        text={"기록 수정"}
+        text={"기록 추가"}
         onClick={currentPage === 2 ? () => setCurrentPage(1) : undefined}
       />
       {currentPage === 1 ? (
@@ -24,7 +24,7 @@ const RecordEditPage = () => {
         />
       ) : (
         <SecondRecordFormPage
-          type="edit"
+          type="write"
           selectedCategory={selectedCategory}
           title={title}
           setTitle={setTitle}
@@ -36,4 +36,4 @@ const RecordEditPage = () => {
   );
 };
 
-export default RecordEditPage;
+export default RecordWritePage;

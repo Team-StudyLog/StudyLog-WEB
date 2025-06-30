@@ -2,12 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 import { dateFormatWithZeroAndDot } from "../../utils/dateFormat.ts";
+import type { BottomSheetState } from "../../types/types.ts";
+import BottomSheet from "../BottomSheet/BottomSheet.tsx";
+import BottomButton from "../Button/BottomButton.tsx";
+import RadioCategoryButton from "../Button/RadioCategoryButton.tsx";
 
 interface FilterChipProps {
   type: "category" | "date";
   defaultLabel: string;
-  options: string[];
+  options: { name: string; color: string }[];
   selectedOption?: string;
   onSelect: (option: string) => void;
 }
@@ -19,9 +24,14 @@ const FilterChip = ({
   selectedOption,
   onSelect,
 }: FilterChipProps) => {
-  const [open, setOpen] = useState(false);
+  const [bottomSheetState, setBottomSheetState] =
+    useState<BottomSheetState>("closed");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const chipRef = useRef<HTMLDivElement>(null);
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
+  const [tempSelected, setTempSelected] = useState<string>(
+    selectedOption ?? ""
+  );
+  const dateRef = useRef<HTMLDivElement>(null);
 
   const isSelected =
     selectedOption !== undefined && selectedOption !== defaultLabel;
@@ -29,15 +39,24 @@ const FilterChip = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (chipRef.current && !chipRef.current.contains(event.target as Node)) {
-        setOpen(false);
+      if (
+        type === "date" &&
+        datePickerOpen &&
+        dateRef.current &&
+        !dateRef.current.contains(event.target as Node)
+      ) {
+        setDatePickerOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [datePickerOpen, type]);
+
+  useEffect(() => {
+    if (type === "category") {
+      setTempSelected(selectedOption ?? "");
+    }
+  }, [selectedOption, type]);
 
   const handleDateChange = (date: Date | null) => {
     if (!date) return;
@@ -45,15 +64,25 @@ const FilterChip = ({
     const formatted = dateFormatWithZeroAndDot(
       date.toLocaleDateString("ko-KR")
     );
-    console.log(formatted);
     onSelect(formatted);
-    setOpen(false);
+    setDatePickerOpen(false);
+  };
+
+  const handleClick = () => {
+    if (type === "category") {
+      setBottomSheetState("default");
+    } else if (type === "date") {
+      setDatePickerOpen((prev) => !prev);
+    }
   };
 
   return (
-    <div className="relative inline-block" ref={chipRef}>
+    <div
+      className="relative inline-block"
+      ref={type === "date" ? dateRef : undefined}
+    >
       <button
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={handleClick}
         className={`px-[12px] py-[7.5px] rounded-[20px] border font-body07-regular-14 flex items-center gap-[5px]
           ${
             isSelected
@@ -69,24 +98,52 @@ const FilterChip = ({
         />
       </button>
 
-      {type === "category" && open && (
-        <div className="absolute mt-2 w-full bg-white border border-gray-400 rounded-[10px] shadow z-10">
-          {options.map((option) => (
-            <div
-              key={option}
+      {type === "category" && (
+        <BottomSheet
+          animateState={bottomSheetState}
+          handleAnimateChange={(state) => {
+            if (state === "closed") {
+              setBottomSheetState("closed");
+              setTempSelected(selectedOption ?? ""); // 취소 시 원래 값 복원
+            }
+          }}
+        >
+          <div className="flex flex-col h-full pb-[20px]">
+            <section className="flex flex-col grow px-[26px] py-[20px] overflow-y-auto">
+              <h2 className="text-center font-head06-semibold-16 mb-[20px] text-gray-700">
+                카테고리 선택
+              </h2>
+              <div className="grid grid-cols-3 gap-x-[4px] gap-y-[6px]">
+                {options.map((option) => (
+                  <RadioCategoryButton
+                    key={option.name}
+                    text={option.name}
+                    color={option.color}
+                    checked={tempSelected === option.name}
+                    onChange={(value) => {
+                      if (tempSelected === value) {
+                        setTempSelected(defaultLabel);
+                      } else {
+                        setTempSelected(value);
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </section>
+
+            <BottomButton
+              text={"완료"}
               onClick={() => {
-                onSelect(option);
-                setOpen(false);
+                onSelect(tempSelected);
+                setBottomSheetState("closed");
               }}
-              className="px-[16px] py-[8px] text-gray-600 hover:bg-gray-100 cursor-pointer font-body09-medium-10"
-            >
-              {option}
-            </div>
-          ))}
-        </div>
+            />
+          </div>
+        </BottomSheet>
       )}
 
-      {type === "date" && open && (
+      {type === "date" && datePickerOpen && (
         <div className="absolute mt-2 z-20">
           <DatePicker
             selected={selectedDate}

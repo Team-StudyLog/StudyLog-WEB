@@ -1,5 +1,11 @@
 import { motion, type PanInfo } from "framer-motion";
-import { useState, useRef, useCallback, type ReactNode } from "react";
+import {
+  useState,
+  useRef,
+  useCallback,
+  type ReactNode,
+  useEffect,
+} from "react";
 import type { BottomSheetState } from "../../types/types.ts";
 import {
   bottomSheetStyle,
@@ -11,11 +17,11 @@ import {
 const OFFSET_THRESHOLD = 100;
 const DELTA_THRESHOLD = 5;
 
-const variants = {
-  opened: { top: "21vh" },
-  default: { top: "55vh" },
-  closed: { top: "100vh" },
-};
+// const variants = {
+//   opened: { top: "34vh" },
+//   default: { top: "34vh" },
+//   closed: { top: "100vh" },
+// };
 
 const overlayVariants = {
   opened: { display: "block" },
@@ -36,6 +42,20 @@ const BottomSheet = ({
 }: BottomSheetProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  // contents 높이 계산
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.offsetHeight);
+    }
+  }, [children]);
+
+  const variants = {
+    opened: { top: `calc(100vh - ${contentHeight}px)` },
+    default: { top: `calc(100vh - ${contentHeight}px)` },
+    closed: { top: "100vh" },
+  };
 
   // 내부 스크롤 위치 감지 함수
   const handleContentScroll = useCallback(() => {

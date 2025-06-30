@@ -8,7 +8,7 @@ const FloatingActionButton = ({ onClick, text }: FloatingActionButtonProps) => {
     <button
       style={{ backgroundImage: "var(--color-green-400)" }}
       onClick={onClick}
-      className="fixed flex justify-center text-white font-head03-bold-18
+      className="fixed bottom-[40px] right-[calc((100vw-430px)/2+20px)] flex justify-center text-white font-head03-bold-18
       rounded-[30px] py-[21.5px] px-[23px] cursor-pointer"
     >
       {text}

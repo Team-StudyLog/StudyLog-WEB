@@ -1,7 +1,7 @@
 import Header from "../../components/Header/Header.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import BottomButton from "../../components/Button/BottomButton.tsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { User } from "lucide-react";
 import {
   homeContentWrapper,
@@ -13,11 +13,22 @@ import {
 import { storageKey } from "../../constants/storageKey.ts";
 
 const HomePage = () => {
-  useEffect(() => {
-    localStorage.setItem(storageKey.USER_CODE, "UX320");
-  }, []);
+  const { goLoginPage, goCodePage } = useEasyNavigate();
+  const [shouldRender, setShouldRender] = useState(false);
 
-  const { goLoginPage } = useEasyNavigate();
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem(storageKey.IS_LOGGED_IN);
+    const userCode = localStorage.getItem(storageKey.USER_CODE) ?? "UX320";
+
+    if (isLoggedIn) {
+      goCodePage(userCode);
+    } else {
+      localStorage.setItem(storageKey.USER_CODE, userCode);
+      setShouldRender(true);
+    }
+  }, [goCodePage]);
+
+  if (!shouldRender) return null;
 
   return (
     <div className={homePageStyle}>

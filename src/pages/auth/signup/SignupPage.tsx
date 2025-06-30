@@ -1,27 +1,36 @@
 import TextHeader from "../../../components/Header/TextHeader.tsx";
 import { useState } from "react";
-import FirstSignupPage from "./FirstSignupPage.tsx";
-import SecondSignupPage from "./SecondSignupPage.tsx";
-import { signupPageStyle } from "./SignupPage.styles.ts";
+import FirstUserFormPage from "./FirstUserFormPage.tsx";
+import SecondUserFormPage from "./SecondUserFormPage.tsx";
+import { formPageStyle } from "./SignupPage.styles.ts";
 
 const SignupPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [nickname, setNickname] = useState("");
+  const [description, setDescription] = useState("");
 
   return (
-    <div className={signupPageStyle}>
+    <div className={formPageStyle}>
       <TextHeader
         text={`회원가입`}
         onClick={currentPage === 2 ? () => setCurrentPage(1) : undefined}
       />
       {currentPage === 1 ? (
-        <FirstSignupPage
+        <FirstUserFormPage
           selectedImage={selectedImage}
           setSelectedImage={setSelectedImage}
           onNext={() => setCurrentPage(2)}
         />
       ) : (
-        <SecondSignupPage selectedImage={selectedImage} />
+        <SecondUserFormPage
+          type={"write"}
+          selectedImage={selectedImage}
+          nickname={nickname}
+          setNickname={setNickname}
+          description={description}
+          setDescription={setDescription}
+        />
       )}
     </div>
   );

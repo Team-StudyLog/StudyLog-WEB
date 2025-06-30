@@ -1,8 +1,8 @@
-export const signupPageStyle = "flex flex-col min-h-screen justify-between";
+export const formPageStyle = "flex flex-col min-h-screen justify-between";
 
-export const signupContent = "flex-grow-1 flex flex-col mt-[6px] px-[26px]";
+export const formContent = "flex-grow-1 flex flex-col mt-[6px] px-[26px]";
 
-export const signupHeaderWrapper = "flex font-head06-semibold-16";
+export const formHeaderWrapper = "flex font-head06-semibold-16";
 
 export const firstSignupImageWrapper = "flex w-full justify-center";
 

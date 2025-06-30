@@ -2,6 +2,9 @@ import LevelChip from "./LevelChip.tsx";
 import { Share2 } from "lucide-react";
 import type { UserT } from "../../../data/mockUser.ts";
 import handleShare from "../../../utils/handleShare.ts";
+import { useModalActions, useModalInfo } from "../../../hooks/useModal.ts";
+import Modal from "../../../components/Modal/Modal.tsx";
+import { useState } from "react";
 
 interface ProfileSectionProps {
   user: UserT;
@@ -9,12 +12,24 @@ interface ProfileSectionProps {
   isFollowing?: boolean;
 }
 
-const ProfileSection = ({ user, type, isFollowing }: ProfileSectionProps) => {
+const ProfileSection = ({
+  user,
+  type,
+  isFollowing = false,
+}: ProfileSectionProps) => {
+  const { isOpen, content } = useModalInfo();
+  const { openModal, closeModal } = useModalActions();
+  const [isFollowingState, setIsFollowingState] = useState(isFollowing);
+
   const handleFollow = () => {
-    console.log("팔로우");
+    if (!content) return;
+    closeModal();
+    setIsFollowingState(!isFollowingState);
   };
   const handleUnfollow = () => {
-    console.log("언팔로우");
+    if (!content) return;
+    closeModal();
+    setIsFollowingState(!isFollowingState);
   };
 
   return (
@@ -34,19 +49,14 @@ const ProfileSection = ({ user, type, isFollowing }: ProfileSectionProps) => {
                 handleShare(user.code);
               }}
             />
-          ) : isFollowing ? (
-            <p
-              className={`font-body02-semibold-14 text-red`}
-              onClick={handleUnfollow}
-            >
-              언팔로우
-            </p>
           ) : (
             <p
-              className={`font-body02-semibold-14 text-green-500`}
-              onClick={handleFollow}
+              className={`font-body02-semibold-14 ${
+                isFollowingState ? "text-red" : "text-green-500"
+              }`}
+              onClick={() => openModal({ name: user.name })}
             >
-              팔로우
+              {isFollowingState ? "언팔로우" : "팔로우"}
             </p>
           )}
         </div>
@@ -59,6 +69,18 @@ const ProfileSection = ({ user, type, isFollowing }: ProfileSectionProps) => {
         alt={`${user.name}의 프로필 이미지`}
         className={`object-cover size-[110px] rounded-full`}
       />
+
+      {isOpen && content && (
+        <Modal
+          title={"알림"}
+          text={
+            isFollowingState
+              ? `${content.name}님을 언팔로우하시겠습니까?`
+              : `${content.name}님을 팔로우하시겠습니까?`
+          }
+          onConfirm={isFollowing ? handleUnfollow : handleFollow}
+        />
+      )}
     </section>
   );
 };
