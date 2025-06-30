@@ -10,17 +10,17 @@ import {
 import ImageInput from "../../../components/Input/ImageInput.tsx";
 import useImageInput from "../../../hooks/useImageInput.ts";
 
-interface FirstSignupPageProps {
+interface FirstUserFormPageProps {
   selectedImage: string | null;
   setSelectedImage: (image: string) => void;
   onNext: () => void;
 }
 
-const FirstSignupPage = ({
+const FirstUserFormPage = ({
   selectedImage,
   setSelectedImage,
   onNext,
-}: FirstSignupPageProps) => {
+}: FirstUserFormPageProps) => {
   const { fileInputRef, handleImageChange, handleImageClick } =
     useImageInput(setSelectedImage);
 
@@ -58,4 +58,4 @@ const FirstSignupPage = ({
   );
 };
 
-export default FirstSignupPage;
+export default FirstUserFormPage;

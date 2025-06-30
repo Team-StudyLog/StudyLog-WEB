@@ -2,20 +2,27 @@ import BottomButton from "../../../components/Button/BottomButton.tsx";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
-import { useState } from "react";
-import {
-  formContent,
-  formHeaderWrapper,
-} from "../../auth/signup/SignupPage.styles.ts";
+import { formContent, formHeaderWrapper } from "./SignupPage.styles.ts";
+import { storageKey } from "../../../constants/storageKey.ts";
 
-interface SecondMyPageEditProps {
+interface SecondUserFormPageProps {
+  type: "write" | "edit";
   selectedImage: string | null;
+  nickname: string;
+  setNickname: (nickname: string) => void;
+  description: string;
+  setDescription: (description: string) => void;
 }
 
-const SecondMyPageEdit = ({ selectedImage }: SecondMyPageEditProps) => {
-  const { goBack } = useEasyNavigate();
-  const [nickname, setNickname] = useState("이가을");
-  const [description, setDescription] = useState("코딩을 좋아해요");
+const SecondUserFormPage = ({
+  type,
+  selectedImage,
+  nickname,
+  setNickname,
+  description,
+  setDescription,
+}: SecondUserFormPageProps) => {
+  const { goCodePage } = useEasyNavigate();
   const isButtonDisabled =
     nickname.length === 0 ||
     nickname.length > 20 ||
@@ -23,9 +30,8 @@ const SecondMyPageEdit = ({ selectedImage }: SecondMyPageEditProps) => {
     description.length > 100;
 
   const handleSubmit = () => {
-    console.log(selectedImage);
-    console.log(nickname);
-    console.log(description);
+    console.log(type, selectedImage, nickname, description);
+    localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
   };
 
   return (
@@ -59,7 +65,7 @@ const SecondMyPageEdit = ({ selectedImage }: SecondMyPageEditProps) => {
         text={"다음"}
         onClick={() => {
           handleSubmit();
-          goBack();
+          goCodePage("UX320");
         }}
         disabled={isButtonDisabled}
       />
@@ -67,4 +73,4 @@ const SecondMyPageEdit = ({ selectedImage }: SecondMyPageEditProps) => {
   );
 };
 
-export default SecondMyPageEdit;
+export default SecondUserFormPage;
