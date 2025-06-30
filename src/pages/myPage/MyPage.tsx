@@ -4,9 +4,29 @@ import ButtonWithArrow from "../../components/Button/ButtonWithArrow.tsx";
 import handleShare from "../../utils/handleShare.ts";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import MyPageItem from "./components/MyPageItem.tsx";
+import { useModalActions, useModalInfo } from "../../hooks/useModal.ts";
+import Modal from "../../components/Modal/Modal.tsx";
 
 const MyPage = () => {
   const { goHomePage, goFriendPage, goMyPageEdit } = useEasyNavigate();
+  const { isOpen, content } = useModalInfo();
+  const { openModal, closeModal } = useModalActions();
+
+  const handleLogout = () => {
+    if (!content) return;
+    closeModal();
+    alert("로그아웃 되었습니다.");
+    goHomePage();
+    localStorage.clear();
+  };
+
+  const handleSignOut = () => {
+    if (!content) return;
+    closeModal();
+    alert("회원탈퇴 되었습니다.");
+    goHomePage();
+    localStorage.clear();
+  };
 
   return (
     <div className={`flex flex-col h-screen`}>
@@ -67,20 +87,26 @@ const MyPage = () => {
         </h3>
         <MyPageItem
           text={`로그아웃`}
-          onClick={() => {
-            goHomePage();
-            localStorage.clear();
-          }}
+          onClick={() => openModal({ name: "logout" })}
         />
         <MyPageItem
           text={`회원탈퇴`}
-          onClick={() => {
-            goHomePage();
-            localStorage.clear();
-          }}
+          onClick={() => openModal({ name: "signout" })}
           isRed={true}
         />
       </div>
+
+      {isOpen && content && (
+        <Modal
+          title={"알림"}
+          text={
+            content.name === "logout"
+              ? "로그아웃 하시겠습니까?"
+              : "회원탈퇴 하시겠습니까?"
+          }
+          onConfirm={content.name === "logout" ? handleLogout : handleSignOut}
+        />
+      )}
     </div>
   );
 };
