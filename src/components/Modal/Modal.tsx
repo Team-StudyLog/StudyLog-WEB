@@ -7,6 +7,7 @@ import {
   modalText,
   modalTitle,
 } from "./Modal.styles.ts";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   title: string;
@@ -24,7 +25,7 @@ const Modal = ({
   dismissText = "취소",
 }: ModalProps) => {
   const { closeModal } = useModalActions();
-  return (
+  return createPortal(
     <div className={modalBackdrop}>
       <div className={modalBackground} onClick={(e) => e.stopPropagation()}>
         <h2 className={modalTitle}>{title}</h2>
@@ -48,7 +49,8 @@ const Modal = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

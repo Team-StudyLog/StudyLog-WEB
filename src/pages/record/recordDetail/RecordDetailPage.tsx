@@ -115,7 +115,7 @@ const RecordDetailPage = () => {
         animateState={bottomSheetState}
         handleAnimateChange={setBottomSheetState}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col pb-[20px]">
           <QuizGenerateContent
             quizLevel={quizLevel}
             setQuizLevel={setQuizLevel}

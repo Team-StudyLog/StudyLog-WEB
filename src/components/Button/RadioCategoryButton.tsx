@@ -18,6 +18,7 @@ const RadioCategoryButton = ({
   const handleClick = () => {
     onChange?.(text);
   };
+
   return (
     <div className={`flex flex-1`}>
       <input
@@ -27,15 +28,17 @@ const RadioCategoryButton = ({
         onChange={() => {}}
         className="hidden"
       />
-      <CategoryDot color={color} />
       <label
         htmlFor={id}
         onClick={handleClick}
-        className={`w-full text-center font-body05-medium-14 py-[15px] rounded-[10px] cursor-pointer
-        border border-gray-100
-        ${checked ? "bg-green-100 border border-green-300 text-gray-700" : "bg-gray-100 text-gray-700"}`}
+        className={`w-full text-center font-body05-medium-14 py-[15px] px-[12px] rounded-[10px] cursor-pointer
+          border ${checked ? "bg-green-100 border-green-300 text-gray-700" : "bg-gray-100 border-gray-100 text-gray-700"}
+        `}
       >
-        {text}
+        <div className="flex justify-between gap-[4px] items-center w-full">
+          <CategoryDot color={color} />
+          <span className="flex-1 ps-[-4px] text-center truncate">{text}</span>
+        </div>
       </label>
     </div>
   );

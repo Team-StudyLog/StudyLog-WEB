@@ -21,6 +21,12 @@ const QuizPage = () => {
     );
   }, [keyword]);
 
+  const categories = [
+    { name: "미적분", color: "#FFB6C1" },
+    { name: "기하와 벡터", color: "#ADD8E6" },
+    { name: "스프링", color: "#90EE90" },
+  ];
+
   return (
     <div className={`flex flex-col`}>
       <TextHeader text={"퀴즈"} />
@@ -35,7 +41,7 @@ const QuizPage = () => {
           <FilterChip
             type={"category"}
             defaultLabel={"카테고리"}
-            options={["카테고리", "미적분", "기하와 벡터", "스프링"]}
+            options={categories}
             selectedOption={category}
             onSelect={setCategory}
           />

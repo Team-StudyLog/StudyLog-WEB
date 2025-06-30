@@ -13,6 +13,19 @@ const RecordPage = () => {
   const [date, setDate] = useState<string | undefined>(undefined);
 
   const { goRecordWritePage } = useEasyNavigate();
+  const categories = [
+    { name: "미적분", color: "#FFB6C1" },
+    { name: "기하와 벡터", color: "#ADD8E6" },
+    { name: "스프링", color: "#90EE90" },
+    { name: "통계", color: "#FFD700" },
+    { name: "확률", color: "#FF6347" },
+    { name: "수열", color: "#98FB98" },
+    { name: "행렬", color: "#87CEEB" },
+    { name: "미분방정식", color: "#FF69B4" },
+    { name: "복소수", color: "#DDA0DD" },
+    { name: "벡터", color: "#FF4500" },
+    { name: "기타", color: "#B0C4DE" },
+  ];
 
   return (
     <div className={`flex flex-col`}>
@@ -34,7 +47,7 @@ const RecordPage = () => {
           <FilterChip
             type={"category"}
             defaultLabel={"카테고리"}
-            options={["카테고리", "미적분", "기하와 벡터", "스프링"]}
+            options={categories}
             selectedOption={category}
             onSelect={setCategory}
           />
