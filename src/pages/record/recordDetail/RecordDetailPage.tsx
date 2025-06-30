@@ -23,12 +23,13 @@ const RecordDetailPage = () => {
   const { isOpen, content } = useModalInfo();
   const { openModal, closeModal } = useModalActions();
 
-  const { goRecordEditPage } = useEasyNavigate();
+  const { goBack, goRecordEditPage } = useEasyNavigate();
 
   const handleDelete = () => {
     if (!content) return;
     alert("기록이 삭제되었습니다.");
     closeModal();
+    goBack();
   };
 
   const isButtonDisabled = !quizLevel || !quizCount;
