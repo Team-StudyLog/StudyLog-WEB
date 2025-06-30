@@ -1,5 +1,6 @@
 import React, { type InputHTMLAttributes } from "react";
 import { EllipsisVertical, Search, UserRoundPlus } from "lucide-react";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: "default" | "friend";
@@ -16,6 +17,8 @@ const SearchInput = ({
   placeholder = "검색어를 입력하세요",
   onClick = () => {},
 }: SearchInputProps) => {
+  const { goCategoryPage } = useEasyNavigate();
+
   return (
     <div className={`px-[20px] py-[16px]`}>
       <div
@@ -31,7 +34,11 @@ const SearchInput = ({
         outline-none bg-transparent`}
         />
         {type === "default" && (
-          <EllipsisVertical size={18} className={`text-gray-500`} />
+          <EllipsisVertical
+            size={18}
+            className={`text-gray-500`}
+            onClick={goCategoryPage}
+          />
         )}
         {type === "friend" && (
           <UserRoundPlus
