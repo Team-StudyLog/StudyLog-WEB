@@ -12,8 +12,8 @@ const OFFSET_THRESHOLD = 100;
 const DELTA_THRESHOLD = 5;
 
 const variants = {
-  opened: { top: "21vh" },
-  default: { top: "55vh" },
+  opened: { top: "34vh" },
+  default: { top: "34vh" },
   closed: { top: "100vh" },
 };
 
