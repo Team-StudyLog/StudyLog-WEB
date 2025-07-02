@@ -1,8 +1,9 @@
 import React, { type TextareaHTMLAttributes } from "react";
 import { Info } from "lucide-react";
+import type { InputType } from "../../types/inputType.ts";
 
 interface TextInputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  type?: "title" | "content";
+  type?: InputType;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   id: string;
