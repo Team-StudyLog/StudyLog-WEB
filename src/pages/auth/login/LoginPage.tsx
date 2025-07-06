@@ -1,46 +1,50 @@
+import { useEffect, useState } from "react";
+import { User } from "lucide-react";
 import {
-  loginButtonWrapper,
-  loginContainer,
+  loginContentWrapper,
+  loginMainText,
   loginPageStyle,
+  loginSubTextWrapper,
+  loginUserProfile,
 } from "./LoginPage.styles.ts";
-import SocialLoginButton from "../../../components/Button/SocialLoginButton.tsx";
-import IcLoginLogo from "../../../assets/ic-login-logo.png";
+import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
+import { storageKey } from "../../../constants/storageKey.ts";
+import Header from "../../../components/Header/Header.tsx";
+import BottomButton from "../../../components/Button/BottomButton.tsx";
 
 const LoginPage = () => {
-  const handleGoogleLogin = () => {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
-      import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID
-    }&redirect_uri=${import.meta.env.VITE_GOOGLE_AUTH_REDIRECT_URL}&response_type=code&scope=email`;
-  };
+  const { goHomePage, goCodePage } = useEasyNavigate();
+  const [shouldRender, setShouldRender] = useState(false);
 
-  const handleKakaoLogin = () => {
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
-      import.meta.env.VITE_KAKAO_REST_API_KEY
-    }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}&response_type=code`;
-  };
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem(storageKey.IS_LOGGED_IN);
+    const userCode = localStorage.getItem(storageKey.USER_CODE) ?? "UX320";
+
+    if (isLoggedIn) {
+      goCodePage(userCode);
+    } else {
+      localStorage.setItem(storageKey.USER_CODE, userCode);
+      setShouldRender(true);
+    }
+  }, [goCodePage]);
+
+  if (!shouldRender) return null;
 
   return (
     <div className={loginPageStyle}>
-      <div className={loginContainer}>
-        <h1 className={`text-green-300 font-logo-partial-30`}>StudyLog</h1>
-        <h2 className={`text-gray-700 font-head05-semibold-20 mt-[26px]`}>
-          공부를 매일 기록하고
-          <br />
-          AI가 생성해주는 퀴즈로 복습해보세요!
-        </h2>
-        <img
-          src={IcLoginLogo}
-          alt={`로그인 페이지 로고`}
-          className={`mt-[84px] transform scale-80`}
-        />
+      <Header />
+      <div className={loginContentWrapper}>
+        <div className={loginUserProfile}>
+          <User size={46} className={`text-gray-500`} />
+        </div>
+        <span className={loginMainText}>로그인이 필요해요</span>
+        <div className={loginSubTextWrapper}>
+          <p className={`text-gray-500`}>로그인을 하면&nbsp;</p>
+          <p className={`text-green-300`}>공부를 기록</p>
+          <p className={`text-gray-500`}>할 수 있어요!</p>
+        </div>
       </div>
-      <div className={loginButtonWrapper}>
-        <span className={`text-gray-500 font-body02-semibold-14`}>
-          SNS 계정으로 빠르게 시작하기
-        </span>
-        <SocialLoginButton type={"google"} onClick={handleGoogleLogin} />
-        <SocialLoginButton type={"kakao"} onClick={handleKakaoLogin} />
-      </div>
+      <BottomButton text={`로그인 하기`} onClick={goHomePage} />
     </div>
   );
 };

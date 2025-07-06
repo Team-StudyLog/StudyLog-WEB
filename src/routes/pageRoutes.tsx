@@ -10,15 +10,17 @@ import friendRoutes from "./friendRoutes.tsx";
 import recordRoutes from "./recordRoutes.tsx";
 import quizRoutes from "./quizRoutes.tsx";
 import mainRoutes from "./mainRoutes.tsx";
+import PublicLayout from "./layout/PublicLayout.tsx";
+import ProtectedLayout from "./layout/ProtectedLayout.tsx";
 
-const allRoutes = [
+const publicRoutes = [...homeRoutes, ...authRoutes];
+
+const protectedRoutes = [
   ...exampleRoutes,
-  ...homeRoutes,
   ...mainRoutes,
   ...recordRoutes,
   ...quizRoutes,
   ...myPageRoutes,
-  ...authRoutes,
   ...alarmRoutes,
   ...friendRoutes,
 ];
@@ -28,7 +30,16 @@ const pageRoutes: RouteObject[] = [
     path: "/",
     element: <RootLayout />,
     errorElement: <NotFound />,
-    children: allRoutes,
+    children: [
+      {
+        element: <PublicLayout />,
+        children: publicRoutes,
+      },
+      {
+        element: <ProtectedLayout />,
+        children: protectedRoutes,
+      },
+    ],
   },
 ];
 

@@ -1,50 +1,46 @@
-import Header from "../../components/Header/Header.tsx";
-import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
-import BottomButton from "../../components/Button/BottomButton.tsx";
-import { useEffect, useState } from "react";
-import { User } from "lucide-react";
+import IcLoginLogo from "../../assets/ic-login-logo.png";
 import {
-  homeContentWrapper,
-  homeMainText,
+  homeButtonWrapper,
+  homeContainer,
   homePageStyle,
-  homeSubTextWrapper,
-  homeUserProfile,
 } from "./HomePage.styles.ts";
-import { storageKey } from "../../constants/storageKey.ts";
+import SocialLoginButton from "../../components/Button/SocialLoginButton.tsx";
 
 const HomePage = () => {
-  const { goLoginPage, goCodePage } = useEasyNavigate();
-  const [shouldRender, setShouldRender] = useState(false);
+  const handleGoogleLogin = () => {
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
+      import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID
+    }&redirect_uri=${import.meta.env.VITE_GOOGLE_AUTH_REDIRECT_URL}&response_type=code&scope=email`;
+  };
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem(storageKey.IS_LOGGED_IN);
-    const userCode = localStorage.getItem(storageKey.USER_CODE) ?? "UX320";
-
-    if (isLoggedIn) {
-      goCodePage(userCode);
-    } else {
-      localStorage.setItem(storageKey.USER_CODE, userCode);
-      setShouldRender(true);
-    }
-  }, [goCodePage]);
-
-  if (!shouldRender) return null;
+  const handleKakaoLogin = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
+      import.meta.env.VITE_KAKAO_REST_API_KEY
+    }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}&response_type=code`;
+  };
 
   return (
     <div className={homePageStyle}>
-      <Header />
-      <div className={homeContentWrapper}>
-        <div className={homeUserProfile}>
-          <User size={46} className={`text-gray-500`} />
-        </div>
-        <span className={homeMainText}>로그인이 필요해요</span>
-        <div className={homeSubTextWrapper}>
-          <p className={`text-gray-500`}>로그인을 하면&nbsp;</p>
-          <p className={`text-green-300`}>공부를 기록</p>
-          <p className={`text-gray-500`}>할 수 있어요!</p>
-        </div>
+      <div className={homeContainer}>
+        <h1 className={`text-green-300 font-logo-partial-30`}>StudyLog</h1>
+        <h2 className={`text-gray-700 font-head05-semibold-20 mt-[26px]`}>
+          공부를 매일 기록하고
+          <br />
+          AI가 생성해주는 퀴즈로 복습해보세요!
+        </h2>
+        <img
+          src={IcLoginLogo}
+          alt={`로그인 페이지 로고`}
+          className={`mt-[84px] transform scale-80`}
+        />
       </div>
-      <BottomButton text={`로그인 하기`} onClick={goLoginPage} />
+      <div className={homeButtonWrapper}>
+        <span className={`text-gray-500 font-body02-semibold-14`}>
+          SNS 계정으로 빠르게 시작하기
+        </span>
+        <SocialLoginButton type={"google"} onClick={handleGoogleLogin} />
+        <SocialLoginButton type={"kakao"} onClick={handleKakaoLogin} />
+      </div>
     </div>
   );
 };
