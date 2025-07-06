@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { storageKey } from "../../constants/storageKey.ts";
 
 const ProtectedLayout = () => {
-  const isLoggedIn = Boolean(localStorage.getItem(storageKey.IS_LOGGED_IN)); // 로그인 여부 확인
+  const isLoggedIn = Boolean(localStorage.getItem(storageKey.IS_LOGGED_IN));
 
   if (!isLoggedIn) {
     return <Navigate to="/login" replace />;

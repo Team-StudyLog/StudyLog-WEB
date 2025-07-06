@@ -8,7 +8,7 @@ const useEasyNavigate = () => {
   };
 
   const goLoginPage = () => {
-    navigate(routePath.LOGINPAGE);
+    navigate(routePath.LOGINPAGE, { replace: true });
   };
 
   const goSignupPage = () => {
