@@ -13,7 +13,7 @@ import Header from "../../../components/Header/Header.tsx";
 import BottomButton from "../../../components/Button/BottomButton.tsx";
 
 const LoginPage = () => {
-  const { goLoginPage, goCodePage } = useEasyNavigate();
+  const { goHomePage, goCodePage } = useEasyNavigate();
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const LoginPage = () => {
           <p className={`text-gray-500`}>할 수 있어요!</p>
         </div>
       </div>
-      <BottomButton text={`로그인 하기`} onClick={goLoginPage} />
+      <BottomButton text={`로그인 하기`} onClick={goHomePage} />
     </div>
   );
 };
