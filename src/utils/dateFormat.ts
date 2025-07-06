@@ -33,3 +33,7 @@ export const relativeDateFormat = (date: string): string => {
   if (diffInMonths < 12) return `${diffInMonths}개월 전`;
   return `${diffInYears}년 전`;
 };
+
+export const dateToISO = (date: Date) => {
+  return date.toISOString().split("T")[0];
+};

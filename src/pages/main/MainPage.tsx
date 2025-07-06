@@ -7,18 +7,29 @@ import { mockUser } from "../../data/mockUser.ts";
 import NavigateButton from "./components/NavigateButton.tsx";
 import CategorySection from "./components/CategorySection.tsx";
 import { mockCategories } from "../../data/mockCategories.ts";
-import { useState } from "react";
-import mockStreaks from "../../data/mockStreaks.ts";
+import { useEffect, useState } from "react";
 import Streak from "./components/Streak.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import ImageInput from "../../components/Input/ImageInput.tsx";
 import useImageInput from "../../hooks/useImageInput.ts";
+import useCurrentDate from "../../hooks/useCurrentDate.ts";
+import mockStreaks, { type StreakT } from "../../data/mockStreaks.ts";
+import { getFilteredStreaks } from "../../utils/getFilteredStreaks.ts";
 
 const MainPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { fileInputRef, handleImageChange, handleImageClick } =
     useImageInput(setSelectedImage);
   const { goRecordPage, goQuizPage } = useEasyNavigate();
+  const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
+  const [filteredStreaks, setFilteredStreaks] = useState<StreakT[]>([]);
+
+  useEffect(() => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const currentMonthDates = getFilteredStreaks(year, month, mockStreaks);
+    setFilteredStreaks(currentMonthDates);
+  }, [currentDate]);
 
   return (
     <>
@@ -41,7 +52,13 @@ const MainPage = () => {
             <NavigateButton type={"archive"} onClick={goRecordPage} />
             <NavigateButton type={"quiz"} onClick={goQuizPage} />
           </div>
-          <Streak streakDays={70} streaks={mockStreaks} />
+          <Streak
+            streakDays={70}
+            streaks={filteredStreaks}
+            currentDate={currentDate}
+            handleLeftClick={handleLeftClick}
+            handleRightClick={handleRightClick}
+          />
           <CategorySection categories={mockCategories} />
         </div>
       </div>

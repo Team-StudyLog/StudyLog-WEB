@@ -4,10 +4,23 @@ import ProfileSection from "./components/ProfileSection.tsx";
 import { mockUser } from "../../data/mockUser.ts";
 import CategorySection from "./components/CategorySection.tsx";
 import { mockCategories } from "../../data/mockCategories.ts";
-import mockStreaks from "../../data/mockStreaks.ts";
 import Streak from "./components/Streak.tsx";
+import useCurrentDate from "../../hooks/useCurrentDate.ts";
+import mockStreaks, { type StreakT } from "../../data/mockStreaks.ts";
+import { useEffect, useState } from "react";
+import { getFilteredStreaks } from "../../utils/getFilteredStreaks.ts";
 
 const OtherUserPage = () => {
+  const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
+  const [filteredStreaks, setFilteredStreaks] = useState<StreakT[]>([]);
+
+  useEffect(() => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const currentMonthDates = getFilteredStreaks(year, month, mockStreaks);
+    setFilteredStreaks(currentMonthDates);
+  }, [currentDate]);
+
   return (
     <>
       <div className={`flex flex-col`}>
@@ -19,7 +32,13 @@ const OtherUserPage = () => {
         />
         <div className={`flex flex-col items-center px-[26px]`}>
           <ProfileSection user={mockUser} type={`other`} isFollowing={true} />
-          <Streak streakDays={70} streaks={mockStreaks} />
+          <Streak
+            streakDays={70}
+            streaks={filteredStreaks}
+            currentDate={currentDate}
+            handleLeftClick={handleLeftClick}
+            handleRightClick={handleRightClick}
+          />
           <CategorySection categories={mockCategories} />
         </div>
       </div>
