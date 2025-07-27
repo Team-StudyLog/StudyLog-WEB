@@ -13,7 +13,7 @@ export interface RecordListResponse {
   hasQuiz: boolean;
 }
 
-export interface BaseRecordDetailResponse {
+export interface RecordDetailResponse {
   id: number;
   title: string;
   content: string;

@@ -4,18 +4,18 @@ import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useQuery } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
-import type { BaseRecordDetailResponse } from "../../types/apis/record";
+import type { RecordDetailResponse } from "../../types/apis/record";
 
-interface RecordDetailResponse {
-  record: BaseRecordDetailResponse;
+interface RecordDetailPageResponse {
+  record: RecordDetailResponse;
   quizzes: QuizResponse[];
 }
 
 const fetchRecordDetail = async (
   recordId: number
-): Promise<RecordDetailResponse> => {
+): Promise<RecordDetailPageResponse> => {
   try {
-    const response = await instance.get<ApiResponse<RecordDetailResponse>>(
+    const response = await instance.get<ApiResponse<RecordDetailPageResponse>>(
       END_POINT.FETCH_RECORD_DETAIL(recordId)
     );
     return response.data.data;
