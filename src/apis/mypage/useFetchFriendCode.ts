@@ -2,6 +2,7 @@ import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
+import { useQuery } from "@tanstack/react-query";
 
 interface FriendCodeResponse {
   code: string;
@@ -21,8 +22,8 @@ const fetchFriendCode = async (code: string): Promise<FriendCodeResponse> => {
 };
 
 export const useFetchFriendCode = (code: string) => {
-  return {
+  return useQuery({
     queryKey: [queryKey.FRIENDS, code],
     queryFn: () => fetchFriendCode(code),
-  };
+  });
 };

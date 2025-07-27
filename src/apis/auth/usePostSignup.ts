@@ -1,6 +1,7 @@
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useMutation } from "@tanstack/react-query";
+import { END_POINT } from "../../constants/api.ts";
 
 interface SignupResponse {
   profileImage: string;
@@ -20,7 +21,7 @@ const postSignup = async (
     formData.append("intro", intro);
 
     const response = await instance.post<ApiResponse<SignupResponse>>(
-      "/users/profile",
+      END_POINT.POST_SIGNUP,
       formData
     );
     return response.data.data;
