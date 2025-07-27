@@ -5,4 +5,5 @@ export const queryKey = {
   RECORDS: "records",
   RECORD: "record",
   CATEGORIES: "categories",
+  ALARMS: "alarms",
 };

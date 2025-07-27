@@ -19,4 +19,5 @@ export const END_POINT = {
   FETCH_CATEGORIES: "/categories",
   POST_CATEGORY: "/categories",
   PUT_CATEGORY: (categoryId: number) => `/categories/${categoryId}`,
+  FETCH_ALARM_LIST: "/notifications",
 };
