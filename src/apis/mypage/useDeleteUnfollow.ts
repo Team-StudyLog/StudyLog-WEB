@@ -23,7 +23,7 @@ export const useDeleteUnfollow = (friendId: number) => {
     mutationFn: () => deleteUnfollow(friendId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [queryKey.FRIENDS, friendId],
+        queryKey: [queryKey.FRIENDS],
       });
       queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],

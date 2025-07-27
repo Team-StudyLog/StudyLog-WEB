@@ -23,7 +23,7 @@ const fetchFriendCode = async (code: string): Promise<FriendCodeResponse> => {
 
 export const useFetchFriendCode = (code: string) => {
   return useQuery({
-    queryKey: [queryKey.FRIENDS, code],
+    queryKey: [queryKey.FRIENDS],
     queryFn: () => fetchFriendCode(code),
   });
 };

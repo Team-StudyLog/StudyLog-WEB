@@ -25,7 +25,7 @@ export const usePostFollow = (code: string) => {
     mutationFn: () => postFollow(code),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [queryKey.FRIENDS, code],
+        queryKey: [queryKey.FRIENDS],
       });
       queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
