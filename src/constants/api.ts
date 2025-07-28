@@ -2,6 +2,7 @@ export const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 export const END_POINT = {
   FETCH_MY_PAGE: "/users",
+  POST_TOKEN_REISSUE: "/auth/token-reissue",
   POST_SIGNUP: "/users/profile",
   FETCH_USER_PROFILE: "/users/profile",
   PATCH_USER_PROFILE: "/users/profile",
