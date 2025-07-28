@@ -3,7 +3,7 @@ import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useMutation } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 
-interface SignupResponse {
+interface PostSignupResponse {
   profileImage: string;
   nickname: string;
   intro: string;
@@ -13,14 +13,14 @@ const postSignup = async (
   profileImage: File,
   nickname: string,
   intro: string
-): Promise<SignupResponse> => {
+): Promise<PostSignupResponse> => {
   try {
     const formData = new FormData();
     formData.append("profileImage", profileImage);
     formData.append("nickname", nickname);
     formData.append("intro", intro);
 
-    const response = await instance.post<ApiResponse<SignupResponse>>(
+    const response = await instance.post<ApiResponse<PostSignupResponse>>(
       END_POINT.POST_SIGNUP,
       formData
     );

@@ -1,12 +1,10 @@
 import { instance } from "../instance.ts";
-import type {
-  ApiResponse,
-  UserProfileResponse,
-} from "../../types/apis/commonType.ts";
+import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "../../utils/queryClient.ts";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
+import type { UserProfileResponse } from "../../types/apis/mypage";
 
 const patchProfile = async (
   profileImage: File,

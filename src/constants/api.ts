@@ -11,7 +11,7 @@ export const END_POINT = {
   FETCH_FRIEND_SEARCH: "/friends/search",
   DELETE_UNFOLLOW: (friendId: number) => `/friends/${friendId}`,
   POST_RECORD: "/records",
-  FETCH_FILTERED_RECORD_LIST: "/records",
+  FETCH_RECORD_LIST: "/records",
   FETCH_RECORD_DETAIL: (recordId: number) => `/records/${recordId}`,
   PUT_RECORD: (recordId: number) => `/records/${recordId}`,
   DELETE_RECORD: (recordId: number) => `/records/${recordId}`,
@@ -20,4 +20,7 @@ export const END_POINT = {
   POST_CATEGORY: "/categories",
   PUT_CATEGORY: (categoryId: number) => `/categories/${categoryId}`,
   FETCH_ALARM_LIST: "/notifications",
+  FETCH_QUIZ_LIST: "/quizzes",
+  FETCH_QUIZ_DETAIL: (quizId: number) => `/quizzes/${quizId}`,
+  POST_QUIZ: (recordId: number) => `/quizzes/${recordId}`,
 };

@@ -6,7 +6,7 @@ import { END_POINT } from "../../constants/api.ts";
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 
-interface RecordResponse {
+interface PutRecordResponse {
   id: number;
   title: string;
   content: string;
@@ -20,9 +20,9 @@ const putRecord = async (
   categoryId: number,
   title: string,
   content: string
-): Promise<RecordResponse> => {
+): Promise<PutRecordResponse> => {
   try {
-    const response = await instance.put<ApiResponse<RecordResponse>>(
+    const response = await instance.put<ApiResponse<PutRecordResponse>>(
       END_POINT.PUT_RECORD(recordId),
       {
         categoryId: categoryId,

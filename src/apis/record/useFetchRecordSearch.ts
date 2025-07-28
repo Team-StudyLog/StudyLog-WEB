@@ -1,19 +1,19 @@
-import type { RecordListResponse } from "../../types/apis/record";
+import type { RecordResponse } from "../../types/apis/record";
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useQuery } from "@tanstack/react-query";
 import { queryKey } from "../../constants/queryKey.ts";
 import { END_POINT } from "../../constants/api.ts";
 
-interface RecordSearchResponse {
-  records: RecordListResponse;
+interface FetchRecordSearchResponse {
+  records: RecordResponse;
 }
 
 const fetchRecordSearch = async (
   query: string
-): Promise<RecordSearchResponse> => {
+): Promise<FetchRecordSearchResponse> => {
   try {
-    const response = await instance.get<ApiResponse<RecordSearchResponse>>(
+    const response = await instance.get<ApiResponse<FetchRecordSearchResponse>>(
       END_POINT.FETCH_RECORD_SEARCH,
       { params: { query: query } }
     );

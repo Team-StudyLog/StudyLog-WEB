@@ -1,7 +1,4 @@
-import type {
-  RecordListResponse,
-  StreakResponse,
-} from "../../types/apis/record";
+import type { RecordResponse, StreakResponse } from "../../types/apis/record";
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useMutation } from "@tanstack/react-query";
@@ -9,8 +6,8 @@ import { END_POINT } from "../../constants/api.ts";
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 
-interface RecordResponse {
-  record: RecordListResponse;
+interface PostRecordResponse {
+  record: RecordResponse;
   streak: StreakResponse;
 }
 
@@ -18,9 +15,9 @@ const postRecord = async (
   categoryId: number,
   title: string,
   content: string
-): Promise<RecordResponse> => {
+): Promise<PostRecordResponse> => {
   try {
-    const response = await instance.post<ApiResponse<RecordResponse>>(
+    const response = await instance.post<ApiResponse<PostRecordResponse>>(
       END_POINT.POST_RECORD,
       {
         categoryId: categoryId,

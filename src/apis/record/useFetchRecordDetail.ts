@@ -6,18 +6,18 @@ import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import type { RecordDetailResponse } from "../../types/apis/record";
 
-interface RecordDetailPageResponse {
+interface FetchRecordDetailPageResponse {
   record: RecordDetailResponse;
   quizzes: QuizResponse[];
 }
 
 const fetchRecordDetail = async (
   recordId: number
-): Promise<RecordDetailPageResponse> => {
+): Promise<FetchRecordDetailPageResponse> => {
   try {
-    const response = await instance.get<ApiResponse<RecordDetailPageResponse>>(
-      END_POINT.FETCH_RECORD_DETAIL(recordId)
-    );
+    const response = await instance.get<
+      ApiResponse<FetchRecordDetailPageResponse>
+    >(END_POINT.FETCH_RECORD_DETAIL(recordId));
     return response.data.data;
   } catch (error) {
     console.error(error);

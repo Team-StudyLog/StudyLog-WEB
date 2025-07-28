@@ -4,7 +4,7 @@ export interface CategoryResponse {
   color: string;
 }
 
-export interface RecordListResponse {
+export interface RecordResponse {
   id: number;
   title: string;
   content: string;

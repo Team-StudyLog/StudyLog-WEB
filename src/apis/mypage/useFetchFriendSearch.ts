@@ -4,16 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 
-export interface FriendResponse {
+export interface FetchFriendResponse {
   id: number;
   nickname: string;
   profileImage: string;
   code: string;
 }
 
-const fetchFriendSearch = async (query: string): Promise<FriendResponse> => {
+const fetchFriendSearch = async (
+  query: string
+): Promise<FetchFriendResponse> => {
   try {
-    const response = await instance.get<ApiResponse<FriendResponse>>(
+    const response = await instance.get<ApiResponse<FetchFriendResponse>>(
       END_POINT.FETCH_FRIEND_SEARCH,
       { params: { query: query } }
     );

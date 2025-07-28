@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKey } from "../../constants/queryKey.ts";
 import { END_POINT } from "../../constants/api.ts";
 
-interface UsersResponse {
+interface FetchMyPageResponse {
   profileImage: string;
   nickname: string;
   intro: string;
@@ -12,9 +12,9 @@ interface UsersResponse {
   code: string;
 }
 
-const fetchMyPage = async (): Promise<UsersResponse> => {
+const fetchMyPage = async (): Promise<FetchMyPageResponse> => {
   try {
-    const response = await instance.get<ApiResponse<UsersResponse>>(
+    const response = await instance.get<ApiResponse<FetchMyPageResponse>>(
       END_POINT.FETCH_MY_PAGE
     );
     return response.data.data;

@@ -6,4 +6,6 @@ export const queryKey = {
   RECORD: "record",
   CATEGORIES: "categories",
   ALARMS: "alarms",
+  QUIZ: "quiz",
+  QUIZZES: "quizzes",
 };
