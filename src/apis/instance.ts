@@ -1,9 +1,19 @@
 import axios from "axios";
-import { BASE_URL, END_POINT } from "../constants/api.ts";
+import { BASE_URL } from "../constants/api.ts";
+import { storageKey } from "../constants/storageKey.ts";
+import { usePostTokenReissue } from "./auth/usePostTokenReissue.ts";
 
 export const instance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
+});
+
+instance.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem(storageKey.ACCESS_TOKEN);
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
 });
 
 instance.interceptors.response.use(
@@ -14,7 +24,7 @@ instance.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        await instance.post(END_POINT.POST_TOKEN_REISSUE);
+        await usePostTokenReissue();
         return instance(originalRequest);
       } catch (e) {
         // TODO: 로그아웃 처리
