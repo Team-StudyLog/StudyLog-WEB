@@ -11,8 +11,12 @@ import Modal from "../../../components/Modal/Modal.tsx";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import RecordQuizItem from "./RecordQuizItem.tsx";
 import { mockRecordQuizzes } from "../../../data/mockRecordQuizzes.ts";
+import { useParams } from "react-router-dom";
 
 const RecordDetailPage = () => {
+  const recordId = Number(useParams<{ recordId: string }>().recordId);
+  console.log(recordId);
+
   const isQuizGenerated = false;
   const [bottomSheetState, setBottomSheetState] =
     useState<BottomSheetState>("closed");

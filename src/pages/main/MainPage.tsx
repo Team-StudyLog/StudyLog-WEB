@@ -15,14 +15,17 @@ import useImageInput from "../../hooks/useImageInput.ts";
 import useCurrentDate from "../../hooks/useCurrentDate.ts";
 import mockStreaks, { type StreakT } from "../../data/mockStreaks.ts";
 import { getFilteredStreaks } from "../../utils/getFilteredStreaks.ts";
+import { usePatchBackground } from "../../apis/main/usePatchBackground.ts";
 
 const MainPage = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const { fileInputRef, handleImageChange, handleImageClick } =
     useImageInput(setSelectedImage);
   const { goRecordPage, goQuizPage } = useEasyNavigate();
   const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
   const [filteredStreaks, setFilteredStreaks] = useState<StreakT[]>([]);
+
+  const { mutate: patchBackground } = usePatchBackground(selectedImage as File);
 
   useEffect(() => {
     const year = currentDate.getFullYear();
@@ -31,6 +34,11 @@ const MainPage = () => {
     setFilteredStreaks(currentMonthDates);
   }, [currentDate]);
 
+  // 이미지가 변경될 때마다 배경 이미지 업데이트
+  useEffect(() => {
+    if (selectedImage != null) patchBackground();
+  }, [selectedImage, patchBackground]);
+
   return (
     <>
       <div className={`flex flex-col`}>
@@ -38,7 +46,9 @@ const MainPage = () => {
         <FriendHeader friends={mockFriends} />
         <ImageInput ref={fileInputRef} onChange={handleImageChange} />
         <img
-          src={selectedImage || backgroundImage}
+          src={
+            selectedImage ? URL.createObjectURL(selectedImage) : backgroundImage
+          }
           alt="메인 배경 이미지"
           className={`w-full h-[187px] object-cover mb-[12px] cursor-pointer`}
           onClick={handleImageClick}

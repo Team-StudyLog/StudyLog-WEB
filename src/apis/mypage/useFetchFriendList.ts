@@ -1,14 +1,14 @@
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useQuery } from "@tanstack/react-query";
-import type { FriendResponse } from "./useFetchFriendSearch.ts";
+import type { FetchFriendResponse } from "./useFetchFriendSearch.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import { END_POINT } from "../../constants/api.ts";
 
-const fetchFriends = async (): Promise<FriendResponse[]> => {
+const fetchFriendList = async (): Promise<FetchFriendResponse[]> => {
   try {
-    const response = await instance.get<ApiResponse<FriendResponse[]>>(
-      END_POINT.FETCH_FRIENDS
+    const response = await instance.get<ApiResponse<FetchFriendResponse[]>>(
+      END_POINT.FETCH_FRIEND_LIST
     );
     return response.data.data;
   } catch (error) {
@@ -17,9 +17,9 @@ const fetchFriends = async (): Promise<FriendResponse[]> => {
   }
 };
 
-export const useFetchFriends = () => {
+export const useFetchFriendList = () => {
   return useQuery({
     queryKey: [queryKey.FRIENDS],
-    queryFn: fetchFriends,
+    queryFn: fetchFriendList,
   });
 };

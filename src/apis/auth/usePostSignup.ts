@@ -2,25 +2,28 @@ import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { useMutation } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
+import { storageKey } from "../../constants/storageKey.ts";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
-interface SignupResponse {
+interface PostSignupResponse {
   profileImage: string;
   nickname: string;
   intro: string;
+  code: string;
 }
 
 const postSignup = async (
   profileImage: File,
   nickname: string,
   intro: string
-): Promise<SignupResponse> => {
+): Promise<PostSignupResponse> => {
   try {
     const formData = new FormData();
     formData.append("profileImage", profileImage);
     formData.append("nickname", nickname);
     formData.append("intro", intro);
 
-    const response = await instance.post<ApiResponse<SignupResponse>>(
+    const response = await instance.post<ApiResponse<PostSignupResponse>>(
       END_POINT.POST_SIGNUP,
       formData
     );
@@ -31,15 +34,34 @@ const postSignup = async (
   }
 };
 
-export const usePostSignup = (
-  profileImage: File,
-  nickname: string,
-  intro: string
-) => {
+export const usePostSignup = () => {
+  const { goMainPage } = useEasyNavigate();
   return useMutation({
-    mutationFn: () => postSignup(profileImage, nickname, intro),
-    onSuccess: () => {
-      console.log("Signup Successful");
+    mutationFn: ({
+      profileImage,
+      nickname,
+      intro,
+    }: {
+      profileImage: File;
+      nickname: string;
+      intro: string;
+    }) => postSignup(profileImage, nickname, intro),
+    onSuccess: (data) => {
+      console.log(`Signup Successful ${data}`);
+
+      // TODO: 추후 삭제
+      localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
+      localStorage.setItem(storageKey.USER_CODE, "UX320");
+
+      goMainPage("UX320");
+      // 실제로는 아래와 같이 사용자 코드를 저장해야 합니다. 그리고 서버에서 리다이렉트함.
+      // localStorage.setItem(storageKey.USER_CODE, data.code);
+    },
+    onError: (error) => {
+      console.error("Signup failed:", error);
+      localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
+      localStorage.setItem(storageKey.USER_CODE, "UX320");
+      goMainPage("UX320");
     },
   });
 };

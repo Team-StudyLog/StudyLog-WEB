@@ -5,10 +5,15 @@ import ButtonWithArrow from "../../components/Button/ButtonWithArrow.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import QuizCard from "./components/QuizCard.tsx";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useFetchQuizDetail } from "../../apis/quiz/useFetchQuizDetail.ts";
 
 const QuizDetailPage = () => {
   const { goRecordDetailPage } = useEasyNavigate();
   const [flipped, setFlipped] = useState(false);
+  const quizId = Number(useParams<{ quizId: string }>().quizId);
+  const { data } = useFetchQuizDetail(quizId);
+  console.log(data);
 
   return (
     <div className={`flex flex-col min-h-screen`}>

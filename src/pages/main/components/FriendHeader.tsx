@@ -33,13 +33,13 @@ const FriendHeader = ({ friends }: FriendHeaderProps) => {
 };
 
 const UserProfile = ({ id, name, profileImageUrl }: FriendT) => {
-  const { goCodePage } = useEasyNavigate();
+  const { goOtherUserPage } = useEasyNavigate();
   return (
     <div
       key={id}
       className={`flex flex-col items-center justify-center shrink-0`}
       onClick={() => {
-        goCodePage(String(id));
+        goOtherUserPage(String(id));
       }}
     >
       <img

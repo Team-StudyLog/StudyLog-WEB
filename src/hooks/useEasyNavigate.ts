@@ -16,11 +16,19 @@ const useEasyNavigate = () => {
   };
 
   const goHomePage = () => {
-    navigate(routePath.HOMEPAGE);
+    window.location.replace(routePath.HOMEPAGE);
   };
 
   const goCodePage = (code: string) => {
-    navigate(routePath.CODE.replace(":code", code), { replace: true });
+    window.location.replace(routePath.CODE.replace(":code", code));
+  };
+
+  const goMainPage = (code: string) => {
+    window.location.replace(routePath.MAIN.replace(":code", code));
+  };
+
+  const goOtherUserPage = (code: string) => {
+    navigate(routePath.OTHER_USER.replace(":code", code));
   };
 
   const goRecordPage = () => {
@@ -76,6 +84,8 @@ const useEasyNavigate = () => {
     goLoginPage,
     goSignupPage,
     goCodePage,
+    goMainPage,
+    goOtherUserPage,
     goHomePage,
     goRecordPage,
     goRecordDetailPage,

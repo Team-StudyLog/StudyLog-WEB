@@ -4,13 +4,15 @@ import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import { useQuery } from "@tanstack/react-query";
 
-interface FriendCodeResponse {
+interface FetchFriendCodeResponse {
   code: string;
 }
 
-const fetchFriendCode = async (code: string): Promise<FriendCodeResponse> => {
+const fetchFriendCode = async (
+  code: string
+): Promise<FetchFriendCodeResponse> => {
   try {
-    const response = await instance.get<ApiResponse<FriendCodeResponse>>(
+    const response = await instance.get<ApiResponse<FetchFriendCodeResponse>>(
       END_POINT.FETCH_FRIEND_CODE,
       { params: { code: code } }
     );
@@ -23,7 +25,7 @@ const fetchFriendCode = async (code: string): Promise<FriendCodeResponse> => {
 
 export const useFetchFriendCode = (code: string) => {
   return useQuery({
-    queryKey: [queryKey.FRIENDS, code],
+    queryKey: [queryKey.FRIENDS],
     queryFn: () => fetchFriendCode(code),
   });
 };

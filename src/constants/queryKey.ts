@@ -1,6 +1,15 @@
 export const queryKey = {
-  EXAMPLE_USERS: "exampleUsers",
   MY_PAGE: "users",
   USER_PROFILE: "userProfile",
   FRIENDS: "friends",
+  RECORDS: "records",
+  RECORD: "record",
+  CATEGORIES: "categories",
+  ALARMS: "alarms",
+  QUIZ: "quiz",
+  QUIZZES: "quizzes",
+  USER_MAIN: "userMain",
+  USER_STREAK: "userStreak",
+  OTHER_MAIN: "otherMain",
+  OTHER_STREAK: "otherStreak",
 };

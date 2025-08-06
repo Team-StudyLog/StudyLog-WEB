@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { User } from "lucide-react";
 import {
   loginContentWrapper,
@@ -8,26 +7,13 @@ import {
   loginUserProfile,
 } from "./LoginPage.styles.ts";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
-import { storageKey } from "../../../constants/storageKey.ts";
 import Header from "../../../components/Header/Header.tsx";
 import BottomButton from "../../../components/Button/BottomButton.tsx";
+import useAuthRender from "../../../hooks/useAuthRender.ts";
 
 const LoginPage = () => {
-  const { goHomePage, goCodePage } = useEasyNavigate();
-  const [shouldRender, setShouldRender] = useState(false);
-
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem(storageKey.IS_LOGGED_IN);
-    const userCode = localStorage.getItem(storageKey.USER_CODE) ?? "UX320";
-
-    if (isLoggedIn) {
-      goCodePage(userCode);
-    } else {
-      localStorage.setItem(storageKey.USER_CODE, userCode);
-      setShouldRender(true);
-    }
-  }, [goCodePage]);
-
+  const { goHomePage } = useEasyNavigate();
+  const shouldRender = useAuthRender();
   if (!shouldRender) return null;
 
   return (

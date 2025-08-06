@@ -1,7 +1,3 @@
-const examplePages = {
-  EXAMPLE: "/example",
-};
-
 const homePages = {
   HOMEPAGE: "/",
 };
@@ -47,7 +43,6 @@ const friendPages = {
 };
 
 export default {
-  ...examplePages,
   ...homePages,
   ...mainPages,
   ...recordPages,

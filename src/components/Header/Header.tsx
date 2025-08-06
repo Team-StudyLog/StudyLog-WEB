@@ -3,12 +3,12 @@ import { Bell, User } from "lucide-react";
 import { storageKey } from "../../constants/storageKey.ts";
 
 const Header = () => {
-  const { goCodePage, goHomePage, goMyPage, goAlarmPage } = useEasyNavigate();
+  const { goMainPage, goHomePage, goMyPage, goAlarmPage } = useEasyNavigate();
   const isLoggedIn = Boolean(localStorage.getItem(storageKey.IS_LOGGED_IN));
   const userCode = localStorage.getItem(storageKey.USER_CODE);
   const handleLogoClick = () => {
     if (isLoggedIn && userCode) {
-      goCodePage(userCode);
+      goMainPage(userCode);
     } else {
       goHomePage();
     }
