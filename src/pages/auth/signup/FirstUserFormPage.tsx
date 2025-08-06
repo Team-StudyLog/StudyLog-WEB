@@ -11,7 +11,7 @@ import ImageInput from "../../../components/Input/ImageInput.tsx";
 import useImageInput from "../../../hooks/useImageInput.ts";
 
 interface FirstUserFormPageProps {
-  selectedImage: string | File;
+  selectedImage: string | File | null;
   setSelectedImage: (image: File) => void;
   onNext: () => void;
 }
