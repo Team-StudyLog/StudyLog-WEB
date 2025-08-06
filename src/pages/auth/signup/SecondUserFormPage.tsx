@@ -1,13 +1,12 @@
 import BottomButton from "../../../components/Button/BottomButton.tsx";
-import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
 import { formContent, formHeaderWrapper } from "./SignupPage.styles.ts";
-import { storageKey } from "../../../constants/storageKey.ts";
+import { usePostSignup } from "../../../apis/auth/usePostSignup.ts";
 
 interface SecondUserFormPageProps {
   type: "write" | "edit";
-  selectedImage: string | null;
+  selectedImage: File;
   nickname: string;
   setNickname: (nickname: string) => void;
   description: string;
@@ -22,7 +21,12 @@ const SecondUserFormPage = ({
   description,
   setDescription,
 }: SecondUserFormPageProps) => {
-  const { goCodePage } = useEasyNavigate();
+  const { mutate: postSignup } = usePostSignup(
+    selectedImage,
+    nickname,
+    description
+  );
+
   const isButtonDisabled =
     nickname.length === 0 ||
     nickname.length > 20 ||
@@ -31,7 +35,7 @@ const SecondUserFormPage = ({
 
   const handleSubmit = () => {
     console.log(type, selectedImage, nickname, description);
-    localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
+    postSignup();
   };
 
   return (
@@ -63,10 +67,7 @@ const SecondUserFormPage = ({
       </div>
       <BottomButton
         text={"다음"}
-        onClick={() => {
-          handleSubmit();
-          goCodePage("UX320");
-        }}
+        onClick={handleSubmit}
         disabled={isButtonDisabled}
       />
     </>

@@ -5,6 +5,7 @@ import {
   homePageStyle,
 } from "./HomePage.styles.ts";
 import SocialLoginButton from "../../components/Button/SocialLoginButton.tsx";
+import useAuthRender from "../../hooks/useAuthRender.ts";
 
 const HomePage = () => {
   const handleGoogleLogin = () => {
@@ -18,6 +19,9 @@ const HomePage = () => {
       import.meta.env.VITE_KAKAO_REST_API_KEY
     }&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}&response_type=code`;
   };
+
+  const shouldRender = useAuthRender();
+  if (!shouldRender) return null;
 
   return (
     <div className={homePageStyle}>

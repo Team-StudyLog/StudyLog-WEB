@@ -3,7 +3,6 @@ import myPageRoutes from "./myPageRoutes.tsx";
 import type { RouteObject } from "react-router-dom";
 import RootLayout from "./layout/RootLayout.tsx";
 import NotFound from "../pages/status/error/NotFound.tsx";
-import exampleRoutes from "./exampleRoutes.tsx";
 import authRoutes from "./authRoutes.tsx";
 import alarmRoutes from "./alarmRoutes.tsx";
 import friendRoutes from "./friendRoutes.tsx";
@@ -16,7 +15,6 @@ import ProtectedLayout from "./layout/ProtectedLayout.tsx";
 const publicRoutes = [...homeRoutes, ...authRoutes];
 
 const protectedRoutes = [
-  ...exampleRoutes,
   ...mainRoutes,
   ...recordRoutes,
   ...quizRoutes,

@@ -1,15 +1,28 @@
 import TextHeader from "../../components/Header/TextHeader.tsx";
 import SearchInput from "../../components/Input/SearchInput.tsx";
-import { useMemo, useState } from "react";
-import FilterChip from "../../components/Chips/FilterChip.tsx";
+import { useEffect, useMemo, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { mockQuizzes } from "../../data/mockQuizzes.ts";
 import QuizItem from "./components/QuizItem.tsx";
+// import { useFetchQuizList } from "../../apis/quiz/useFetchQuizList.ts";
+// import { useInView } from "react-intersection-observer";
+import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
+import CategoryFilterChip from "../../components/Chips/CategoryFilterChip.tsx";
 
 const QuizPage = () => {
   const [keyword, setKeyword] = useState<string>("");
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
+  // const { ref, inView } = useInView();
+  // const { fetchNextPage, isFetchingNextPage } = useFetchQuizList(keyword, date);
+
+  // useEffect(() => {
+  //   if (inView && !isFetchingNextPage) fetchNextPage();
+  // }, [inView, fetchNextPage, isFetchingNextPage]);
+
+  useEffect(() => {
+    console.log(category, date);
+  }, [category, date]);
 
   const filteredQuizzes = useMemo(() => {
     const lowerKeyword = keyword.trim().toLowerCase();
@@ -22,9 +35,9 @@ const QuizPage = () => {
   }, [keyword]);
 
   const categories = [
-    { name: "미적분", color: "#FFB6C1" },
-    { name: "기하와 벡터", color: "#ADD8E6" },
-    { name: "스프링", color: "#90EE90" },
+    { id: 1, name: "미적분", color: "#FFB6C1" },
+    { id: 2, name: "기하와 벡터", color: "#ADD8E6" },
+    { id: 3, name: "스프링", color: "#90EE90" },
   ];
 
   return (
@@ -38,18 +51,15 @@ const QuizPage = () => {
       <section className={`flex flex-col px-[26px] mt-[20px]`}>
         <h2 className={`font-head05-semibold-20 text-gray-700`}>생성된 퀴즈</h2>
         <div className={`flex gap-x-[5px] mt-[12px] mb-[16px]`}>
-          <FilterChip
-            type={"category"}
-            defaultLabel={"카테고리"}
+          <CategoryFilterChip
+            defaultLabel="카테고리"
             options={categories}
             selectedOption={category}
             onSelect={setCategory}
           />
-          <FilterChip
-            type={"date"}
-            defaultLabel={"날짜"}
-            options={[]}
-            selectedOption={date}
+          <DateFilterChip
+            defaultLabel="날짜"
+            selectedDate={date}
             onSelect={setDate}
           />
         </div>
@@ -65,6 +75,7 @@ const QuizPage = () => {
           </p>
         )}
       </section>
+      {/*<div ref={ref} className={`h-[1px]`} />*/}
     </div>
   );
 };

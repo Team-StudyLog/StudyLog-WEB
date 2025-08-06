@@ -56,7 +56,7 @@ const CategoryFormPage = () => {
           grid grid-cols-2 gap-[4px]`}
         >
           {colors.map((color, index) => (
-            <div className={`flex flex-1`}>
+            <div key={index} className={`flex flex-1`}>
               <input
                 type="checkbox"
                 id={"categoryColor" + index}

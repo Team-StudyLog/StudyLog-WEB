@@ -1,8 +1,10 @@
+// e.g. "2023-10-05" -> "2023년 10월"
 export const dateFormat = (date: string): string => {
   const [year, month] = date.split("-");
   return `${year}년 ${Number(month)}월`;
 };
 
+// e.g. "2023-10-05" -> "2023.10.05"
 export const dateFormatWithDot = (date: string): string => {
   const [year, month, day] = date.split("-");
   return `${year}.${Number(month)}.${Number(day)}`;
@@ -37,3 +39,10 @@ export const relativeDateFormat = (date: string): string => {
 export const dateToISO = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
+
+export function dateToSlash(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}

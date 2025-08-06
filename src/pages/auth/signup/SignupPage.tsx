@@ -6,7 +6,7 @@ import { formPageStyle } from "./SignupPage.styles.ts";
 
 const SignupPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [nickname, setNickname] = useState("");
   const [description, setDescription] = useState("");
 
@@ -25,7 +25,7 @@ const SignupPage = () => {
       ) : (
         <SecondUserFormPage
           type={"write"}
-          selectedImage={selectedImage}
+          selectedImage={selectedImage as File}
           nickname={nickname}
           setNickname={setNickname}
           description={description}

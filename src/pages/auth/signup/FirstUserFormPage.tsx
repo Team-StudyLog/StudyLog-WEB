@@ -11,8 +11,8 @@ import ImageInput from "../../../components/Input/ImageInput.tsx";
 import useImageInput from "../../../hooks/useImageInput.ts";
 
 interface FirstUserFormPageProps {
-  selectedImage: string | null;
-  setSelectedImage: (image: string) => void;
+  selectedImage: File | null;
+  setSelectedImage: (image: File) => void;
   onNext: () => void;
 }
 
@@ -39,7 +39,7 @@ const FirstUserFormPage = ({
             <ImageInput ref={fileInputRef} onChange={handleImageChange} />
             {selectedImage ? (
               <img
-                src={selectedImage}
+                src={URL.createObjectURL(selectedImage)}
                 alt="프로필 이미지"
                 className={firstSignupSelectedImage}
               />

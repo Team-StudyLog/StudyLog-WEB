@@ -11,7 +11,7 @@ interface FriendItemProps {
 const FriendItem = ({ friend }: FriendItemProps) => {
   const { isOpen, content } = useModalInfo();
   const { openModal, closeModal } = useModalActions();
-  const { goCodePage } = useEasyNavigate();
+  const { goOtherUserPage } = useEasyNavigate();
 
   const handleUnfollow = () => {
     if (!content) return;
@@ -26,7 +26,7 @@ const FriendItem = ({ friend }: FriendItemProps) => {
           src={friend.profileImageUrl}
           alt={friend.name}
           className={`w-[46px] h-[46px] rounded-full object-cover`}
-          onClick={() => goCodePage(String(friend.id))}
+          onClick={() => goOtherUserPage(String(friend.id))}
         />
         <p className={`text-gray-700 font-body02-semibold-14`}>{friend.name}</p>
       </div>
