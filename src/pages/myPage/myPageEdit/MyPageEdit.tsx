@@ -6,7 +6,7 @@ import SecondUserFormPage from "../../auth/signup/SecondUserFormPage.tsx";
 
 const MyPageEdit = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedImage, setSelectedImage] = useState<string | null>(
+  const [selectedImage, setSelectedImage] = useState<string | File>(
     "https://avatars.githubusercontent.com/u/91470334?v=4"
   );
   const [nickname, setNickname] = useState("닉네임");

@@ -34,14 +34,18 @@ const postSignup = async (
   }
 };
 
-export const usePostSignup = (
-  profileImage: File,
-  nickname: string,
-  intro: string
-) => {
+export const usePostSignup = () => {
   const { goMainPage } = useEasyNavigate();
   return useMutation({
-    mutationFn: () => postSignup(profileImage, nickname, intro),
+    mutationFn: ({
+      profileImage,
+      nickname,
+      intro,
+    }: {
+      profileImage: File;
+      nickname: string;
+      intro: string;
+    }) => postSignup(profileImage, nickname, intro),
     onSuccess: (data) => {
       console.log(`Signup Successful ${data}`);
 

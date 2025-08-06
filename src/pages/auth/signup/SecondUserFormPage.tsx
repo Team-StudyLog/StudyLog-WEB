@@ -3,10 +3,12 @@ import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
 import { formContent, formHeaderWrapper } from "./SignupPage.styles.ts";
 import { usePostSignup } from "../../../apis/auth/usePostSignup.ts";
+import { uriToFile } from "../../../utils/uriToFile.ts";
+import { usePatchProfile } from "../../../apis/mypage/usePatchProfile.ts";
 
 interface SecondUserFormPageProps {
   type: "write" | "edit";
-  selectedImage: File;
+  selectedImage: string | File;
   nickname: string;
   setNickname: (nickname: string) => void;
   description: string;
@@ -21,11 +23,8 @@ const SecondUserFormPage = ({
   description,
   setDescription,
 }: SecondUserFormPageProps) => {
-  const { mutate: postSignup } = usePostSignup(
-    selectedImage,
-    nickname,
-    description
-  );
+  const { mutate: postSignup } = usePostSignup();
+  const { mutate: patchProfile } = usePatchProfile();
 
   const isButtonDisabled =
     nickname.length === 0 ||
@@ -33,9 +32,19 @@ const SecondUserFormPage = ({
     description.length === 0 ||
     description.length > 100;
 
-  const handleSubmit = () => {
-    console.log(type, selectedImage, nickname, description);
-    postSignup();
+  const handleSubmit = async () => {
+    let imageFile = selectedImage;
+    if (typeof selectedImage === "string") {
+      imageFile = await uriToFile(selectedImage);
+    }
+    console.log(imageFile);
+    const payload = {
+      profileImage: imageFile as File,
+      nickname,
+      intro: description,
+    };
+    if (type === "write") postSignup(payload);
+    else patchProfile(payload);
   };
 
   return (

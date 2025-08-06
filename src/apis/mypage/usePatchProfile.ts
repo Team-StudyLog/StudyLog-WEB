@@ -5,6 +5,7 @@ import queryClient from "../../utils/queryClient.ts";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import type { UserProfileResponse } from "../../types/apis/mypage";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const patchProfile = async (
   profileImage: File,
@@ -27,13 +28,18 @@ const patchProfile = async (
   }
 };
 
-export const usePatchProfile = (
-  profileImage: File,
-  nickname: string,
-  intro: string
-) => {
+export const usePatchProfile = () => {
+  const { goBack } = useEasyNavigate();
   return useMutation({
-    mutationFn: () => patchProfile(profileImage, nickname, intro),
+    mutationFn: ({
+      profileImage,
+      nickname,
+      intro,
+    }: {
+      profileImage: File;
+      nickname: string;
+      intro: string;
+    }) => patchProfile(profileImage, nickname, intro),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKey.USER_PROFILE],
@@ -41,6 +47,11 @@ export const usePatchProfile = (
       queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
       });
+      goBack();
+    },
+    onError: () => {
+      console.error("프로필 업데이트 실패");
+      goBack();
     },
   });
 };
