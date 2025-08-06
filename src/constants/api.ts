@@ -24,4 +24,9 @@ export const END_POINT = {
   FETCH_QUIZ_LIST: "/quizzes",
   FETCH_QUIZ_DETAIL: (quizId: number) => `/quizzes/${quizId}`,
   POST_QUIZ: (recordId: number) => `/quizzes/${recordId}`,
+  PATCH_BACKGROUND: "/users/background",
+  FETCH_USER_MAIN: "/main",
+  FETCH_USER_STREAK: "/streak",
+  FETCH_OTHER_MAIN: "/main",
+  FETCH_OTHER_STREAK: "/streak",
 };
