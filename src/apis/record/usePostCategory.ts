@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const postCategory = async (
   name: string,
@@ -22,13 +23,17 @@ const postCategory = async (
   }
 };
 
-export const usePostCategory = (name: string, color: string) => {
+export const usePostCategory = () => {
+  const { goBack } = useEasyNavigate();
+
   return useMutation({
-    mutationFn: () => postCategory(name, color),
+    mutationFn: ({ name, color }: { name: string; color: string }) =>
+      postCategory(name, color),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKey.CATEGORIES],
       });
+      goBack();
     },
   });
 };
