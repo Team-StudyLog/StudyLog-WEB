@@ -9,9 +9,12 @@ import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
 import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
 import { useInView } from "react-intersection-observer";
 import { useFetchRecordList } from "../../apis/record/useFetchRecordList.ts";
+import useDebounce from "../../hooks/useDebounce.ts";
+import { useFetchRecordSearch } from "../../apis/record/useFetchRecordSearch.ts";
 
 const RecordPage = () => {
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>("");
+  const debouncedKeyword = useDebounce(keyword, 300);
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
   const { ref, inView } = useInView();
@@ -19,11 +22,24 @@ const RecordPage = () => {
     category,
     date
   );
+  const { data: filteredRecords, mutate: searchRecords } =
+    useFetchRecordSearch();
+
   const records = data?.pages.flatMap((page) => page.records) || [];
+  const renderList =
+    debouncedKeyword && filteredRecords?.records
+      ? Array.isArray(filteredRecords.records)
+        ? filteredRecords.records
+        : [filteredRecords.records]
+      : records;
 
   useEffect(() => {
     if (inView && !isFetchingNextPage) fetchNextPage();
   }, [inView, fetchNextPage, isFetchingNextPage]);
+
+  useEffect(() => {
+    if (debouncedKeyword !== "") searchRecords(debouncedKeyword);
+  }, [debouncedKeyword, searchRecords]);
 
   const { goRecordWritePage } = useEasyNavigate();
   const { data: categories } = useFetchCategoryList();
@@ -32,8 +48,8 @@ const RecordPage = () => {
     <div className={`flex flex-col`}>
       <TextHeader text={"기록"} />
       <SearchInput
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
         placeholder={"제목으로 기록을 검색하세요"}
       />
       <FloatingActionButton
@@ -57,8 +73,8 @@ const RecordPage = () => {
             onSelect={setDate}
           />
         </div>
-        {records.length > 0 ? (
-          records.map((record, index) => (
+        {renderList && renderList.length > 0 ? (
+          renderList.map((record, index) => (
             <RecordItem key={index} record={record} />
           ))
         ) : (
