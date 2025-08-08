@@ -3,6 +3,7 @@ import { useModalActions, useModalInfo } from "../../../hooks/useModal.ts";
 import Modal from "../../../components/Modal/Modal.tsx";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import type { FetchFriendResponse } from "../../../apis/mypage/useFetchFriendSearch.ts";
+import { useDeleteUnfollow } from "../../../apis/mypage/useDeleteUnfollow.ts";
 
 interface FriendItemProps {
   friend: FetchFriendResponse;
@@ -10,13 +11,13 @@ interface FriendItemProps {
 
 const FriendItem = ({ friend }: FriendItemProps) => {
   const { isOpen, content } = useModalInfo();
-  const { openModal, closeModal } = useModalActions();
+  const { openModal } = useModalActions();
   const { goOtherUserPage } = useEasyNavigate();
+  const { mutate: unfollow } = useDeleteUnfollow();
 
   const handleUnfollow = () => {
     if (!content) return;
-    console.log("언팔로우 대상:", content.name);
-    closeModal();
+    unfollow(friend.id);
   };
 
   return (
@@ -26,7 +27,7 @@ const FriendItem = ({ friend }: FriendItemProps) => {
           src={friend.profileImage}
           alt={friend.nickname}
           className={`w-[46px] h-[46px] rounded-full object-cover`}
-          onClick={() => goOtherUserPage(String(friend.id))}
+          onClick={() => goOtherUserPage(friend.code)}
         />
         <p className={`text-gray-700 font-body02-semibold-14`}>
           {friend.nickname}
