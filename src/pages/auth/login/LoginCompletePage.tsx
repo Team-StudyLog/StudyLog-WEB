@@ -17,7 +17,11 @@ const LoginCompletePage = () => {
           const code = response.code;
           localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
           localStorage.setItem(storageKey.USER_CODE, response.code);
-          goMainPage(code);
+          if (code !== undefined) {
+            goMainPage(code);
+          } else {
+            console.error(response);
+          }
         }
       }
     };

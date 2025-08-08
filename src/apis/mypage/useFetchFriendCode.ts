@@ -1,11 +1,11 @@
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { END_POINT } from "../../constants/api.ts";
-import { queryKey } from "../../constants/queryKey.ts";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { useModalActions } from "../../hooks/useModal.ts";
 
 interface FetchFriendCodeResponse {
-  code: string;
+  nickname: string;
 }
 
 const fetchFriendCode = async (
@@ -23,9 +23,12 @@ const fetchFriendCode = async (
   }
 };
 
-export const useFetchFriendCode = (code: string) => {
-  return useQuery({
-    queryKey: [queryKey.FRIENDS],
-    queryFn: () => fetchFriendCode(code),
+export const useFetchFriendCode = () => {
+  const { openModal } = useModalActions();
+  return useMutation({
+    mutationFn: (code: string) => fetchFriendCode(code),
+    onSuccess: (data) => {
+      openModal({ name: data.nickname });
+    },
   });
 };

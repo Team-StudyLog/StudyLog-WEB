@@ -8,7 +8,7 @@ export const END_POINT = {
   PATCH_USER_PROFILE: "/users/profile",
   FETCH_FRIEND_LIST: "/friends",
   POST_FOLLOW: "/friends",
-  FETCH_FRIEND_CODE: "/friends",
+  FETCH_FRIEND_CODE: "/friends/by-code",
   FETCH_FRIEND_SEARCH: "/friends/search",
   DELETE_UNFOLLOW: (friendId: number) => `/friends/${friendId}`,
   POST_RECORD: "/records",
