@@ -1,8 +1,7 @@
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { instance } from "../instance.ts";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
-import { queryKey } from "../../constants/queryKey.ts";
 
 export interface FetchFriendResponse {
   id: number;
@@ -13,9 +12,9 @@ export interface FetchFriendResponse {
 
 const fetchFriendSearch = async (
   query: string
-): Promise<FetchFriendResponse> => {
+): Promise<FetchFriendResponse[]> => {
   try {
-    const response = await instance.get<ApiResponse<FetchFriendResponse>>(
+    const response = await instance.get<ApiResponse<FetchFriendResponse[]>>(
       END_POINT.FETCH_FRIEND_SEARCH,
       { params: { query: query } }
     );
@@ -26,9 +25,11 @@ const fetchFriendSearch = async (
   }
 };
 
-export const useFetchFriendSearch = (query: string) => {
-  return useQuery({
-    queryKey: [queryKey.FRIENDS, query],
-    queryFn: () => fetchFriendSearch(query),
+export const useFetchFriendSearch = () => {
+  return useMutation({
+    mutationFn: (query: string) => fetchFriendSearch(query),
+    onSuccess: () => {
+      console.log("친구 검색 성공");
+    },
   });
 };
