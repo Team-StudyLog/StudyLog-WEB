@@ -1,13 +1,14 @@
 import TextHeader from "../../components/Header/TextHeader.tsx";
-import mainBackground from "../../assets/main-background.jpg";
 import ButtonWithArrow from "../../components/Button/ButtonWithArrow.tsx";
 import handleShare from "../../utils/handleShare.ts";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import MyPageItem from "./components/MyPageItem.tsx";
 import { useModalActions, useModalInfo } from "../../hooks/useModal.ts";
 import Modal from "../../components/Modal/Modal.tsx";
+import { useFetchMyPage } from "../../apis/mypage/useFetchMyPage.ts";
 
 const MyPage = () => {
+  const { data } = useFetchMyPage();
   const { goHomePage, goFriendPage, goMyPageEdit } = useEasyNavigate();
   const { isOpen, content } = useModalInfo();
   const { openModal, closeModal } = useModalActions();
@@ -36,7 +37,7 @@ const MyPage = () => {
           className={`flex w-full justify-between items-center gap-x-[15px] mb-[28px]`}
         >
           <img
-            src={mainBackground}
+            src={data?.profileImage}
             alt={`프로필 이미지`}
             className={`h-[70px] w-[70px] rounded-full object-cover`}
           />
@@ -45,9 +46,7 @@ const MyPage = () => {
           >
             <p className={`font-head02-bold-20 text-gray-700`}>이가을</p>
             <span className={`font-body08-regular-12 text-gray-700`}>
-              프론트엔드 개발자를 희망하고 있습니다!
-              <br />
-              팔로우 환영합니다!
+              {data?.intro}
             </span>
           </div>
         </section>
@@ -64,15 +63,19 @@ const MyPage = () => {
             className={`font-body02-semibold-14`}
             onClick={goFriendPage}
             children={
-              <p className={`text-gray-700 font-head06-semibold-16`}>4명</p>
+              <p className={`text-gray-700 font-head06-semibold-16`}>
+                {data?.friendCount}명
+              </p>
             }
           />
           <ButtonWithArrow
             text={`코드 공유하기`}
             className={`font-body02-semibold-14`}
-            onClick={() => handleShare("UX320")}
+            onClick={() => handleShare(data?.code || "")}
             children={
-              <p className={`text-gray-700 font-head06-semibold-16`}>UX320</p>
+              <p className={`text-gray-700 font-head06-semibold-16`}>
+                {data?.code}
+              </p>
             }
           />
         </section>
