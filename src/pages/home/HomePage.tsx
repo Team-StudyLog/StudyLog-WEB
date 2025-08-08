@@ -9,11 +9,11 @@ import useAuthRender from "../../hooks/useAuthRender.ts";
 
 const HomePage = () => {
   const handleGoogleLogin = () => {
-    window.location.href = `http://localhost:8080/oauth2/authorization/google`;
+    window.location.href = `${import.meta.env.VITE_APP_BASE_URL}/oauth2/authorization/google`;
   };
 
   const handleKakaoLogin = () => {
-    window.location.href = `http://localhost:8080/oauth2/authorization/kakao`;
+    window.location.href = `${import.meta.env.VITE_APP_BASE_URL}/oauth2/authorization/kakao`;
   };
 
   const shouldRender = useAuthRender();
