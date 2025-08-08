@@ -1,6 +1,5 @@
 import Header from "../../components/Header/Header.tsx";
 import FriendHeader from "./components/FriendHeader.tsx";
-import { mockFriends } from "../../data/mockFriends.ts";
 import backgroundImage from "../../assets/main-background.jpg";
 import ProfileSection from "./components/ProfileSection.tsx";
 import { mockUser } from "../../data/mockUser.ts";
@@ -16,6 +15,7 @@ import useCurrentDate from "../../hooks/useCurrentDate.ts";
 import mockStreaks, { type StreakT } from "../../data/mockStreaks.ts";
 import { getFilteredStreaks } from "../../utils/getFilteredStreaks.ts";
 import { usePatchBackground } from "../../apis/main/usePatchBackground.ts";
+import { useFetchFriendList } from "../../apis/mypage/useFetchFriendList.ts";
 
 const MainPage = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -25,7 +25,8 @@ const MainPage = () => {
   const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
   const [filteredStreaks, setFilteredStreaks] = useState<StreakT[]>([]);
 
-  const { mutate: patchBackground } = usePatchBackground(selectedImage as File);
+  const { data: friends } = useFetchFriendList();
+  const { mutate: patchBackground } = usePatchBackground();
 
   useEffect(() => {
     const year = currentDate.getFullYear();
@@ -36,14 +37,14 @@ const MainPage = () => {
 
   // 이미지가 변경될 때마다 배경 이미지 업데이트
   useEffect(() => {
-    if (selectedImage != null) patchBackground();
+    if (selectedImage instanceof File) patchBackground(selectedImage);
   }, [selectedImage, patchBackground]);
 
   return (
     <>
       <div className={`flex flex-col`}>
         <Header />
-        <FriendHeader friends={mockFriends} />
+        <FriendHeader friends={friends || []} />
         <ImageInput ref={fileInputRef} onChange={handleImageChange} />
         <img
           src={

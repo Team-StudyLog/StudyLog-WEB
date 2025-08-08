@@ -25,9 +25,9 @@ const patchBackground = async (
   }
 };
 
-export const usePatchBackground = (coverImage: File) => {
+export const usePatchBackground = () => {
   return useMutation({
-    mutationFn: () => patchBackground(coverImage),
+    mutationFn: (coverImage: File) => patchBackground(coverImage),
     onSuccess: () => {
       console.log("배경화면 업데이트 성공");
     },
