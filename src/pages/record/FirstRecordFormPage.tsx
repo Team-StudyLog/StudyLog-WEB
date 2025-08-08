@@ -6,10 +6,11 @@ import {
   formHeaderWrapper,
 } from "../auth/signup/SignupPage.styles.ts";
 import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
+import type { Category } from "./recordWrite/RecordWritePage.tsx";
 
 interface FirstRecordFormPageProps {
-  selectedCategory: string | null;
-  setSelectedCategory: (category: string) => void;
+  selectedCategory: Category | null;
+  setSelectedCategory: (category: Category) => void;
   onNext: () => void;
 }
 
@@ -31,8 +32,13 @@ const FirstRecordFormPage = ({
         <CategoryInput
           id="category"
           categories={categories?.map((c) => c.name) || []}
-          selected={selectedCategory}
-          onSelect={setSelectedCategory}
+          selected={selectedCategory?.name}
+          onSelect={(name) => {
+            const category = categories?.find((c) => c.name === name);
+            if (category) {
+              setSelectedCategory(category);
+            }
+          }}
         />
       </div>
       <BottomButton

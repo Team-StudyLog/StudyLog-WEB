@@ -1,15 +1,16 @@
 import InputLabel from "../../components/Label/InputLabel.tsx";
 import TextInput from "../../components/Input/TextInput.tsx";
 import BottomButton from "../../components/Button/BottomButton.tsx";
-import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import {
   formContent,
   formHeaderWrapper,
 } from "../auth/signup/SignupPage.styles.ts";
+import { usePostRecord } from "../../apis/record/usePostRecord.ts";
+import type { Category } from "./recordWrite/RecordWritePage.tsx";
 
 interface SecondRecordFormPageProps {
   type: "write" | "edit";
-  selectedCategory?: string | null;
+  selectedCategory?: Category | null;
   title?: string;
   setTitle?: (title: string) => void;
   content?: string;
@@ -24,7 +25,7 @@ const SecondRecordFormPage = ({
   content = "",
   setContent = () => {},
 }: SecondRecordFormPageProps) => {
-  const { goBack } = useEasyNavigate();
+  const { mutate: postRecord } = usePostRecord();
   const isButtonDisabled =
     title.length === 0 ||
     title.length > 20 ||
@@ -32,8 +33,13 @@ const SecondRecordFormPage = ({
     content.length > 200;
 
   const handleSubmit = () => {
+    if (type === "write" && selectedCategory?.id)
+      postRecord({
+        categoryId: selectedCategory?.id,
+        title: title,
+        content: content,
+      });
     console.log(type, title, content, selectedCategory);
-    goBack();
   };
 
   return (
