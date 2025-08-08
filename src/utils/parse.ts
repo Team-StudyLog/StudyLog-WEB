@@ -88,3 +88,16 @@ export function parseTypeToString(type: "OX" | "SHORT_ANSWER") {
       throw new Error(`Unknown type: ${type}`);
   }
 }
+
+export function parseLevelToColor(level: "EASY" | "MEDIUM" | "HARD") {
+  switch (level) {
+    case "EASY":
+      return "text-green-300";
+    case "MEDIUM":
+      return "text-kakao-yellow";
+    case "HARD":
+      return "text-red";
+    default:
+      throw new Error(`Unknown level: ${level}`);
+  }
+}

@@ -34,7 +34,7 @@ const QuizCard = ({
           onClick={onClick}
         />
         <CardFace
-          category={color}
+          category={category}
           color={parseColorToCode(color)}
           label="A."
           content={answer}

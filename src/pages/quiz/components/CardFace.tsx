@@ -23,11 +23,11 @@ const CardFace = ({
     }`}
     onClick={onClick}
   >
-    <div className="h-full border border-gray-400 border-dashed rounded-[20px] p-[8px] flex flex-col items-center justify-center relative">
+    <div className="h-full border border-gray-400 border-dashed rounded-[20px] p-[30px] flex flex-col items-center justify-center relative">
       <div className="absolute top-[8px] left-1/2 transform -translate-x-1/2">
         <CategoryChip category={category} color={color} />
       </div>
-      <div className="flex font-head02-bold-20 items-center justify-center">
+      <div className="flex font-head02-bold-20 items-start justify-center">
         <p className="text-green-300">{label}&nbsp;</p>
         <p className="text-gray-700">{content}</p>
       </div>
