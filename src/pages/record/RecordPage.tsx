@@ -1,18 +1,29 @@
 import TextHeader from "../../components/Header/TextHeader.tsx";
 import SearchInput from "../../components/Input/SearchInput.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecordItem from "./RecordItem.tsx";
-import { mockRecords } from "../../data/mockRecords.ts";
 import FloatingActionButton from "../../components/Button/FloatingActionButton.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import CategoryFilterChip from "../../components/Chips/CategoryFilterChip.tsx";
 import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
 import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
+import { useInView } from "react-intersection-observer";
+import { useFetchRecordList } from "../../apis/record/useFetchRecordList.ts";
 
 const RecordPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
+  const { ref, inView } = useInView();
+  const { data, fetchNextPage, isFetchingNextPage } = useFetchRecordList(
+    category,
+    date
+  );
+  const records = data?.pages.flatMap((page) => page.records) || [];
+
+  useEffect(() => {
+    if (inView && !isFetchingNextPage) fetchNextPage();
+  }, [inView, fetchNextPage, isFetchingNextPage]);
 
   const { goRecordWritePage } = useEasyNavigate();
   const { data: categories } = useFetchCategoryList();
@@ -46,8 +57,8 @@ const RecordPage = () => {
             onSelect={setDate}
           />
         </div>
-        {mockRecords.length > 0 ? (
-          mockRecords.map((record, index) => (
+        {records.length > 0 ? (
+          records.map((record, index) => (
             <RecordItem key={index} record={record} />
           ))
         ) : (
@@ -58,6 +69,7 @@ const RecordPage = () => {
           </p>
         )}
       </section>
+      <div ref={ref} className={"h-[1px]"} />
     </div>
   );
 };
