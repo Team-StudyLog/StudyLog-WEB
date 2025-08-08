@@ -3,7 +3,6 @@ import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
 import { formContent, formHeaderWrapper } from "./SignupPage.styles.ts";
 import { usePostSignup } from "../../../apis/auth/usePostSignup.ts";
-import { uriToFile } from "../../../utils/uriToFile.ts";
 import { usePatchProfile } from "../../../apis/mypage/usePatchProfile.ts";
 
 interface SecondUserFormPageProps {
@@ -33,11 +32,10 @@ const SecondUserFormPage = ({
     description.length > 100;
 
   const handleSubmit = async () => {
-    let imageFile = selectedImage;
-    if (typeof selectedImage === "string") {
-      imageFile = await uriToFile(selectedImage);
+    let imageFile: File | undefined = undefined;
+    if (typeof selectedImage !== "string") {
+      imageFile = selectedImage as File;
     }
-    console.log(imageFile);
     const payload = {
       profileImage: imageFile as File,
       nickname,

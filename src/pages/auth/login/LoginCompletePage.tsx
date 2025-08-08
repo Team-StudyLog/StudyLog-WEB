@@ -11,13 +11,12 @@ const LoginCompletePage = () => {
       console.log("response", response);
       if (response) {
         if (!response.newUser) {
-          // 백엔드가 반대로 처리함 ㅋㅋㅋㅋ
           goSignupPage();
         } else {
           const code = response.code;
           localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
           localStorage.setItem(storageKey.USER_CODE, response.code);
-          if (code !== undefined) {
+          if (code) {
             goMainPage(code);
           } else {
             console.error(response);
