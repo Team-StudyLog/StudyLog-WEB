@@ -77,3 +77,14 @@ export function parseCodeToColor(code: string) {
       throw new Error(`Unknown code: ${code}`);
   }
 }
+
+export function parseTypeToString(type: "OX" | "SHORT_ANSWER") {
+  switch (type) {
+    case "OX":
+      return "OX";
+    case "SHORT_ANSWER":
+      return "단답형";
+    default:
+      throw new Error(`Unknown type: ${type}`);
+  }
+}
