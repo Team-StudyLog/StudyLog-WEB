@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { postTokenReissue } from "../../../apis/auth/postTokenReissue.ts";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import { storageKey } from "../../../constants/storageKey.ts";
+import { fetchAlarmConnection } from "../../../apis/alarm/fetchAlarmConnection.ts";
 
 const LoginCompletePage = () => {
   const { goHomePage, goSignupPage, goMainPage } = useEasyNavigate();
@@ -32,6 +33,8 @@ const LoginCompletePage = () => {
         goHomePage();
         console.error(error);
       });
+
+    fetchAlarmConnection();
   }, [goHomePage, goMainPage, goSignupPage]);
   return <div></div>;
 };
