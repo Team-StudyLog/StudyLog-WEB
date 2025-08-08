@@ -8,6 +8,7 @@ import QuizItem from "./components/QuizItem.tsx";
 // import { useInView } from "react-intersection-observer";
 import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
 import CategoryFilterChip from "../../components/Chips/CategoryFilterChip.tsx";
+import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
 
 const QuizPage = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -34,11 +35,7 @@ const QuizPage = () => {
     );
   }, [keyword]);
 
-  const categories = [
-    { id: 1, name: "미적분", color: "#FFB6C1" },
-    { id: 2, name: "기하와 벡터", color: "#ADD8E6" },
-    { id: 3, name: "스프링", color: "#90EE90" },
-  ];
+  const { data: categories } = useFetchCategoryList();
 
   return (
     <div className={`flex flex-col`}>
@@ -53,7 +50,7 @@ const QuizPage = () => {
         <div className={`flex gap-x-[5px] mt-[12px] mb-[16px]`}>
           <CategoryFilterChip
             defaultLabel="카테고리"
-            options={categories}
+            options={categories || []}
             selectedOption={category}
             onSelect={setCategory}
           />

@@ -7,6 +7,7 @@ import FloatingActionButton from "../../components/Button/FloatingActionButton.t
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import CategoryFilterChip from "../../components/Chips/CategoryFilterChip.tsx";
 import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
+import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
 
 const RecordPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -14,19 +15,7 @@ const RecordPage = () => {
   const [date, setDate] = useState<string | undefined>(undefined);
 
   const { goRecordWritePage } = useEasyNavigate();
-  const categories = [
-    { id: 1, name: "미적분", color: "#FFB6C1" },
-    { id: 2, name: "기하와 벡터", color: "#ADD8E6" },
-    { id: 3, name: "스프링", color: "#90EE90" },
-    { id: 4, name: "통계", color: "#FFD700" },
-    { id: 5, name: "확률", color: "#FF6347" },
-    { id: 6, name: "수열", color: "#98FB98" },
-    { id: 7, name: "행렬", color: "#87CEEB" },
-    { id: 8, name: "미분방정식", color: "#FF69B4" },
-    { id: 9, name: "복소수", color: "#DDA0DD" },
-    { id: 10, name: "벡터", color: "#FF4500" },
-    { id: 11, name: "기타", color: "#B0C4DE" },
-  ];
+  const { data: categories } = useFetchCategoryList();
 
   return (
     <div className={`flex flex-col`}>
@@ -47,7 +36,7 @@ const RecordPage = () => {
         <div className={`flex gap-x-[5px] mt-[12px] mb-[16px]`}>
           <CategoryFilterChip
             defaultLabel={"카테고리"}
-            options={categories}
+            options={categories || []}
             selectedOption={category}
             onSelect={setCategory}
           />

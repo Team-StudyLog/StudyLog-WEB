@@ -3,10 +3,12 @@ import { ChevronDown } from "lucide-react";
 import BottomSheet from "../BottomSheet/BottomSheet";
 import BottomButton from "../Button/BottomButton";
 import RadioCategoryButton from "../Button/RadioCategoryButton";
+import type { CategoryResponse } from "../../types/apis/record";
+import { parseColorToCode } from "../../utils/parse.ts";
 
 interface CategoryFilterChipProps {
   defaultLabel: string;
-  options: { id: number; name: string; color: string }[];
+  options: CategoryResponse[];
   selectedOption?: number;
   onSelect: (option: number) => void;
 }
@@ -68,7 +70,7 @@ const CategoryFilterChip = ({
                 <RadioCategoryButton
                   key={option.id}
                   text={option.name}
-                  color={option.color}
+                  color={parseColorToCode(option.color)}
                   checked={tempSelected === option.id}
                   onChange={() => {
                     setTempSelected((prev) =>

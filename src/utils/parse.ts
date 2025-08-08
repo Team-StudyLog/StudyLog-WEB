@@ -25,7 +25,7 @@ export function parseLevelToString(level: "EASY" | "MEDIUM" | "HARD") {
 }
 
 export function parseColorToCode(color: string) {
-  switch (color) {
+  switch (color.toUpperCase()) {
     case "ROSE_PINK":
       return "#D895A6";
     case "BABY_BLUE":
