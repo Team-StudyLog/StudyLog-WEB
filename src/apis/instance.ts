@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/api.ts";
 import { storageKey } from "../constants/storageKey.ts";
-import { usePostTokenReissue } from "./auth/usePostTokenReissue.ts";
+import { postTokenReissue } from "./auth/postTokenReissue.ts";
 
 export const instance = axios.create({
   baseURL: BASE_URL,
@@ -24,7 +24,7 @@ instance.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        await usePostTokenReissue();
+        await postTokenReissue();
         return instance(originalRequest);
       } catch (e) {
         // TODO: 로그아웃 처리

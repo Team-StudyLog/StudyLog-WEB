@@ -3,11 +3,16 @@ import routePath from "./routePath.ts";
 import LoginPage from "../pages/auth/login/LoginPage.tsx";
 import Redirection from "../pages/auth/login/Redirection.tsx";
 import SignupPage from "../pages/auth/signup/SignupPage.tsx";
+import LoginCompletePage from "../pages/auth/login/LoginCompletePage.tsx";
 
 const authRoutes: RouteType[] = [
   {
     path: routePath.LOGINPAGE,
     element: <LoginPage />,
+  },
+  {
+    path: routePath.LOGIN_COMPLETE,
+    element: <LoginCompletePage />,
   },
   {
     path: routePath.KAKAO_REDIRECTION,

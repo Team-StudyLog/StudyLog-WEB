@@ -28,6 +28,7 @@ const myPages = {
 
 const authPages = {
   LOGINPAGE: "/login",
+  LOGIN_COMPLETE: "/login/complete",
   KAKAO_REDIRECTION: "/oauth",
   GOOGLE_REDIRECTION: "/oauth/google/callback",
   SIGNUP: "/signup",

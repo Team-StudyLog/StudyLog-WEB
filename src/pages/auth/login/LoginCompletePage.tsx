@@ -1,4 +1,35 @@
+import { useEffect } from "react";
+import { postTokenReissue } from "../../../apis/auth/postTokenReissue.ts";
+import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
+import { storageKey } from "../../../constants/storageKey.ts";
+
 const LoginCompletePage = () => {
+  const { goHomePage, goSignupPage, goMainPage } = useEasyNavigate();
+  useEffect(() => {
+    const fetchToken = async () => {
+      const response = await postTokenReissue();
+      console.log("response", response);
+      if (response) {
+        if (!response.newUser) {
+          // 백엔드가 반대로 처리함 ㅋㅋㅋㅋ
+          goSignupPage();
+        } else {
+          const code = response.code;
+          localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
+          localStorage.setItem(storageKey.USER_CODE, response.code);
+          goMainPage(code);
+        }
+      }
+    };
+
+    fetchToken()
+      .then((r) => console.log(r))
+      .catch((error) => {
+        alert("토큰 재발급에 실패했습니다. 다시 시도해주세요.");
+        goHomePage();
+        console.error(error);
+      });
+  }, [goHomePage, goMainPage, goSignupPage]);
   return <div></div>;
 };
 

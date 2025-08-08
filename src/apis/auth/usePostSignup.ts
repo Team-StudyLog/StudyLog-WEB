@@ -48,20 +48,12 @@ export const usePostSignup = () => {
     }) => postSignup(profileImage, nickname, intro),
     onSuccess: (data) => {
       console.log(`Signup Successful ${data}`);
-
-      // TODO: 추후 삭제
       localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
-      localStorage.setItem(storageKey.USER_CODE, "UX320");
-
-      goMainPage("UX320");
-      // 실제로는 아래와 같이 사용자 코드를 저장해야 합니다. 그리고 서버에서 리다이렉트함.
-      // localStorage.setItem(storageKey.USER_CODE, data.code);
+      localStorage.setItem(storageKey.USER_CODE, data.code);
+      goMainPage(data.code);
     },
     onError: (error) => {
       console.error("Signup failed:", error);
-      localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
-      localStorage.setItem(storageKey.USER_CODE, "UX320");
-      goMainPage("UX320");
     },
   });
 };
