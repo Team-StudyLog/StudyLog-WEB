@@ -2,13 +2,29 @@ import TextHeader from "../../../components/Header/TextHeader.tsx";
 import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
 import FirstRecordFormPage from "../FirstRecordFormPage.tsx";
 import SecondRecordFormPage from "../SecondRecordFormPage.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useFetchRecordDetail } from "../../../apis/record/useFetchRecordDetail.ts";
+import { useParams } from "react-router-dom";
+import type { Category } from "../recordWrite/RecordWritePage.tsx";
 
 const RecordEditPage = () => {
+  const recordId = Number(useParams<{ recordId: string }>().recordId);
+  const { data } = useFetchRecordDetail(recordId);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState<string>("미적분");
-  const [title, setTitle] = useState("삼각함수와 도함수");
-  const [content, setContent] = useState("너무 어려워요");
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      setTitle(data.record.title);
+      setContent(data.record.content);
+      setSelectedCategory(data.record.category);
+    }
+  }, [data]);
 
   return (
     <div className={formPageStyle}>

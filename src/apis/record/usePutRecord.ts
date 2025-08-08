@@ -5,6 +5,7 @@ import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { END_POINT } from "../../constants/api.ts";
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 interface PutRecordResponse {
   id: number;
@@ -37,14 +38,19 @@ const putRecord = async (
   }
 };
 
-export const usePutRecord = (
-  recordId: number,
-  categoryId: number,
-  title: string,
-  content: string
-) => {
+export const usePutRecord = (recordId: number) => {
+  const { goBack } = useEasyNavigate();
+
   return useMutation({
-    mutationFn: () => putRecord(recordId, categoryId, title, content),
+    mutationFn: ({
+      categoryId,
+      title,
+      content,
+    }: {
+      categoryId: number;
+      title: string;
+      content: string;
+    }) => putRecord(recordId, categoryId, title, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
@@ -52,6 +58,7 @@ export const usePutRecord = (
       queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
+      goBack();
     },
   });
 };

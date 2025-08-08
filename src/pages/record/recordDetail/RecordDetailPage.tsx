@@ -12,11 +12,16 @@ import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import RecordQuizItem from "./RecordQuizItem.tsx";
 import { useParams } from "react-router-dom";
 import { useFetchRecordDetail } from "../../../apis/record/useFetchRecordDetail.ts";
+import { parseColorToCode } from "../../../utils/parse.ts";
+import { useDeleteRecord } from "../../../apis/record/useDeleteRecord.ts";
 
 const RecordDetailPage = () => {
   const recordId = Number(useParams<{ recordId: string }>().recordId);
   const { data } = useFetchRecordDetail(recordId);
   const isQuizGenerated = data?.quizzes && data?.quizzes.length > 0;
+
+  const { mutate: deleteRecord } = useDeleteRecord(recordId);
+
   const [bottomSheetState, setBottomSheetState] =
     useState<BottomSheetState>("closed");
   const [quizLevel, setQuizLevel] = useState<string | undefined>();
@@ -24,15 +29,12 @@ const RecordDetailPage = () => {
   const [value, setValue] = useState<string>("");
 
   const { isOpen, content } = useModalInfo();
-  const { openModal, closeModal } = useModalActions();
-
-  const { goBack, goRecordEditPage } = useEasyNavigate();
+  const { openModal } = useModalActions();
+  const { goRecordEditPage } = useEasyNavigate();
 
   const handleDelete = () => {
     if (!content) return;
-    alert("기록이 삭제되었습니다.");
-    closeModal();
-    goBack();
+    deleteRecord();
   };
 
   const isButtonDisabled = !quizLevel || !quizCount;
@@ -49,7 +51,12 @@ const RecordDetailPage = () => {
     <div className={`flex flex-col`}>
       <TextHeader />
       <section className={`flex flex-col px-[26px] py-[20px]`}>
-        <CategoryChip category={"미적분"} color={"#FF6B6B"} />
+        {data?.record.category && (
+          <CategoryChip
+            category={data?.record.category.name}
+            color={parseColorToCode(data?.record.category.color)}
+          />
+        )}
         <div className={`flex justify-between items-end mt-[10px]`}>
           <h1 className={`text-gray-700 font-head05-semibold-20`}>
             {data?.record.title}

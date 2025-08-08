@@ -7,6 +7,8 @@ import {
 } from "../auth/signup/SignupPage.styles.ts";
 import { usePostRecord } from "../../apis/record/usePostRecord.ts";
 import type { Category } from "./recordWrite/RecordWritePage.tsx";
+import { usePutRecord } from "../../apis/record/usePutRecord.ts";
+import { useParams } from "react-router-dom";
 
 interface SecondRecordFormPageProps {
   type: "write" | "edit";
@@ -25,7 +27,10 @@ const SecondRecordFormPage = ({
   content = "",
   setContent = () => {},
 }: SecondRecordFormPageProps) => {
+  const recordId = Number(useParams<{ recordId: string }>().recordId);
   const { mutate: postRecord } = usePostRecord();
+  const { mutate: editRecord } = usePutRecord(recordId);
+
   const isButtonDisabled =
     title.length === 0 ||
     title.length > 20 ||
@@ -39,7 +44,13 @@ const SecondRecordFormPage = ({
         title: title,
         content: content,
       });
-    console.log(type, title, content, selectedCategory);
+    if (type === "edit" && selectedCategory?.id) {
+      editRecord({
+        categoryId: selectedCategory?.id,
+        title: title,
+        content: content,
+      });
+    }
   };
 
   return (

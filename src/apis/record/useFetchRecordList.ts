@@ -39,7 +39,7 @@ const fetchRecordList = async (
 
 export const useFetchRecordList = (categoryId?: number, date?: string) => {
   return useInfiniteQuery<FetchRecordListResponse, Error>({
-    queryKey: [queryKey.RECORDS, { categoryId, date }],
+    queryKey: [queryKey.RECORDS, categoryId, date],
     queryFn: ({ pageParam }) => {
       return fetchRecordList(categoryId, date, pageParam as number | undefined);
     },
@@ -47,6 +47,6 @@ export const useFetchRecordList = (categoryId?: number, date?: string) => {
       return lastPage.hasMore ? lastPage.nextLastId : undefined;
     },
     initialPageParam: undefined,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 };
