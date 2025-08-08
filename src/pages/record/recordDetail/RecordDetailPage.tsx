@@ -12,8 +12,9 @@ import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import RecordQuizItem from "./RecordQuizItem.tsx";
 import { useParams } from "react-router-dom";
 import { useFetchRecordDetail } from "../../../apis/record/useFetchRecordDetail.ts";
-import { parseColorToCode } from "../../../utils/parse.ts";
+import { parseColorToCode, parseStringToLevel } from "../../../utils/parse.ts";
 import { useDeleteRecord } from "../../../apis/record/useDeleteRecord.ts";
+import { usePostQuiz } from "../../../apis/quiz/usePostQuiz.ts";
 
 const RecordDetailPage = () => {
   const recordId = Number(useParams<{ recordId: string }>().recordId);
@@ -21,6 +22,7 @@ const RecordDetailPage = () => {
   const isQuizGenerated = data?.quizzes && data?.quizzes.length > 0;
 
   const { mutate: deleteRecord } = useDeleteRecord(recordId);
+  const { mutate: postQuiz } = usePostQuiz(recordId);
 
   const [bottomSheetState, setBottomSheetState] =
     useState<BottomSheetState>("closed");
@@ -37,7 +39,18 @@ const RecordDetailPage = () => {
     deleteRecord();
   };
 
-  const isButtonDisabled = !quizLevel || !quizCount;
+  const handleGenerateQuiz = () => {
+    if (quizLevel && quizCount) {
+      postQuiz({
+        level: parseStringToLevel(quizLevel),
+        quizCount: quizCount,
+        requirement: value,
+      });
+    }
+    setBottomSheetState("closed");
+  };
+
+  const isButtonDisabled = !quizLevel || !quizCount || !value;
 
   useEffect(() => {
     if (bottomSheetState === "closed") {
@@ -132,10 +145,7 @@ const RecordDetailPage = () => {
           />
           <BottomButton
             text={"퀴즈 생성하기"}
-            onClick={() => {
-              setBottomSheetState("closed");
-              console.log(quizLevel, quizCount);
-            }}
+            onClick={handleGenerateQuiz}
             disabled={isButtonDisabled}
           />
         </div>
