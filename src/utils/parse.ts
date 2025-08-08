@@ -63,7 +63,7 @@ export function parseCodeToColor(code: string) {
       return "COOL_GRAY";
     case "#B5E1B2":
       return "MELON_GREEN";
-    case "#A0A3F2":
+    case "#A0A3FE":
       return "LAVENDER_PURPLE";
     case "#F6D68C":
       return "PALE_YELLOW";
