@@ -9,8 +9,8 @@ import { parseColorToCode } from "../../utils/parse.ts";
 interface CategoryFilterChipProps {
   defaultLabel: string;
   options: CategoryResponse[];
-  selectedOption?: number;
-  onSelect: (option: number) => void;
+  selectedOption?: number | undefined;
+  onSelect: (option: number | undefined) => void;
 }
 
 const CategoryFilterChip = ({
@@ -86,6 +86,8 @@ const CategoryFilterChip = ({
             onClick={() => {
               if (tempSelected !== null) {
                 onSelect(tempSelected);
+              } else {
+                onSelect(undefined);
               }
               setSheetState("closed");
             }}

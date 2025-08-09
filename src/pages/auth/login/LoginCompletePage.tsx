@@ -7,35 +7,37 @@ import { fetchAlarmConnection } from "../../../apis/alarm/fetchAlarmConnection.t
 const LoginCompletePage = () => {
   const { goHomePage, goSignupPage, goMainPage } = useEasyNavigate();
   useEffect(() => {
-    const fetchToken = async () => {
-      const response = await postTokenReissue();
-      console.log("response", response);
-      if (response) {
+    const fetchTokenAndAlarm = async () => {
+      try {
+        const response = await postTokenReissue(); // 토큰 재발급 끝날 때까지 기다림
+        console.log("response", response);
+
         if (!response.newUser) {
           goSignupPage();
-        } else {
-          const code = response.code;
-          localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
-          localStorage.setItem(storageKey.USER_CODE, response.code);
-          if (code) {
-            goMainPage(code);
-          } else {
-            console.error(response);
-          }
+          return;
         }
-      }
-    };
 
-    fetchToken()
-      .then((r) => console.log(r))
-      .catch((error) => {
+        const code = response.code;
+        localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
+        localStorage.setItem(storageKey.USER_CODE, response.code);
+
+        if (code) {
+          goMainPage(code);
+        } else {
+          console.error(response);
+        }
+
+        fetchAlarmConnection();
+      } catch (error) {
         alert("토큰 재발급에 실패했습니다. 다시 시도해주세요.");
         goHomePage();
         console.error(error);
-      });
+      }
+    };
 
-    fetchAlarmConnection();
+    fetchTokenAndAlarm();
   }, [goHomePage, goMainPage, goSignupPage]);
+
   return <div></div>;
 };
 

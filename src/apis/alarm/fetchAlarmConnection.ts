@@ -1,10 +1,20 @@
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import type { AlarmListResponse } from "../../types/apis/alarm";
+import { EventSourcePolyfill } from "event-source-polyfill";
+import { storageKey } from "../../constants/storageKey.ts";
 
 export const fetchAlarmConnection = () => {
-  const eventSource = new EventSource(
-    `${import.meta.env.VITE_APP_BASE_URL}/subscribe`
+  const accessToken = localStorage.getItem(storageKey.ACCESS_TOKEN);
+  const eventSource = new EventSourcePolyfill(
+    `${import.meta.env.VITE_APP_BASE_URL}/subscribe`,
+    {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Authorization": `Bearer ${accessToken}`
+      },
+      withCredentials: true
+    },
   );
 
   eventSource.onmessage = (event) => {

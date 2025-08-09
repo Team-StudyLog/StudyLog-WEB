@@ -36,12 +36,15 @@ export const usePostQuiz = (recordId: number) => {
       requirement: string;
     }) => postQuiz(recordId, level, quizCount, requirement),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
       });
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
+      void queryClient.invalidateQueries({
+        queryKey: [queryKey.QUIZZES]
+      })
     },
   });
 };
