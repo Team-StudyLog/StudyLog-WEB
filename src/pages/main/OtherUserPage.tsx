@@ -6,20 +6,16 @@ import CategorySection from "./components/CategorySection.tsx";
 import { mockCategories } from "../../data/mockCategories.ts";
 import Streak from "./components/Streak.tsx";
 import useCurrentDate from "../../hooks/useCurrentDate.ts";
-import mockStreaks, { type StreakT } from "../../data/mockStreaks.ts";
-import { useEffect, useState } from "react";
-import { getFilteredStreaks } from "../../utils/getFilteredStreaks.ts";
+import mockStreaks from "../../data/mockStreaks.ts";
+import { useFetchOtherStreak } from "../../apis/main/useFetchOtherStreak.ts";
+import { useParams } from "react-router-dom";
 
 const OtherUserPage = () => {
   const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
-  const [filteredStreaks, setFilteredStreaks] = useState<StreakT[]>([]);
-
-  useEffect(() => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const currentMonthDates = getFilteredStreaks(year, month, mockStreaks);
-    setFilteredStreaks(currentMonthDates);
-  }, [currentDate]);
+  const code = useParams<{ code: string }>().code || "";
+  const year = currentDate.getFullYear().toString();
+  const month = (currentDate.getMonth() + 1).toString();
+  const { data: streaks } = useFetchOtherStreak(code, year, month);
 
   return (
     <>
@@ -34,7 +30,7 @@ const OtherUserPage = () => {
           <ProfileSection user={mockUser} type={`other`} isFollowing={true} />
           <Streak
             streakDays={70}
-            streaks={filteredStreaks}
+            streaks={streaks || mockStreaks}
             currentDate={currentDate}
             handleLeftClick={handleLeftClick}
             handleRightClick={handleRightClick}

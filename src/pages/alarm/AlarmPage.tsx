@@ -1,15 +1,16 @@
 import TextHeader from "../../components/Header/TextHeader.tsx";
-import { mockAlarms } from "../../data/mockAlarms.ts";
 import AlarmItem from "./AlarmItem.tsx";
+import { useFetchAlarmList } from "../../apis/alarm/useFetchAlarmList.ts";
 
 const AlarmPage = () => {
+  const { data: alarms } = useFetchAlarmList();
+
   return (
     <div className={`flex flex-col`}>
       <TextHeader text={"알림"} />
       <div className={`flex flex-col mt-[14px] px-[26px]`}>
-        {mockAlarms.map((alarm, index) => (
-          <AlarmItem key={index} alarm={alarm} />
-        ))}
+        {alarms &&
+          alarms.map((alarm, index) => <AlarmItem key={index} alarm={alarm} />)}
       </div>
     </div>
   );

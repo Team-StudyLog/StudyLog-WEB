@@ -44,7 +44,9 @@ const MyPage = () => {
           <div
             className={`flex flex-grow-1 flex-col justify-center gap-y-[8px]`}
           >
-            <p className={`font-head02-bold-20 text-gray-700`}>이가을</p>
+            <p className={`font-head02-bold-20 text-gray-700`}>
+              {data?.nickname}
+            </p>
             <span className={`font-body08-regular-12 text-gray-700`}>
               {data?.intro}
             </span>

@@ -18,17 +18,23 @@ export const fetchAlarmConnection = () => {
   );
 
   eventSource.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log("📩 새 알림 수신:", data);
+    if (!event.data) return;
+    try {
+      const data: AlarmListResponse = JSON.parse(event.data);
+      console.log("📩 새 알림 수신:", data);
 
-    queryClient.setQueryData<AlarmListResponse[]>([queryKey.ALARMS], (old) =>
-      old ? [data, ...old] : [data]
-    );
+      queryClient.setQueryData<AlarmListResponse[]>(
+        [queryKey.ALARMS],
+        (old) => (old ? [data, ...old] : [data])
+      );
+    } catch (error) {
+      console.error(error);
+      console.warn("SSE message parse skipped:", event.data);
+    }
   };
 
   eventSource.onerror = (error) => {
     console.error("❌ SSE 연결 오류:", error);
-    eventSource.close();
   };
 
   return () => {
