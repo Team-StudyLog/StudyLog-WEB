@@ -12,11 +12,11 @@ const TextHeader = ({ text = "", onClick }: TextHeaderProps) => {
     <header
       className={`flex w-full bg-gray-100 p-5 items-center text-gray-700`}
     >
-      <div className={`relative`}>
+      <div className={`relative ${text === "" && "my-5"}`}>
         <ChevronLeft
           size={28}
           onClick={onClick ?? goBack}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 ${text === "" && "my-5"}`}
+          className={"absolute left-0 top-1/2 -translate-y-1/2"}
         />
       </div>
       <p className={`flex-1 text-center font-head05-semibold-20`}>{text}</p>
