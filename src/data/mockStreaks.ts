@@ -1,3 +1,8 @@
+export type StreakT = {
+  date: string;
+  count: number;
+};
+
 const mockStreaks: Record<string, number> = {
   "0000-01-01": 0,
   "0000-01-02": 0,

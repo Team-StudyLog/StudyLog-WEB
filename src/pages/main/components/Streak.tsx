@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, Leaf } from "lucide-react";
 import { dateFormat, dateToISO } from "../../../utils/dateFormat.ts";
-import { type StreakT } from "../../../data/mockStreaks.ts";
 import { MiniStreakItem, StreakItem } from "./StreakItem.tsx";
+import type { StreakT } from "../../../data/mockStreaks.ts";
 
 interface StreakProps {
   streakDays: number;
