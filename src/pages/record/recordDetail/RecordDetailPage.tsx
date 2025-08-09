@@ -10,14 +10,20 @@ import { useModalActions, useModalInfo } from "../../../hooks/useModal.ts";
 import Modal from "../../../components/Modal/Modal.tsx";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import RecordQuizItem from "./RecordQuizItem.tsx";
-import { mockRecordQuizzes } from "../../../data/mockRecordQuizzes.ts";
 import { useParams } from "react-router-dom";
+import { useFetchRecordDetail } from "../../../apis/record/useFetchRecordDetail.ts";
+import { parseColorToCode, parseStringToLevel } from "../../../utils/parse.ts";
+import { useDeleteRecord } from "../../../apis/record/useDeleteRecord.ts";
+import { usePostQuiz } from "../../../apis/quiz/usePostQuiz.ts";
 
 const RecordDetailPage = () => {
   const recordId = Number(useParams<{ recordId: string }>().recordId);
-  console.log(recordId);
+  const { data } = useFetchRecordDetail(recordId);
+  const isQuizGenerated = data?.quizzes && data?.quizzes.length > 0;
 
-  const isQuizGenerated = false;
+  const { mutate: deleteRecord } = useDeleteRecord(recordId);
+  const { mutate: postQuiz } = usePostQuiz(recordId);
+
   const [bottomSheetState, setBottomSheetState] =
     useState<BottomSheetState>("closed");
   const [quizLevel, setQuizLevel] = useState<string | undefined>();
@@ -25,18 +31,26 @@ const RecordDetailPage = () => {
   const [value, setValue] = useState<string>("");
 
   const { isOpen, content } = useModalInfo();
-  const { openModal, closeModal } = useModalActions();
-
-  const { goBack, goRecordEditPage } = useEasyNavigate();
+  const { openModal } = useModalActions();
+  const { goRecordEditPage } = useEasyNavigate();
 
   const handleDelete = () => {
     if (!content) return;
-    alert("기록이 삭제되었습니다.");
-    closeModal();
-    goBack();
+    deleteRecord();
   };
 
-  const isButtonDisabled = !quizLevel || !quizCount;
+  const handleGenerateQuiz = () => {
+    if (quizLevel && quizCount) {
+      postQuiz({
+        level: parseStringToLevel(quizLevel),
+        quizCount: quizCount,
+        requirement: value,
+      });
+    }
+    setBottomSheetState("closed");
+  };
+
+  const isButtonDisabled = !quizLevel || !quizCount || !value;
 
   useEffect(() => {
     if (bottomSheetState === "closed") {
@@ -50,14 +64,21 @@ const RecordDetailPage = () => {
     <div className={`flex flex-col`}>
       <TextHeader />
       <section className={`flex flex-col px-[26px] py-[20px]`}>
-        <CategoryChip category={"미적분"} color={"#FF6B6B"} />
+        {data?.record.category && (
+          <CategoryChip
+            category={data?.record.category.name}
+            color={parseColorToCode(data?.record.category.color)}
+          />
+        )}
         <div className={`flex justify-between items-end mt-[10px]`}>
           <h1 className={`text-gray-700 font-head05-semibold-20`}>
-            삼각함수와 도함수
+            {data?.record.title}
           </h1>
           <div className={`flex gap-x-[8px] font-body08-regular-12`}>
             <p
-              onClick={() => goRecordEditPage(2)}
+              onClick={() => {
+                if (data?.record.id) goRecordEditPage(data?.record.id);
+              }}
               className={`text-gray-600 ${isQuizGenerated ? "hidden" : ""}`}
             >
               수정
@@ -72,21 +93,15 @@ const RecordDetailPage = () => {
         </div>
         <hr className={`w-full text-gray-200 my-[20px]`} />
         <p className={`font-body07-regular-14 text-gray-700 px-[5px]`}>
-          삼각함수의 미분공식 유도과정을 이해하기 위해서는 도함수의 정의,
-          삼각함수의 덧셈정리, 몫의 미분법의 개념이 잡혀있어야 한다. <br />
-          <br />
-          결론부터 보자면, 아래와 같이 정리된다. sin과 cos을 한 묶음으로, sec와
-          csc를 한 묶음으로, tan와 cot를 한 묶음으로 외우면 편한다. 또한 co로
-          시작하는 삼각함수를 미분하면 모두 ‘-’가 붙는 다는 사실을 기억해야
-          한다.
+          {data?.record.content}
         </p>
         <span className={"text-gray-500 mt-[40px] font-body08-regular-12"}>
-          2025.05.25
+          {data?.record.createdAt}
         </span>
         <span
           className={"text-gray-500 mt-[4px] font-body08-regular-12 mb-[24px]"}
         >
-          퀴즈 {mockRecordQuizzes.length}개
+          퀴즈 {data?.quizzes.length}개
         </span>
         {isQuizGenerated ? (
           <div className={`flex flex-col`}>
@@ -94,7 +109,7 @@ const RecordDetailPage = () => {
             <h2 className={`text-gray-700 font-head06-semibold-16 mb-[16px]`}>
               생성된 퀴즈
             </h2>
-            {mockRecordQuizzes.map((quiz, index) => (
+            {data?.quizzes.map((quiz, index) => (
               <RecordQuizItem key={index} index={index} quiz={quiz} />
             ))}
           </div>
@@ -130,10 +145,7 @@ const RecordDetailPage = () => {
           />
           <BottomButton
             text={"퀴즈 생성하기"}
-            onClick={() => {
-              setBottomSheetState("closed");
-              console.log(quizLevel, quizCount);
-            }}
+            onClick={handleGenerateQuiz}
             disabled={isButtonDisabled}
           />
         </div>

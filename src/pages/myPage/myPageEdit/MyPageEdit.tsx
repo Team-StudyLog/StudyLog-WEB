@@ -1,16 +1,24 @@
 import TextHeader from "../../../components/Header/TextHeader.tsx";
 import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FirstUserFormPage from "../../auth/signup/FirstUserFormPage.tsx";
 import SecondUserFormPage from "../../auth/signup/SecondUserFormPage.tsx";
+import { useFetchUserProfile } from "../../../apis/mypage/useFetchUserProfile.ts";
 
 const MyPageEdit = () => {
+  const { data } = useFetchUserProfile();
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedImage, setSelectedImage] = useState<string | File>(
-    "https://avatars.githubusercontent.com/u/91470334?v=4"
-  );
-  const [nickname, setNickname] = useState("닉네임");
-  const [description, setDescription] = useState("한줄소개");
+  const [selectedImage, setSelectedImage] = useState<string | File>("");
+  const [nickname, setNickname] = useState("");
+  const [description, setDescription] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      setSelectedImage(data.profileImage || "");
+      setNickname(data.nickname || "");
+      setDescription(data.intro || "");
+    }
+  }, [data]);
 
   return (
     <div className={formPageStyle}>

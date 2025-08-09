@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 interface PostRecordResponse {
   record: RecordResponse;
@@ -32,17 +33,24 @@ const postRecord = async (
   }
 };
 
-export const usePostRecord = (
-  categoryId: number,
-  title: string,
-  content: string
-) => {
+export const usePostRecord = () => {
+  const { goBack } = useEasyNavigate();
+
   return useMutation({
-    mutationFn: () => postRecord(categoryId, title, content),
+    mutationFn: ({
+      categoryId,
+      title,
+      content,
+    }: {
+      categoryId: number;
+      title: string;
+      content: string;
+    }) => postRecord(categoryId, title, content),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
       });
+      goBack();
     },
   });
 };

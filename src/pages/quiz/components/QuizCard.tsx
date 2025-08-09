@@ -1,4 +1,5 @@
 import CardFace from "./CardFace.tsx";
+import { parseColorToCode } from "../../../utils/parse.ts";
 
 interface QuizCardProps {
   category: string;
@@ -27,14 +28,14 @@ const QuizCard = ({
       >
         <CardFace
           category={category}
-          color={color}
+          color={parseColorToCode(color)}
           label="Q."
           content={question}
           onClick={onClick}
         />
         <CardFace
           category={category}
-          color={color}
+          color={parseColorToCode(color)}
           label="A."
           content={answer}
           onClick={onClick}

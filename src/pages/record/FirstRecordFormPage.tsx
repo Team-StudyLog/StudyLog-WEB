@@ -5,10 +5,12 @@ import {
   formContent,
   formHeaderWrapper,
 } from "../auth/signup/SignupPage.styles.ts";
+import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
+import type { Category } from "./recordWrite/RecordWritePage.tsx";
 
 interface FirstRecordFormPageProps {
-  selectedCategory: string | null;
-  setSelectedCategory: (category: string) => void;
+  selectedCategory: Category | null;
+  setSelectedCategory: (category: Category) => void;
   onNext: () => void;
 }
 
@@ -17,13 +19,7 @@ const FirstRecordFormPage = ({
   setSelectedCategory,
   onNext,
 }: FirstRecordFormPageProps) => {
-  const categories = [
-    "미적분",
-    "기하와 벡터",
-    "스프링",
-    "백엔드",
-    "안드로이드",
-  ];
+  const { data: categories } = useFetchCategoryList();
 
   return (
     <>
@@ -35,9 +31,14 @@ const FirstRecordFormPage = ({
         <InputLabel label={"카테고리를 선택해주세요"} htmlFor={"category"} />
         <CategoryInput
           id="category"
-          categories={categories}
-          selected={selectedCategory}
-          onSelect={setSelectedCategory}
+          categories={categories?.map((c) => c.name) || []}
+          selected={selectedCategory?.name}
+          onSelect={(name) => {
+            const category = categories?.find((c) => c.name === name);
+            if (category) {
+              setSelectedCategory(category);
+            }
+          }}
         />
       </div>
       <BottomButton

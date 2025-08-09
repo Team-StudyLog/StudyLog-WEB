@@ -1,9 +1,9 @@
 import { Search } from "lucide-react";
-import type { FriendT } from "../../../data/mockFriends.ts";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
+import type { FetchFriendResponse } from "../../../apis/mypage/useFetchFriendSearch.ts";
 
 interface FriendHeaderProps {
-  friends: FriendT[];
+  friends: FetchFriendResponse[];
 }
 
 const FriendHeader = ({ friends }: FriendHeaderProps) => {
@@ -20,36 +20,44 @@ const FriendHeader = ({ friends }: FriendHeaderProps) => {
         <Search size={24} />
         <span className={`mt-[4px] font-body03-semibold-12`}>친구찾기</span>
       </div>
-      {friends.map((friend) => (
+      {friends.map((friend, index) => (
         <UserProfile
-          key={friend.id}
-          id={friend.id}
-          name={friend.name}
-          profileImageUrl={friend.profileImageUrl}
+          key={index}
+          code={friend.code}
+          nickname={friend.nickname}
+          profileImage={friend.profileImage}
         />
       ))}
     </header>
   );
 };
 
-const UserProfile = ({ id, name, profileImageUrl }: FriendT) => {
+const UserProfile = ({
+  code,
+  nickname,
+  profileImage,
+}: {
+  code: string;
+  nickname: string;
+  profileImage: string;
+}) => {
   const { goOtherUserPage } = useEasyNavigate();
   return (
     <div
-      key={id}
+      key={code}
       className={`flex flex-col items-center justify-center shrink-0`}
       onClick={() => {
-        goOtherUserPage(String(id));
+        goOtherUserPage(code);
       }}
     >
       <img
-        src={profileImageUrl}
-        alt={`${name}의 프로필 이미지`}
+        src={profileImage}
+        alt={`${nickname}의 프로필 이미지`}
         className={`border border-gray-300 size-[68px] aspect-square rounded-[20px] object-cover`}
         loading={"lazy"}
       />
       <span className={`mt-[6px] font-body03-semibold-12 text-gray-600`}>
-        {name}
+        {nickname}
       </span>
     </div>
   );

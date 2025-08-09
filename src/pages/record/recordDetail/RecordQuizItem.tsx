@@ -1,16 +1,13 @@
 import IcRightArrow from "../../../assets/ic-right-arrow.svg";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
-import type { RecordQuizT } from "../../../data/mockRecordQuizzes.ts";
+import type { QuizResponse } from "../../../types/apis/quiz";
 
 interface RecordQuizItemProps {
   index: number;
-  quiz: RecordQuizT;
+  quiz: QuizResponse;
 }
 
 const RecordQuizItem = ({ index, quiz }: RecordQuizItemProps) => {
-  const level =
-    quiz.level === "easy" ? "하" : quiz.level === "medium" ? "중" : "상";
-
   const { goQuizDetailPage } = useEasyNavigate();
 
   return (
@@ -25,10 +22,10 @@ const RecordQuizItem = ({ index, quiz }: RecordQuizItemProps) => {
         </p>
         <div className={`flex gap-x-[8px] items-center`}>
           <p className={`font-body02-semibold-14 text-gray-700`}>
-            {quiz.title}
+            {quiz.question}
           </p>
           <p className={`text-gray-600 font-body09-medium-10 text-nowrap`}>
-            난이도 {level}
+            난이도 {quiz.level}
           </p>
         </div>
       </div>

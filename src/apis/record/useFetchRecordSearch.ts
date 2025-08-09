@@ -1,8 +1,7 @@
 import type { RecordResponse } from "../../types/apis/record";
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
-import { useQuery } from "@tanstack/react-query";
-import { queryKey } from "../../constants/queryKey.ts";
+import { useMutation } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 
 interface FetchRecordSearchResponse {
@@ -24,9 +23,8 @@ const fetchRecordSearch = async (
   }
 };
 
-export const useFetchRecordSearch = (query: string) => {
-  return useQuery({
-    queryKey: [queryKey.RECORDS, query],
-    queryFn: () => fetchRecordSearch(query),
+export const useFetchRecordSearch = () => {
+  return useMutation({
+    mutationFn: (query: string) => fetchRecordSearch(query),
   });
 };

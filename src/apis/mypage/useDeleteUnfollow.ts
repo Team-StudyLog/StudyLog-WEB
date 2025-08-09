@@ -5,6 +5,7 @@ import queryClient from "../../utils/queryClient.ts";
 import type { FetchFriendResponse } from "./useFetchFriendSearch.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import { END_POINT } from "../../constants/api.ts";
+import { useModalActions } from "../../hooks/useModal.ts";
 
 const deleteUnfollow = async (
   friendId: number
@@ -20,16 +21,23 @@ const deleteUnfollow = async (
   }
 };
 
-export const useDeleteUnfollow = (friendId: number) => {
+export const useDeleteUnfollow = () => {
+  const { closeModal } = useModalActions();
+
   return useMutation({
-    mutationFn: () => deleteUnfollow(friendId),
+    mutationFn: (friendId: number) => deleteUnfollow(friendId),
     onSuccess: () => {
+      closeModal();
       queryClient.invalidateQueries({
         queryKey: [queryKey.FRIENDS],
       });
       queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
       });
+    },
+    onError: () => {
+      closeModal();
+      alert("언팔로우에 실패했습니다. 다시 시도해주세요.");
     },
   });
 };

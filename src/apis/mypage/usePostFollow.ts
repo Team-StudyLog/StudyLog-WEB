@@ -4,6 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import queryClient from "../../utils/queryClient.ts";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
+import { useModalActions } from "../../hooks/useModal.ts";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const postFollow = async (code: string): Promise<null> => {
   try {
@@ -20,10 +22,15 @@ const postFollow = async (code: string): Promise<null> => {
   }
 };
 
-export const usePostFollow = (code: string) => {
+export const usePostFollow = () => {
+  const { closeModal } = useModalActions();
+  const { goBack } = useEasyNavigate();
+
   return useMutation({
-    mutationFn: () => postFollow(code),
+    mutationFn: (code: string) => postFollow(code),
     onSuccess: () => {
+      closeModal();
+      goBack();
       queryClient.invalidateQueries({
         queryKey: [queryKey.FRIENDS],
       });

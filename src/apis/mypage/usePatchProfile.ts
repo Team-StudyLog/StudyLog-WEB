@@ -8,15 +8,18 @@ import type { UserProfileResponse } from "../../types/apis/mypage";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const patchProfile = async (
-  profileImage: File,
+  profileImage: File | undefined,
   nickname: string,
   intro: string
 ): Promise<UserProfileResponse> => {
   try {
     const formData = new FormData();
-    formData.append("profileImage", profileImage);
+    if (profileImage) {
+      formData.append("profileImage", profileImage);
+    }
     formData.append("nickname", nickname);
     formData.append("intro", intro);
+
     const response = await instance.patch<ApiResponse<UserProfileResponse>>(
       END_POINT.PATCH_USER_PROFILE,
       formData
@@ -51,7 +54,6 @@ export const usePatchProfile = () => {
     },
     onError: () => {
       console.error("프로필 업데이트 실패");
-      goBack();
     },
   });
 };

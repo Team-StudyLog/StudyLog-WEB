@@ -1,39 +1,55 @@
 import TextHeader from "../../components/Header/TextHeader.tsx";
 import SearchInput from "../../components/Input/SearchInput.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecordItem from "./RecordItem.tsx";
-import { mockRecords } from "../../data/mockRecords.ts";
 import FloatingActionButton from "../../components/Button/FloatingActionButton.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import CategoryFilterChip from "../../components/Chips/CategoryFilterChip.tsx";
 import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
+import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
+import { useInView } from "react-intersection-observer";
+import { useFetchRecordList } from "../../apis/record/useFetchRecordList.ts";
+import useDebounce from "../../hooks/useDebounce.ts";
+import { useFetchRecordSearch } from "../../apis/record/useFetchRecordSearch.ts";
 
 const RecordPage = () => {
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>("");
+  const debouncedKeyword = useDebounce(keyword, 300);
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
+  const { ref, inView } = useInView();
+  const { data, fetchNextPage, isFetchingNextPage } = useFetchRecordList(
+    category,
+    date
+  );
+  const { data: filteredRecords, mutate: searchRecords } =
+    useFetchRecordSearch();
+
+  const records = data?.pages.flatMap((page) => page.records) || [];
+  const renderList =
+    debouncedKeyword && filteredRecords?.records
+      ? Array.isArray(filteredRecords.records)
+        ? filteredRecords.records
+        : [filteredRecords.records]
+      : records;
+
+  useEffect(() => {
+    if (inView && !isFetchingNextPage) fetchNextPage();
+  }, [inView, fetchNextPage, isFetchingNextPage]);
+
+  useEffect(() => {
+    if (debouncedKeyword !== "") searchRecords(debouncedKeyword);
+  }, [debouncedKeyword, searchRecords]);
 
   const { goRecordWritePage } = useEasyNavigate();
-  const categories = [
-    { id: 1, name: "미적분", color: "#FFB6C1" },
-    { id: 2, name: "기하와 벡터", color: "#ADD8E6" },
-    { id: 3, name: "스프링", color: "#90EE90" },
-    { id: 4, name: "통계", color: "#FFD700" },
-    { id: 5, name: "확률", color: "#FF6347" },
-    { id: 6, name: "수열", color: "#98FB98" },
-    { id: 7, name: "행렬", color: "#87CEEB" },
-    { id: 8, name: "미분방정식", color: "#FF69B4" },
-    { id: 9, name: "복소수", color: "#DDA0DD" },
-    { id: 10, name: "벡터", color: "#FF4500" },
-    { id: 11, name: "기타", color: "#B0C4DE" },
-  ];
+  const { data: categories } = useFetchCategoryList();
 
   return (
     <div className={`flex flex-col`}>
       <TextHeader text={"기록"} />
       <SearchInput
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
         placeholder={"제목으로 기록을 검색하세요"}
       />
       <FloatingActionButton
@@ -47,7 +63,7 @@ const RecordPage = () => {
         <div className={`flex gap-x-[5px] mt-[12px] mb-[16px]`}>
           <CategoryFilterChip
             defaultLabel={"카테고리"}
-            options={categories}
+            options={categories || []}
             selectedOption={category}
             onSelect={setCategory}
           />
@@ -57,8 +73,8 @@ const RecordPage = () => {
             onSelect={setDate}
           />
         </div>
-        {mockRecords.length > 0 ? (
-          mockRecords.map((record, index) => (
+        {renderList && renderList.length > 0 ? (
+          renderList.map((record, index) => (
             <RecordItem key={index} record={record} />
           ))
         ) : (
@@ -69,6 +85,7 @@ const RecordPage = () => {
           </p>
         )}
       </section>
+      <div ref={ref} className={"h-[1px]"} />
     </div>
   );
 };

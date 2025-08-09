@@ -3,20 +3,24 @@ import InputLabel from "../../components/Label/InputLabel.tsx";
 import TextInput from "../../components/Input/TextInput.tsx";
 import { useState } from "react";
 import BottomButton from "../../components/Button/BottomButton.tsx";
-import { useModalActions, useModalInfo } from "../../hooks/useModal.ts";
+import { useModalInfo } from "../../hooks/useModal.ts";
 import Modal from "../../components/Modal/Modal.tsx";
-import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
+import { useFetchFriendCode } from "../../apis/mypage/useFetchFriendCode.ts";
+import { usePostFollow } from "../../apis/mypage/usePostFollow.ts";
 
 const FriendAddPage = () => {
-  const [friendCode, setFriendCode] = useState<string>("");
+  const [code, setCode] = useState<string>("");
   const { isOpen, content } = useModalInfo();
-  const { openModal, closeModal } = useModalActions();
-  const { goBack } = useEasyNavigate();
+  const { mutate: getFriendName } = useFetchFriendCode();
+  const { mutate: follow } = usePostFollow();
 
-  const handleNext = () => {
+  const handleNextClick = () => {
+    getFriendName(code);
+  };
+
+  const handleFollowClick = () => {
     if (!content) return;
-    closeModal();
-    goBack();
+    follow(code);
   };
 
   return (
@@ -26,23 +30,19 @@ const FriendAddPage = () => {
         <div className={`flex flex-col mt-[34px]`}>
           <InputLabel label={"코드를 입력하세요"} htmlFor={"friendCode"} />
           <TextInput
-            value={friendCode}
-            onChange={(e) => setFriendCode(e.target.value)}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
             id={"friendCode"}
             placeholder={"친구 코드를 입력해주세요"}
           />
         </div>
       </div>
-      <BottomButton
-        text={"다음"}
-        onClick={() => openModal({ name: "채영" })}
-        disabled={!friendCode}
-      />
+      <BottomButton text={"다음"} onClick={handleNextClick} disabled={!code} />
       {isOpen && content && (
         <Modal
           title={"알림"}
           text={`${content.name}님을 팔로우 하시겠습니까?`}
-          onConfirm={handleNext}
+          onConfirm={handleFollowClick}
         />
       )}
     </div>

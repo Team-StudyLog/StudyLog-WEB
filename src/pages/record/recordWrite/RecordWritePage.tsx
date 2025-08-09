@@ -4,9 +4,16 @@ import SecondRecordFormPage from "../SecondRecordFormPage.tsx";
 import FirstRecordFormPage from "../FirstRecordFormPage.tsx";
 import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 const RecordWritePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 

@@ -7,12 +7,14 @@ import InputLabel from "../../../components/Label/InputLabel.tsx";
 import TextInput from "../../../components/Input/TextInput.tsx";
 import { useState } from "react";
 import BottomButton from "../../../components/Button/BottomButton.tsx";
-import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
+import { usePostCategory } from "../../../apis/record/usePostCategory.ts";
+import { parseCodeToColor } from "../../../utils/parse.ts";
 
 const CategoryFormPage = () => {
-  const { goBack } = useEasyNavigate();
   const [categoryName, setCategoryName] = useState("");
   const [categoryColor, setCategoryColor] = useState<string | null>(null);
+  const { mutate: postCategory } = usePostCategory();
+
   const colors = [
     "#D895A6",
     "#A7C9F7",
@@ -27,8 +29,11 @@ const CategoryFormPage = () => {
   ];
 
   const handleSubmit = () => {
-    console.log(categoryName, categoryColor);
-    goBack();
+    if (categoryColor)
+      postCategory({
+        name: categoryName,
+        color: parseCodeToColor(categoryColor),
+      });
   };
 
   return (

@@ -1,11 +1,11 @@
 import { ChevronLeft, ChevronRight, Leaf } from "lucide-react";
 import { dateFormat, dateToISO } from "../../../utils/dateFormat.ts";
-import { type StreakT } from "../../../data/mockStreaks.ts";
 import { MiniStreakItem, StreakItem } from "./StreakItem.tsx";
+import type { StreakT } from "../../../data/mockStreaks.ts";
 
 interface StreakProps {
   streakDays: number;
-  streaks: StreakT[];
+  streaks: Record<string, number>;
   currentDate: Date;
   handleLeftClick: () => void;
   handleRightClick: () => void;
@@ -46,8 +46,8 @@ const Streak = ({
       </div>
 
       <div className="grid grid-cols-7 gap-[4px] mt-[6px] px-[8px]">
-        {streaks.map((streak, index) => (
-          <StreakItem key={index} streak={streak} />
+        {Object.entries(streaks).map(([date, count], index) => (
+          <StreakItem key={index} streak={{ date, count } as StreakT} />
         ))}
       </div>
 

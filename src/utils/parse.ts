@@ -25,7 +25,7 @@ export function parseLevelToString(level: "EASY" | "MEDIUM" | "HARD") {
 }
 
 export function parseColorToCode(color: string) {
-  switch (color) {
+  switch (color.toUpperCase()) {
     case "ROSE_PINK":
       return "#D895A6";
     case "BABY_BLUE":
@@ -63,7 +63,7 @@ export function parseCodeToColor(code: string) {
       return "COOL_GRAY";
     case "#B5E1B2":
       return "MELON_GREEN";
-    case "#A0A3F2":
+    case "#A0A3FE":
       return "LAVENDER_PURPLE";
     case "#F6D68C":
       return "PALE_YELLOW";
@@ -75,5 +75,29 @@ export function parseCodeToColor(code: string) {
       return "PALE_ORANGE";
     default:
       throw new Error(`Unknown code: ${code}`);
+  }
+}
+
+export function parseTypeToString(type: "OX" | "SHORT_ANSWER") {
+  switch (type) {
+    case "OX":
+      return "OX";
+    case "SHORT_ANSWER":
+      return "단답형";
+    default:
+      throw new Error(`Unknown type: ${type}`);
+  }
+}
+
+export function parseLevelToColor(level: "EASY" | "MEDIUM" | "HARD") {
+  switch (level) {
+    case "EASY":
+      return "text-green-300";
+    case "MEDIUM":
+      return "text-kakao-yellow";
+    case "HARD":
+      return "text-red";
+    default:
+      throw new Error(`Unknown level: ${level}`);
   }
 }

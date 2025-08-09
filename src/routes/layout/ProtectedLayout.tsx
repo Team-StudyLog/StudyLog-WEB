@@ -5,7 +5,7 @@ const ProtectedLayout = () => {
   const isLoggedIn = Boolean(localStorage.getItem(storageKey.IS_LOGGED_IN));
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (

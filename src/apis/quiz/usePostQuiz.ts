@@ -24,21 +24,27 @@ const postQuiz = async (
   return response.data.data;
 };
 
-export const usePostQuiz = (
-  recordId: number,
-  level: "EASY" | "MEDIUM" | "HARD",
-  quizCount: number,
-  requirement: string
-) => {
+export const usePostQuiz = (recordId: number) => {
   return useMutation({
-    mutationFn: () => postQuiz(recordId, level, quizCount, requirement),
+    mutationFn: ({
+      level,
+      quizCount,
+      requirement,
+    }: {
+      level: "EASY" | "MEDIUM" | "HARD";
+      quizCount: number;
+      requirement: string;
+    }) => postQuiz(recordId, level, quizCount, requirement),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
       });
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
+      void queryClient.invalidateQueries({
+        queryKey: [queryKey.QUIZZES]
+      })
     },
   });
 };

@@ -7,8 +7,8 @@ import { queryKey } from "../../constants/queryKey.ts";
 
 interface FetchRecordListResponse {
   records: RecordResponse[];
-  hasNext: boolean;
-  lastId: number;
+  hasMore: boolean;
+  nextLastId: number | null;
 }
 
 const fetchRecordList = async (
@@ -31,8 +31,8 @@ const fetchRecordList = async (
   if (!response.data)
     return {
       records: [],
-      hasNext: false,
-      lastId: 0,
+      hasMore: false,
+      nextLastId: 0,
     };
   return response.data.data;
 };
@@ -44,9 +44,9 @@ export const useFetchRecordList = (categoryId?: number, date?: string) => {
       return fetchRecordList(categoryId, date, pageParam as number | undefined);
     },
     getNextPageParam: (lastPage) => {
-      return lastPage.hasNext ? lastPage.lastId : undefined;
+      return lastPage.hasMore ? lastPage.nextLastId : undefined;
     },
     initialPageParam: undefined,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 };

@@ -1,44 +1,31 @@
 import TextHeader from "../../components/Header/TextHeader.tsx";
 import SearchInput from "../../components/Input/SearchInput.tsx";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { mockQuizzes } from "../../data/mockQuizzes.ts";
 import QuizItem from "./components/QuizItem.tsx";
-// import { useFetchQuizList } from "../../apis/quiz/useFetchQuizList.ts";
-// import { useInView } from "react-intersection-observer";
+import { useFetchQuizList } from "../../apis/quiz/useFetchQuizList.ts";
+import { useInView } from "react-intersection-observer";
 import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
 import CategoryFilterChip from "../../components/Chips/CategoryFilterChip.tsx";
+import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
 
 const QuizPage = () => {
   const [keyword, setKeyword] = useState<string>("");
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
-  // const { ref, inView } = useInView();
-  // const { fetchNextPage, isFetchingNextPage } = useFetchQuizList(keyword, date);
-
-  // useEffect(() => {
-  //   if (inView && !isFetchingNextPage) fetchNextPage();
-  // }, [inView, fetchNextPage, isFetchingNextPage]);
+  const { ref, inView } = useInView();
+  const { data, fetchNextPage, isFetchingNextPage } = useFetchQuizList(
+    keyword,
+    date,
+    category
+  );
+  const quizzes = data?.pages.flatMap((page) => page.quizzes) || [];
 
   useEffect(() => {
-    console.log(category, date);
-  }, [category, date]);
+    if (inView && !isFetchingNextPage) fetchNextPage();
+  }, [inView, fetchNextPage, isFetchingNextPage]);
 
-  const filteredQuizzes = useMemo(() => {
-    const lowerKeyword = keyword.trim().toLowerCase();
-    if (!lowerKeyword) {
-      return mockQuizzes;
-    }
-    return mockQuizzes.filter((quiz) =>
-      quiz.title.toLowerCase().includes(lowerKeyword)
-    );
-  }, [keyword]);
-
-  const categories = [
-    { id: 1, name: "미적분", color: "#FFB6C1" },
-    { id: 2, name: "기하와 벡터", color: "#ADD8E6" },
-    { id: 3, name: "스프링", color: "#90EE90" },
-  ];
+  const { data: categories } = useFetchCategoryList();
 
   return (
     <div className={`flex flex-col`}>
@@ -53,7 +40,7 @@ const QuizPage = () => {
         <div className={`flex gap-x-[5px] mt-[12px] mb-[16px]`}>
           <CategoryFilterChip
             defaultLabel="카테고리"
-            options={categories}
+            options={categories || []}
             selectedOption={category}
             onSelect={setCategory}
           />
@@ -63,19 +50,24 @@ const QuizPage = () => {
             onSelect={setDate}
           />
         </div>
-        {filteredQuizzes.length > 0 ? (
-          filteredQuizzes.map((quiz, index) => (
-            <QuizItem key={index} quiz={quiz} />
-          ))
+
+        {keyword ? (
+          quizzes.length > 0 ? (
+            quizzes.map((quiz, index) => <QuizItem key={index} quiz={quiz} />)
+          ) : (
+            <p className="flex w-full justify-center font-body05-medium-14 text-gray-500 mt-[40px]">
+              검색된 퀴즈가 없습니다
+            </p>
+          )
+        ) : quizzes.length > 0 ? (
+          quizzes.map((quiz, index) => <QuizItem key={index} quiz={quiz} />)
         ) : (
-          <p
-            className={`flex w-full justify-center font-body05-medium-14 text-gray-500 mt-[40px]`}
-          >
-            {mockQuizzes.length > 0 ? "해당 퀴즈가 없어요" : "퀴즈가 없어요"}
+          <p className="flex w-full justify-center font-body05-medium-14 text-gray-500 mt-[40px]">
+            퀴즈가 없습니다
           </p>
         )}
       </section>
-      {/*<div ref={ref} className={`h-[1px]`} />*/}
+      <div ref={ref} className={`h-[1px]`} />
     </div>
   );
 };

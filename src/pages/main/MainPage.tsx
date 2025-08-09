@@ -1,6 +1,5 @@
 import Header from "../../components/Header/Header.tsx";
 import FriendHeader from "./components/FriendHeader.tsx";
-import { mockFriends } from "../../data/mockFriends.ts";
 import backgroundImage from "../../assets/main-background.jpg";
 import ProfileSection from "./components/ProfileSection.tsx";
 import { mockUser } from "../../data/mockUser.ts";
@@ -13,9 +12,10 @@ import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import ImageInput from "../../components/Input/ImageInput.tsx";
 import useImageInput from "../../hooks/useImageInput.ts";
 import useCurrentDate from "../../hooks/useCurrentDate.ts";
-import mockStreaks, { type StreakT } from "../../data/mockStreaks.ts";
-import { getFilteredStreaks } from "../../utils/getFilteredStreaks.ts";
 import { usePatchBackground } from "../../apis/main/usePatchBackground.ts";
+import { useFetchFriendList } from "../../apis/mypage/useFetchFriendList.ts";
+import { useFetchUserStreak } from "../../apis/main/useFetchUserStreak.ts";
+import mockStreaks from "../../data/mockStreaks.ts";
 
 const MainPage = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -23,27 +23,25 @@ const MainPage = () => {
     useImageInput(setSelectedImage);
   const { goRecordPage, goQuizPage } = useEasyNavigate();
   const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
-  const [filteredStreaks, setFilteredStreaks] = useState<StreakT[]>([]);
 
-  const { mutate: patchBackground } = usePatchBackground(selectedImage as File);
+  const { data: friends } = useFetchFriendList();
 
-  useEffect(() => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const currentMonthDates = getFilteredStreaks(year, month, mockStreaks);
-    setFilteredStreaks(currentMonthDates);
-  }, [currentDate]);
+  const year = currentDate.getFullYear().toString();
+  const month = (currentDate.getMonth() + 1).toString();
+  const { data: streaks } = useFetchUserStreak(year, month);
+
+  const { mutate: patchBackground } = usePatchBackground();
 
   // 이미지가 변경될 때마다 배경 이미지 업데이트
   useEffect(() => {
-    if (selectedImage != null) patchBackground();
+    if (selectedImage instanceof File) patchBackground(selectedImage);
   }, [selectedImage, patchBackground]);
 
   return (
     <>
       <div className={`flex flex-col`}>
         <Header />
-        <FriendHeader friends={mockFriends} />
+        <FriendHeader friends={friends || []} />
         <ImageInput ref={fileInputRef} onChange={handleImageChange} />
         <img
           src={
@@ -64,7 +62,7 @@ const MainPage = () => {
           </div>
           <Streak
             streakDays={70}
-            streaks={filteredStreaks}
+            streaks={streaks || mockStreaks}
             currentDate={currentDate}
             handleLeftClick={handleLeftClick}
             handleRightClick={handleRightClick}

@@ -1,5 +1,5 @@
 const handleShare = (code: string) => {
-  const shareUrl = `https://studylog-nine.vercel.app/${code}`;
+  const shareUrl = `${import.meta.env.VITE_FRONT_URL}/${code}`;
   const shareText = "코드를 공유하고 StudyLog에 참여하세요!";
 
   if (navigator.share) {
