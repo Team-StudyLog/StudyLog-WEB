@@ -16,7 +16,7 @@ const TextHeader = ({ text = "", onClick }: TextHeaderProps) => {
         <ChevronLeft
           size={28}
           onClick={onClick ?? goBack}
-          className={`absolute left-0 top-1/2 -translate-y-1/2`}
+          className={`absolute left-0 top-1/2 -translate-y-1/2 ${text === "" && "my-5"}`}
         />
       </div>
       <p className={`flex-1 text-center font-head05-semibold-20`}>{text}</p>
