@@ -30,7 +30,7 @@ export const usePutCategory = (
   return useMutation({
     mutationFn: () => putCategory(categoryId, name, color),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.CATEGORIES],
       });
     },

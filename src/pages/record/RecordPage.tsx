@@ -17,7 +17,9 @@ const RecordPage = () => {
   const debouncedKeyword = useDebounce(keyword, 300);
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
   const { data, fetchNextPage, isFetchingNextPage } = useFetchRecordList(
     category,
     date
@@ -85,7 +87,7 @@ const RecordPage = () => {
           </p>
         )}
       </section>
-      <div ref={ref} className={"h-[1px]"} />
+      <div ref={ref} className={"h-1"} />
     </div>
   );
 };

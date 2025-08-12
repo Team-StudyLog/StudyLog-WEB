@@ -13,7 +13,7 @@ const QuizPage = () => {
   const [keyword, setKeyword] = useState<string>("");
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0 });
   const { data, fetchNextPage, isFetchingNextPage } = useFetchQuizList(
     keyword,
     date,
@@ -67,7 +67,7 @@ const QuizPage = () => {
           </p>
         )}
       </section>
-      <div ref={ref} className={`h-[1px]`} />
+      <div ref={ref} className={`h-1`} />
     </div>
   );
 };

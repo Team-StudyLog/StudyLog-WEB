@@ -46,9 +46,12 @@ export const usePostRecord = () => {
       title: string;
       content: string;
     }) => postRecord(categoryId, title, content),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: (data) => {
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
+      });
+      void queryClient.invalidateQueries({
+        queryKey: [queryKey.RECORD, data.record.id],
       });
       goBack();
     },
