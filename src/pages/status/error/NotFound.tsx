@@ -6,10 +6,10 @@ import {
   loginSubTextWrapper,
   loginUserProfile,
 } from "../../auth/login/LoginPage.styles.ts";
-import Header from "../../../components/Header/Header.tsx";
 import { User } from "lucide-react";
 import BottomButton from "../../../components/Button/BottomButton.tsx";
 import { storageKey } from "../../../constants/storageKey.ts";
+import LogoHeader from "../../../components/Header/LogoHeader.tsx";
 
 const NotFound = () => {
   const { goHomePage, goMainPage } = useEasyNavigate();
@@ -25,7 +25,7 @@ const NotFound = () => {
 
   return (
     <div className={loginPageStyle}>
-      <Header />
+      <LogoHeader />
       <div className={loginContentWrapper}>
         <div className={loginUserProfile}>
           <User size={46} className={`text-gray-500`} />
