@@ -5,10 +5,13 @@ import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import type { AlarmListResponse } from "../../types/apis/alarm";
 
-const fetchAlarmList = async (): Promise<AlarmListResponse[]> => {
+const fetchAlarmList = async (
+  isRead: boolean
+): Promise<AlarmListResponse[]> => {
   try {
     const response = await instance.get<ApiResponse<AlarmListResponse[]>>(
-      END_POINT.FETCH_ALARM_LIST
+      END_POINT.FETCH_ALARM_LIST,
+      { params: { isRead: isRead } }
     );
     return response.data.data;
   } catch (error) {
@@ -17,9 +20,9 @@ const fetchAlarmList = async (): Promise<AlarmListResponse[]> => {
   }
 };
 
-export const useFetchAlarmList = () => {
+export const useFetchAlarmList = (isRead: boolean) => {
   return useQuery({
     queryKey: [queryKey.ALARMS],
-    queryFn: fetchAlarmList,
+    queryFn: () => fetchAlarmList(isRead),
   });
 };

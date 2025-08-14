@@ -3,7 +3,7 @@ import AlarmItem from "./AlarmItem.tsx";
 import { useFetchAlarmList } from "../../apis/alarm/useFetchAlarmList.ts";
 
 const AlarmPage = () => {
-  const { data: alarms } = useFetchAlarmList();
+  const { data: alarms } = useFetchAlarmList(true);
 
   return (
     <div className={`flex flex-col`}>

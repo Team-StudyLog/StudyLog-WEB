@@ -13,6 +13,7 @@ const LoginCompletePage = () => {
         console.log("response", response);
 
         if (!response.newUser) {
+          localStorage.setItem(storageKey.USER_CODE, response.code);
           goSignupPage();
           return;
         }

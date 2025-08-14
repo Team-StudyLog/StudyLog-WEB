@@ -9,7 +9,6 @@ interface PostSignupResponse {
   profileImage: string;
   nickname: string;
   intro: string;
-  code: string;
 }
 
 const postSignup = async (
@@ -49,8 +48,8 @@ export const usePostSignup = () => {
     onSuccess: (data) => {
       console.log(`Signup Successful ${data}`);
       localStorage.setItem(storageKey.IS_LOGGED_IN, "true");
-      localStorage.setItem(storageKey.USER_CODE, data.code);
-      goMainPage(data.code);
+      const code = localStorage.getItem(storageKey.USER_CODE);
+      if (code) goMainPage(code);
     },
     onError: (error) => {
       console.error("Signup failed:", error);
