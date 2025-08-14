@@ -16,7 +16,7 @@ export interface MainProfileResponse {
 
 export interface MainStreakResponse {
   maxStreak: number;
-  currentStreak: Record<string, number>;
+  recordCountPerDay: Record<string, number>;
 }
 
 export interface MainCategoryResponse {
@@ -29,4 +29,12 @@ export interface MainResponse {
   profile: MainProfileResponse;
   streak: MainStreakResponse;
   categories: MainCategoryResponse[];
+}
+
+export interface OtherMainResponse {
+  following: MainFriendResponse[];
+  profile: MainProfileResponse;
+  streak: MainStreakResponse;
+  categories: MainCategoryResponse[];
+  isFollowing: boolean;
 }

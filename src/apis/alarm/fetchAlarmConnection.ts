@@ -10,22 +10,24 @@ export const fetchAlarmConnection = () => {
     `${import.meta.env.VITE_APP_BASE_URL}/subscribe`,
     {
       headers: {
-        "Content-Type": "text/event-stream",
-        "Authorization": `Bearer ${accessToken}`
+        Authorization: `Bearer ${accessToken}`,
       },
-      withCredentials: true
-    },
+      heartbeatTimeout: 60000,
+    }
   );
+
+  eventSource.addEventListener("notification", () => {
+    console.log("🔔 알림 이벤트 수신");
+  });
 
   eventSource.onmessage = (event) => {
     if (!event.data) return;
     try {
       const data: AlarmListResponse = JSON.parse(event.data);
-      console.log("📩 새 알림 수신:", data);
+      console.log("📩 새 알림 수신:", event.data);
 
-      queryClient.setQueryData<AlarmListResponse[]>(
-        [queryKey.ALARMS],
-        (old) => (old ? [data, ...old] : [data])
+      queryClient.setQueryData<AlarmListResponse[]>([queryKey.ALARMS], (old) =>
+        old ? [data, ...old] : [data]
       );
     } catch (error) {
       console.error(error);
@@ -35,6 +37,7 @@ export const fetchAlarmConnection = () => {
 
   eventSource.onerror = (error) => {
     console.error("❌ SSE 연결 오류:", error);
+    eventSource.close();
   };
 
   return () => {

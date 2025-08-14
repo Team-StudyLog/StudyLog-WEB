@@ -1,7 +1,8 @@
 import type { CategoryT } from "../../../data/mockCategories.ts";
+import type { MainCategoryResponse } from "../../../types/apis/main";
 
 interface CategorySectionProps {
-  categories: CategoryT[];
+  categories: MainCategoryResponse[];
 }
 
 const CategorySection = ({ categories }: CategorySectionProps) => {
@@ -11,7 +12,17 @@ const CategorySection = ({ categories }: CategorySectionProps) => {
       <div className={`flex flex-col`}>
         {categories.length > 0 ? (
           categories.map((category, index) => (
-            <CategoryItem key={index} rank={index + 1} category={category} />
+            <CategoryItem
+              key={index}
+              rank={index + 1}
+              category={
+                {
+                  id: index,
+                  name: category.name,
+                  count: category.count,
+                } as CategoryT
+              }
+            />
           ))
         ) : (
           <p

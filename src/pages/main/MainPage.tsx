@@ -2,10 +2,8 @@ import Header from "../../components/Header/Header.tsx";
 import FriendHeader from "./components/FriendHeader.tsx";
 import backgroundImage from "../../assets/main-background.jpg";
 import ProfileSection from "./components/ProfileSection.tsx";
-import { mockUser } from "../../data/mockUser.ts";
 import NavigateButton from "./components/NavigateButton.tsx";
 import CategorySection from "./components/CategorySection.tsx";
-import { mockCategories } from "../../data/mockCategories.ts";
 import { useEffect, useState } from "react";
 import Streak from "./components/Streak.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
@@ -16,6 +14,7 @@ import { usePatchBackground } from "../../apis/main/usePatchBackground.ts";
 import { useFetchFriendList } from "../../apis/mypage/useFetchFriendList.ts";
 import { useFetchUserStreak } from "../../apis/main/useFetchUserStreak.ts";
 import mockStreaks from "../../data/mockStreaks.ts";
+import { useFetchUserMain } from "../../apis/main/useFetchUserMain.ts";
 
 const MainPage = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -25,6 +24,7 @@ const MainPage = () => {
   const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
 
   const { data: friends } = useFetchFriendList();
+  const { data: user } = useFetchUserMain();
 
   const year = currentDate.getFullYear().toString();
   const month = (currentDate.getMonth() + 1).toString();
@@ -45,7 +45,9 @@ const MainPage = () => {
         <ImageInput ref={fileInputRef} onChange={handleImageChange} />
         <img
           src={
-            selectedImage ? URL.createObjectURL(selectedImage) : backgroundImage
+            selectedImage
+              ? URL.createObjectURL(selectedImage)
+              : user?.profile.coverImage || backgroundImage
           }
           alt="메인 배경 이미지"
           className={`w-full h-[187px] object-cover mb-[12px] cursor-pointer`}
@@ -53,7 +55,7 @@ const MainPage = () => {
         />
 
         <div className={`flex flex-col items-center px-[26px]`}>
-          <ProfileSection user={mockUser} type={"me"} />
+          <ProfileSection user={user?.profile} type={"me"} />
           <div
             className={`flex w-full justify-between gap-x-[11px] mt-[8px] mb-[30px]`}
           >
@@ -67,7 +69,7 @@ const MainPage = () => {
             handleLeftClick={handleLeftClick}
             handleRightClick={handleRightClick}
           />
-          <CategorySection categories={mockCategories} />
+          <CategorySection categories={user?.categories || []} />
         </div>
       </div>
     </>

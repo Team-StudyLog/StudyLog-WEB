@@ -31,10 +31,10 @@ export const usePostFollow = () => {
     onSuccess: () => {
       closeModal();
       goBack();
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.FRIENDS],
       });
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
       });
     },
