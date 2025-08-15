@@ -6,6 +6,7 @@ import Modal from "../../../components/Modal/Modal.tsx";
 import type { MainProfileResponse } from "../../../types/apis/main";
 import { usePostFollow } from "../../../apis/mypage/usePostFollow.ts";
 import { useDeleteUnfollow } from "../../../apis/mypage/useDeleteUnfollow.ts";
+import { useEffect, useState } from "react";
 
 interface ProfileSectionProps {
   user: MainProfileResponse | undefined;
@@ -22,14 +23,32 @@ const ProfileSection = ({
   const { openModal } = useModalActions();
   const { mutate: follow } = usePostFollow();
   const { mutate: unfollow } = useDeleteUnfollow();
+  const [following, setFollowing] = useState<boolean>(isFollowing);
+  const [pending, setPending] = useState(false);
+
+  useEffect(() => setFollowing(isFollowing), [isFollowing]);
 
   const handleFollow = () => {
     if (!content) return;
-    if (user?.code) follow(user.code);
+    setPending(true);
+    setFollowing(true);
+    if (user?.code) {
+      follow(user.code, {
+        onError: () => setFollowing(false),
+        onSettled: () => setPending(false),
+      });
+    }
   };
   const handleUnfollow = () => {
     if (!content) return;
-    // if (user?.friendId) unfollow(user.friendId);
+    setPending(true);
+    setFollowing(false);
+    if (user?.userId) {
+      unfollow(user.userId, {
+        onError: () => setFollowing(true),
+        onSettled: () => setPending(false),
+      });
+    }
   };
 
   return (
@@ -54,11 +73,14 @@ const ProfileSection = ({
           ) : (
             <p
               className={`font-body02-semibold-14 ${
-                isFollowing ? "text-red" : "text-green-500"
+                following ? "text-red" : "text-green-500"
               }`}
-              onClick={() => openModal({ name: user?.name || "" })}
+              onClick={() => {
+                if (pending) return;
+                openModal({ name: user?.name || "" });
+              }}
             >
-              {isFollowing ? "언팔로우" : "팔로우"}
+              {following ? "언팔로우" : "팔로우"}
             </p>
           )}
         </div>
@@ -76,11 +98,11 @@ const ProfileSection = ({
         <Modal
           title={"알림"}
           text={
-            isFollowing
+            following
               ? `${content.name}님을 언팔로우하시겠습니까?`
               : `${content.name}님을 팔로우하시겠습니까?`
           }
-          onConfirm={isFollowing ? handleUnfollow : handleFollow}
+          onConfirm={following ? handleUnfollow : handleFollow}
         />
       )}
     </section>

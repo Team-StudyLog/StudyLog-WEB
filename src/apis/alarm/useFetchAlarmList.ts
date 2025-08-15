@@ -22,7 +22,8 @@ const fetchAlarmList = async (
 
 export const useFetchAlarmList = (isRead: boolean) => {
   return useQuery({
-    queryKey: [queryKey.ALARMS],
+    queryKey: [queryKey.ALARMS, isRead],
     queryFn: () => fetchAlarmList(isRead),
+    refetchOnWindowFocus: true,
   });
 };

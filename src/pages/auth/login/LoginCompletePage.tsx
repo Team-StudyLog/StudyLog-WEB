@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { postTokenReissue } from "../../../apis/auth/postTokenReissue.ts";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import { storageKey } from "../../../constants/storageKey.ts";
-import { fetchAlarmConnection } from "../../../apis/alarm/fetchAlarmConnection.ts";
 
 const LoginCompletePage = () => {
   const { goHomePage, goSignupPage, goMainPage } = useEasyNavigate();
@@ -27,8 +26,6 @@ const LoginCompletePage = () => {
         } else {
           console.error(response);
         }
-
-        fetchAlarmConnection();
       } catch (error) {
         alert("토큰 재발급에 실패했습니다. 다시 시도해주세요.");
         goHomePage();

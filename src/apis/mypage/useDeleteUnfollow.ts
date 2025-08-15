@@ -34,6 +34,9 @@ export const useDeleteUnfollow = () => {
       void queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
       });
+      void queryClient.invalidateQueries({
+        queryKey: [queryKey.OTHER_MAIN],
+      });
     },
     onError: () => {
       closeModal();

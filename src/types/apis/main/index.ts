@@ -6,7 +6,8 @@ export interface MainFriendResponse {
 }
 
 export interface MainProfileResponse {
-  coverImage: string;
+  userId: number;
+  coverImage: string | null;
   profileImage: string;
   name: string;
   intro: string;
@@ -22,13 +23,6 @@ export interface MainStreakResponse {
 export interface MainCategoryResponse {
   name: string;
   count: number;
-}
-
-export interface MainResponse {
-  following: MainFriendResponse[];
-  profile: MainProfileResponse;
-  streak: MainStreakResponse;
-  categories: MainCategoryResponse[];
 }
 
 export interface OtherMainResponse {
