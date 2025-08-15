@@ -4,7 +4,7 @@ import { storageKey } from "../../constants/storageKey.ts";
 import { useFetchAlarmList } from "../../apis/alarm/useFetchAlarmList.ts";
 
 const Header = () => {
-  const { data: alarms } = useFetchAlarmList();
+  const { data: alarms } = useFetchAlarmList(false);
   const hasNewAlarm = alarms && alarms.some((alarm) => !alarm.read);
 
   const { goMainPage, goHomePage, goMyPage, goAlarmPage } = useEasyNavigate();

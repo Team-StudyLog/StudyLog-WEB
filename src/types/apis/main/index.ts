@@ -6,7 +6,8 @@ export interface MainFriendResponse {
 }
 
 export interface MainProfileResponse {
-  coverImage: string;
+  userId: number;
+  coverImage: string | null;
   profileImage: string;
   name: string;
   intro: string;
@@ -16,7 +17,7 @@ export interface MainProfileResponse {
 
 export interface MainStreakResponse {
   maxStreak: number;
-  currentStreak: Record<string, number>;
+  recordCountPerDay: Record<string, number>;
 }
 
 export interface MainCategoryResponse {
@@ -24,9 +25,10 @@ export interface MainCategoryResponse {
   count: number;
 }
 
-export interface MainResponse {
+export interface OtherMainResponse {
   following: MainFriendResponse[];
   profile: MainProfileResponse;
   streak: MainStreakResponse;
   categories: MainCategoryResponse[];
+  isFollowing: boolean;
 }

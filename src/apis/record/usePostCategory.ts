@@ -30,7 +30,7 @@ export const usePostCategory = () => {
     mutationFn: ({ name, color }: { name: string; color: string }) =>
       postCategory(name, color),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.CATEGORIES],
       });
       goBack();

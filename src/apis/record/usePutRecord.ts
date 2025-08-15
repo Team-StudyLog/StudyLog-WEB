@@ -52,10 +52,10 @@ export const usePutRecord = (recordId: number) => {
       content: string;
     }) => putRecord(recordId, categoryId, title, content),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
       });
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
       goBack();

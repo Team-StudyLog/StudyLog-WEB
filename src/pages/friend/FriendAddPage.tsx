@@ -7,12 +7,14 @@ import { useModalInfo } from "../../hooks/useModal.ts";
 import Modal from "../../components/Modal/Modal.tsx";
 import { useFetchFriendCode } from "../../apis/mypage/useFetchFriendCode.ts";
 import { usePostFollow } from "../../apis/mypage/usePostFollow.ts";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const FriendAddPage = () => {
   const [code, setCode] = useState<string>("");
   const { isOpen, content } = useModalInfo();
   const { mutate: getFriendName } = useFetchFriendCode();
   const { mutate: follow } = usePostFollow();
+  const { goBack } = useEasyNavigate();
 
   const handleNextClick = () => {
     getFriendName(code);
@@ -21,6 +23,7 @@ const FriendAddPage = () => {
   const handleFollowClick = () => {
     if (!content) return;
     follow(code);
+    goBack();
   };
 
   return (

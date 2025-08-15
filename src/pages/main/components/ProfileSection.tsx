@@ -1,13 +1,15 @@
 import LevelChip from "./LevelChip.tsx";
 import { Share2 } from "lucide-react";
-import type { UserT } from "../../../data/mockUser.ts";
 import handleShare from "../../../utils/handleShare.ts";
 import { useModalActions, useModalInfo } from "../../../hooks/useModal.ts";
 import Modal from "../../../components/Modal/Modal.tsx";
-import { useState } from "react";
+import type { MainProfileResponse } from "../../../types/apis/main";
+import { usePostFollow } from "../../../apis/mypage/usePostFollow.ts";
+import { useDeleteUnfollow } from "../../../apis/mypage/useDeleteUnfollow.ts";
+import { useEffect, useState } from "react";
 
 interface ProfileSectionProps {
-  user: UserT;
+  user: MainProfileResponse | undefined;
   type: "me" | "other";
   isFollowing?: boolean;
 }
@@ -18,18 +20,35 @@ const ProfileSection = ({
   isFollowing = false,
 }: ProfileSectionProps) => {
   const { isOpen, content } = useModalInfo();
-  const { openModal, closeModal } = useModalActions();
-  const [isFollowingState, setIsFollowingState] = useState(isFollowing);
+  const { openModal } = useModalActions();
+  const { mutate: follow } = usePostFollow();
+  const { mutate: unfollow } = useDeleteUnfollow();
+  const [following, setFollowing] = useState<boolean>(isFollowing);
+  const [pending, setPending] = useState(false);
+
+  useEffect(() => setFollowing(isFollowing), [isFollowing]);
 
   const handleFollow = () => {
     if (!content) return;
-    closeModal();
-    setIsFollowingState(!isFollowingState);
+    setPending(true);
+    setFollowing(true);
+    if (user?.code) {
+      follow(user.code, {
+        onError: () => setFollowing(false),
+        onSettled: () => setPending(false),
+      });
+    }
   };
   const handleUnfollow = () => {
     if (!content) return;
-    closeModal();
-    setIsFollowingState(!isFollowingState);
+    setPending(true);
+    setFollowing(false);
+    if (user?.userId) {
+      unfollow(user.userId, {
+        onError: () => setFollowing(true),
+        onSettled: () => setPending(false),
+      });
+    }
   };
 
   return (
@@ -37,36 +56,41 @@ const ProfileSection = ({
       className={`flex w-full justify-between items-center gap-x-[60px] mb-[22px]`}
     >
       <div className={`flex flex-col flex-1`}>
-        <LevelChip level={user.level} />
+        <LevelChip level={user?.level || 0} />
         <div className={`flex justify-between items-center mt-[11px]`}>
-          <p className={`font-head02-bold-20 text-gray-700`}>{user.name}</p>
+          <p className={`font-head02-bold-20 text-gray-700`}>
+            {user?.name || ""}
+          </p>
           {type === "me" ? (
             <Share2
               size={18}
               className={`text-gray-600 me-1`}
               onClick={() => {
-                console.log(user.code);
-                handleShare(user.code);
+                console.log(user?.code);
+                handleShare(user?.code || "");
               }}
             />
           ) : (
             <p
               className={`font-body02-semibold-14 ${
-                isFollowingState ? "text-red" : "text-green-500"
+                following ? "text-red" : "text-green-500"
               }`}
-              onClick={() => openModal({ name: user.name })}
+              onClick={() => {
+                if (pending) return;
+                openModal({ name: user?.name || "" });
+              }}
             >
-              {isFollowingState ? "언팔로우" : "팔로우"}
+              {following ? "언팔로우" : "팔로우"}
             </p>
           )}
         </div>
         <p className={`font-body08-regular-12 text-gray-700 mt-[8px]`}>
-          {user.description}
+          {user?.intro || "아직 소개가 없어요"}
         </p>
       </div>
       <img
-        src={user.profileImageUrl}
-        alt={`${user.name}의 프로필 이미지`}
+        src={user?.profileImage || undefined}
+        alt={`${user?.name}의 프로필 이미지`}
         className={`object-cover size-[110px] rounded-full`}
       />
 
@@ -74,11 +98,11 @@ const ProfileSection = ({
         <Modal
           title={"알림"}
           text={
-            isFollowingState
+            following
               ? `${content.name}님을 언팔로우하시겠습니까?`
               : `${content.name}님을 팔로우하시겠습니까?`
           }
-          onConfirm={isFollowing ? handleUnfollow : handleFollow}
+          onConfirm={following ? handleUnfollow : handleFollow}
         />
       )}
     </section>

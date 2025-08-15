@@ -5,7 +5,6 @@ import queryClient from "../../utils/queryClient.ts";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import { useModalActions } from "../../hooks/useModal.ts";
-import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
 const postFollow = async (code: string): Promise<null> => {
   try {
@@ -24,18 +23,19 @@ const postFollow = async (code: string): Promise<null> => {
 
 export const usePostFollow = () => {
   const { closeModal } = useModalActions();
-  const { goBack } = useEasyNavigate();
 
   return useMutation({
     mutationFn: (code: string) => postFollow(code),
     onSuccess: () => {
       closeModal();
-      goBack();
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.FRIENDS],
       });
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
+      });
+      void queryClient.invalidateQueries({
+        queryKey: [queryKey.OTHER_MAIN],
       });
     },
   });
