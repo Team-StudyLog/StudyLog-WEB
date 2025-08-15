@@ -63,7 +63,7 @@ const MainPage = () => {
             <NavigateButton type={"quiz"} onClick={goQuizPage} />
           </div>
           <Streak
-            streakDays={70}
+            streakDays={user?.streak.maxStreak || 0}
             streaks={streaks || mockStreaks}
             currentDate={currentDate}
             handleLeftClick={handleLeftClick}

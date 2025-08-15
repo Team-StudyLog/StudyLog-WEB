@@ -33,7 +33,7 @@ const OtherUserPage = () => {
             isFollowing={user?.isFollowing}
           />
           <Streak
-            streakDays={70}
+            streakDays={user?.streak.maxStreak || 0}
             streaks={streaks || mockStreaks}
             currentDate={currentDate}
             handleLeftClick={handleLeftClick}
