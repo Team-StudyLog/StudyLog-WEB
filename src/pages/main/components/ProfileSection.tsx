@@ -9,44 +9,42 @@ import { useDeleteUnfollow } from "../../../apis/mypage/useDeleteUnfollow.ts";
 import { useEffect, useState } from "react";
 
 interface ProfileSectionProps {
+  isPending: boolean;
   user: MainProfileResponse | undefined;
   type: "me" | "other";
   isFollowing?: boolean;
 }
 
 const ProfileSection = ({
+  isPending,
   user,
   type,
   isFollowing = false,
 }: ProfileSectionProps) => {
   const { isOpen, content } = useModalInfo();
   const { openModal } = useModalActions();
-  const { mutate: follow } = usePostFollow();
-  const { mutate: unfollow } = useDeleteUnfollow();
+  const { mutate: follow, isPending: followPending } = usePostFollow();
+  const { mutate: unfollow, isPending: unfollowPending } = useDeleteUnfollow();
   const [following, setFollowing] = useState<boolean>(isFollowing);
-  const [pending, setPending] = useState(false);
+  const pending = followPending || unfollowPending;
 
   useEffect(() => setFollowing(isFollowing), [isFollowing]);
 
   const handleFollow = () => {
     if (!content) return;
-    setPending(true);
     setFollowing(true);
     if (user?.code) {
       follow(user.code, {
         onError: () => setFollowing(false),
-        onSettled: () => setPending(false),
       });
     }
   };
   const handleUnfollow = () => {
     if (!content) return;
-    setPending(true);
     setFollowing(false);
     if (user?.userId) {
       unfollow(user.userId, {
         onError: () => setFollowing(true),
-        onSettled: () => setPending(false),
       });
     }
   };
@@ -88,11 +86,18 @@ const ProfileSection = ({
           {user?.intro || "아직 소개가 없어요"}
         </p>
       </div>
-      <img
-        src={user?.profileImage || undefined}
-        alt={`${user?.name}의 프로필 이미지`}
-        className={`object-cover size-[110px] rounded-full`}
-      />
+      {isPending ? (
+        <div
+          className={`animate-pulse w-[110px] h-[110px] rounded-full bg-gray-300`}
+        />
+      ) : (
+        <img
+          loading={"lazy"}
+          src={user?.profileImage || undefined}
+          alt={`프로필 이미지`}
+          className={`object-cover size-[110px] rounded-full`}
+        />
+      )}
 
       {isOpen && content && (
         <Modal

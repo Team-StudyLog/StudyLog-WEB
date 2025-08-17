@@ -23,8 +23,8 @@ const MainPage = () => {
   const { goRecordPage, goQuizPage } = useEasyNavigate();
   const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
 
-  const { data: friends } = useFetchFriendList();
-  const { data: user } = useFetchUserMain();
+  const { data: friends, isPending: isFriendsPending } = useFetchFriendList();
+  const { data: user, isPending: isUserPending } = useFetchUserMain();
 
   const year = currentDate.getFullYear().toString();
   const month = (currentDate.getMonth() + 1).toString();
@@ -41,21 +41,31 @@ const MainPage = () => {
     <>
       <div className={`flex flex-col`}>
         <Header />
-        <FriendHeader friends={friends || []} />
+        <FriendHeader isPending={isFriendsPending} friends={friends || []} />
         <ImageInput ref={fileInputRef} onChange={handleImageChange} />
-        <img
-          src={
-            selectedImage
-              ? URL.createObjectURL(selectedImage)
-              : user?.profile.coverImage || backgroundImage
-          }
-          alt="메인 배경 이미지"
-          className={`w-full h-[187px] object-cover mb-[12px] cursor-pointer`}
-          onClick={handleImageClick}
-        />
-
+        {isUserPending ? (
+          <div
+            className={`w-full h-[187px] mb-[12px] bg-gray-200 animate-pulse`}
+          />
+        ) : (
+          <img
+            src={
+              selectedImage
+                ? URL.createObjectURL(selectedImage)
+                : user?.profile.coverImage || backgroundImage
+            }
+            loading={"lazy"}
+            alt="메인 배경 이미지"
+            className={`w-full h-[187px] object-cover mb-[12px] cursor-pointer`}
+            onClick={handleImageClick}
+          />
+        )}
         <div className={`flex flex-col items-center px-[26px]`}>
-          <ProfileSection user={user?.profile} type={"me"} />
+          <ProfileSection
+            isPending={isUserPending}
+            user={user?.profile}
+            type={"me"}
+          />
           <div
             className={`flex w-full justify-between gap-x-[11px] mt-[8px] mb-[30px]`}
           >
