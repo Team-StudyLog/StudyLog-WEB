@@ -4,22 +4,22 @@ import backgroundImage from "../../assets/main-background.jpg";
 import ProfileSection from "./components/ProfileSection.tsx";
 import NavigateButton from "./components/NavigateButton.tsx";
 import CategorySection from "./components/CategorySection.tsx";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Streak from "./components/Streak.tsx";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 import ImageInput from "../../components/Input/ImageInput.tsx";
-import useImageInput from "../../hooks/useImageInput.ts";
 import useCurrentDate from "../../hooks/useCurrentDate.ts";
 import { usePatchBackground } from "../../apis/main/usePatchBackground.ts";
 import { useFetchFriendList } from "../../apis/mypage/useFetchFriendList.ts";
 import { useFetchUserStreak } from "../../apis/main/useFetchUserStreak.ts";
 import mockStreaks from "../../data/mockStreaks.ts";
 import { useFetchUserMain } from "../../apis/main/useFetchUserMain.ts";
+import useBackgroundImageInput from "../../hooks/useBackgroundImageInput.tsx";
 
 const MainPage = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const { fileInputRef, handleImageChange, handleImageClick } =
-    useImageInput(setSelectedImage);
+    useBackgroundImageInput(setSelectedImage);
   const { goRecordPage, goQuizPage } = useEasyNavigate();
   const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
 
@@ -32,9 +32,21 @@ const MainPage = () => {
 
   const { mutate: patchBackground } = usePatchBackground();
 
+  const previewUrl = useMemo(() => {
+    if (!selectedImage) return null;
+    return URL.createObjectURL(selectedImage);
+  }, [selectedImage]);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
+
   // 이미지가 변경될 때마다 배경 이미지 업데이트
   useEffect(() => {
-    if (selectedImage instanceof File) patchBackground(selectedImage);
+    if (!selectedImage) return;
+    patchBackground(selectedImage);
   }, [selectedImage, patchBackground]);
 
   return (
@@ -49,11 +61,7 @@ const MainPage = () => {
           />
         ) : (
           <img
-            src={
-              selectedImage
-                ? URL.createObjectURL(selectedImage)
-                : user?.profile.coverImage || backgroundImage
-            }
+            src={previewUrl ?? (user?.profile.coverImage || backgroundImage)}
             loading={"lazy"}
             alt="메인 배경 이미지"
             className={`w-full h-[187px] object-cover mb-[12px] cursor-pointer`}

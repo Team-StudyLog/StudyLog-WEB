@@ -8,17 +8,15 @@ import { useInView } from "react-intersection-observer";
 import DateFilterChip from "../../components/Chips/DateFilterChip.tsx";
 import CategoryFilterChip from "../../components/Chips/CategoryFilterChip.tsx";
 import { useFetchCategoryList } from "../../apis/record/useFetchCateogoryList.ts";
+import SkeletonItem from "../../components/Skeleton/SkeletonItem.tsx";
 
 const QuizPage = () => {
   const [keyword, setKeyword] = useState<string>("");
   const [category, setCategory] = useState<number | undefined>(undefined);
   const [date, setDate] = useState<string | undefined>(undefined);
   const { ref, inView } = useInView({ threshold: 0 });
-  const { data, fetchNextPage, isFetchingNextPage } = useFetchQuizList(
-    keyword,
-    date,
-    category
-  );
+  const { data, fetchNextPage, isFetchingNextPage, isPending } =
+    useFetchQuizList(keyword, date, category);
   const quizzes = data?.pages.flatMap((page) => page.quizzes) || [];
 
   useEffect(() => {
@@ -51,7 +49,11 @@ const QuizPage = () => {
           />
         </div>
 
-        {keyword ? (
+        {isPending ? (
+          Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonItem key={index} />
+          ))
+        ) : keyword ? (
           quizzes.length > 0 ? (
             quizzes.map((quiz, index) => <QuizItem key={index} quiz={quiz} />)
           ) : (
