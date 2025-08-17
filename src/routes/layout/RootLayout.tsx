@@ -9,7 +9,7 @@ const RootLayout = () => {
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
-        <ErrorBoundary onReset={reset} fallback={<Error />}>
+        <ErrorBoundary onReset={reset} FallbackComponent={Error}>
           <Suspense fallback={<Loading />}>
             <Outlet />
           </Suspense>
