@@ -5,6 +5,7 @@ import { END_POINT } from "../../constants/api.ts";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
+import { toast } from "react-toastify";
 
 const postQuiz = async (
   recordId: number,
@@ -43,8 +44,11 @@ export const usePostQuiz = (recordId: number) => {
         queryKey: [queryKey.RECORD, recordId],
       });
       void queryClient.invalidateQueries({
-        queryKey: [queryKey.QUIZZES]
-      })
+        queryKey: [queryKey.QUIZZES],
+      });
+    },
+    onError: () => {
+      toast.error("퀴즈 생성에 실패했습니다. 다시 시도해주세요.");
     },
   });
 };

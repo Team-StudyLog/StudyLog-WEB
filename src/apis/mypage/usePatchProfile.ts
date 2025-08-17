@@ -6,6 +6,7 @@ import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import type { UserProfileResponse } from "../../types/apis/mypage";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
+import { toast } from "react-toastify";
 
 const patchProfile = async (
   profileImage: File | undefined,
@@ -54,6 +55,7 @@ export const usePatchProfile = () => {
     },
     onError: () => {
       console.error("프로필 업데이트 실패");
+      toast.error("프로필 업데이트에 실패했습니다. 다시 시도해주세요.");
     },
   });
 };

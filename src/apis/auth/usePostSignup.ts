@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 import { storageKey } from "../../constants/storageKey.ts";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
+import { toast } from "react-toastify";
 
 interface PostSignupResponse {
   profileImage: string;
@@ -52,7 +53,9 @@ export const usePostSignup = () => {
       if (code) goMainPage(code);
     },
     onError: (error) => {
-      console.error("Signup failed:", error);
+      toast.error(
+        `회원가입에 실패했습니다. 다시 시도해주세요. ${error.message}`
+      );
     },
   });
 };

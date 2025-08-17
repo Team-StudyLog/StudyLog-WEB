@@ -6,6 +6,7 @@ import { END_POINT } from "../../constants/api.ts";
 import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
+import { toast } from "react-toastify";
 
 interface PostRecordResponse {
   record: RecordResponse;
@@ -54,6 +55,9 @@ export const usePostRecord = () => {
         queryKey: [queryKey.RECORD, data.record.id],
       });
       goBack();
+    },
+    onError: () => {
+      toast.error("기록 생성에 실패했습니다. 다시 시도해주세요.");
     },
   });
 };
