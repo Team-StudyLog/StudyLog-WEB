@@ -11,6 +11,7 @@ import { useInView } from "react-intersection-observer";
 import { useFetchRecordList } from "../../apis/record/useFetchRecordList.ts";
 import useDebounce from "../../hooks/useDebounce.ts";
 import { useFetchRecordSearch } from "../../apis/record/useFetchRecordSearch.ts";
+import SkeletonItem from "../../components/Skeleton/SkeletonItem.tsx";
 
 const RecordPage = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -20,10 +21,8 @@ const RecordPage = () => {
   const { ref, inView } = useInView({
     threshold: 0,
   });
-  const { data, fetchNextPage, isFetchingNextPage } = useFetchRecordList(
-    category,
-    date
-  );
+  const { data, fetchNextPage, isFetchingNextPage, isPending } =
+    useFetchRecordList(category, date);
   const { data: filteredRecords, mutate: searchRecords } =
     useFetchRecordSearch();
 
@@ -75,7 +74,11 @@ const RecordPage = () => {
             onSelect={setDate}
           />
         </div>
-        {renderList && renderList.length > 0 ? (
+        {isPending ? (
+          Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonItem key={index} />
+          ))
+        ) : renderList && renderList.length > 0 ? (
           renderList.map((record, index) => (
             <RecordItem key={index} record={record} />
           ))

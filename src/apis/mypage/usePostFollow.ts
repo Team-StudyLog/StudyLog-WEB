@@ -5,6 +5,7 @@ import queryClient from "../../utils/queryClient.ts";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import { useModalActions } from "../../hooks/useModal.ts";
+import { toast } from "react-toastify";
 
 const postFollow = async (code: string): Promise<null> => {
   try {
@@ -37,6 +38,9 @@ export const usePostFollow = () => {
       void queryClient.invalidateQueries({
         queryKey: [queryKey.OTHER_MAIN],
       });
+    },
+    onError: () => {
+      toast.error("팔로우에 실패했습니다. 다시 시도해주세요.");
     },
   });
 };

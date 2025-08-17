@@ -15,7 +15,7 @@ const OtherUserPage = () => {
   const year = currentDate.getFullYear().toString();
   const month = (currentDate.getMonth() + 1).toString();
   const { data: streaks } = useFetchOtherStreak(code, year, month);
-  const { data: user } = useFetchOtherMain(code);
+  const { data: user, isPending: isUserPending } = useFetchOtherMain(code);
 
   return (
     <>
@@ -28,6 +28,7 @@ const OtherUserPage = () => {
         />
         <div className={`flex flex-col items-center px-[26px]`}>
           <ProfileSection
+            isPending={isUserPending}
             user={user?.profile}
             type={`other`}
             isFollowing={user?.isFollowing}

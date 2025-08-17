@@ -3,10 +3,11 @@ import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import type { FetchFriendResponse } from "../../../apis/mypage/useFetchFriendSearch.ts";
 
 interface FriendHeaderProps {
+  isPending: boolean;
   friends: FetchFriendResponse[];
 }
 
-const FriendHeader = ({ friends }: FriendHeaderProps) => {
+const FriendHeader = ({ isPending, friends }: FriendHeaderProps) => {
   const { goFriendPage } = useEasyNavigate();
   return (
     <header
@@ -20,15 +21,29 @@ const FriendHeader = ({ friends }: FriendHeaderProps) => {
         <Search size={24} />
         <span className={`mt-[4px] font-body03-semibold-12`}>친구찾기</span>
       </div>
-      {friends.map((friend, index) => (
-        <UserProfile
-          key={index}
-          code={friend.code}
-          nickname={friend.nickname}
-          profileImage={friend.profileImage}
-        />
-      ))}
+      {isPending
+        ? Array.from({ length: 10 }).map((_, index) => (
+            <UserProfileSkeleton key={index} />
+          ))
+        : friends.map((friend, index) => (
+            <UserProfile
+              key={index}
+              code={friend.code}
+              nickname={friend.nickname}
+              profileImage={friend.profileImage}
+            />
+          ))}
     </header>
+  );
+};
+
+const UserProfileSkeleton = () => {
+  return (
+    <div
+      className={
+        "border border-gray-300 bg-gray-300 animate-pulse rounded-[20px] size-[68px] shrink-0"
+      }
+    />
   );
 };
 

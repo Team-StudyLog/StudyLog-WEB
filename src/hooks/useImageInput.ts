@@ -1,9 +1,9 @@
-import { useRef } from "react";
+import { type ChangeEvent, useRef } from "react";
 
 const useImageInput = (setImage: (image: File) => void) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(file);

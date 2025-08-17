@@ -4,35 +4,35 @@
   font-family: PretendardRegular;
   font-style: normal;
   font-weight: 400;
-  src: url('../src/assets/fonts/Pretendard-Regular.ttf') format('truetype');
+  src: url('../public/fonts/Pretendard-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: PretendardMedium;
   font-style: normal;
   font-weight: 500;
-  src: url('../src/assets/fonts/Pretendard-Medium.ttf') format('truetype');
+  src: url('../public/fonts/Pretendard-Medium.ttf') format('truetype');
 }
 
 @font-face {
   font-family: PretendardSemiBold;
   font-style: normal;
   font-weight: 600;
-  src: url('../src/assets/fonts/Pretendard-SemiBold.ttf') format('truetype');
+  src: url('../public/fonts/Pretendard-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: PretendardBold;
   font-style: normal;
   font-weight: 700;
-  src: url('../src/assets/fonts/Pretendard-Bold.ttf') format('truetype');
+  src: url('../public/fonts/Pretendard-Bold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: PartialSansKR;
   font-style: normal;
   font-weight: 400;
-  src: url('../src/assets/fonts/PartialSansKR-Regular.otf') format('opentype');
+  src: url('../public/fonts/PartialSansKR-Regular.otf') format('opentype');
 }
 
 @layer utilities {
@@ -218,6 +218,10 @@
 :root {
   --min-width: 375px;
   --max-width: 430px;
+  --toastify-font-family: 'Pretendard';
+  --toastify-color-error: var(--color-red);
+  --toastify-text-color-light: var(--color-gray-700);
+  --toastify-toast-bd-radius: 8px;
 }
 
 html,

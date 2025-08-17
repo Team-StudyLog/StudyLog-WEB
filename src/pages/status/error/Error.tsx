@@ -9,13 +9,17 @@ import { User } from "lucide-react";
 import BottomButton from "../../../components/Button/BottomButton.tsx";
 import useEasyNavigate from "../../../hooks/useEasyNavigate.ts";
 import LogoHeader from "../../../components/Header/LogoHeader.tsx";
+import type { FallbackProps } from "react-error-boundary";
 
-const Error = () => {
+const Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   const { goHomePage } = useEasyNavigate();
   const handleClick = () => {
     localStorage.clear();
+    resetErrorBoundary();
     goHomePage();
   };
+  const statusCode = error.status.code;
+  alert(`에러가 발생했습니다. 상태 코드: ${statusCode}`);
 
   return (
     <div className={loginPageStyle}>
