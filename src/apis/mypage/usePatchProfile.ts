@@ -52,6 +52,7 @@ export const usePatchProfile = () => {
       void queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
       });
+      toast.success("프로필 업데이트 성공");
       goBack();
     },
     onError: () => {

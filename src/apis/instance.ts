@@ -27,7 +27,8 @@ instance.interceptors.response.use(
         await postTokenReissue();
         return instance(originalRequest);
       } catch (e) {
-        // TODO: 로그아웃 처리
+        localStorage.clear();
+        window.location.replace("/");
         return Promise.reject(e);
       }
     }
