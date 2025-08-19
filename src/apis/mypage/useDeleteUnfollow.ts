@@ -1,7 +1,6 @@
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
-import { useMutation } from "@tanstack/react-query";
-import queryClient from "../../utils/queryClient.ts";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { FetchFriendResponse } from "./useFetchFriendSearch.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import { END_POINT } from "../../constants/api.ts";
@@ -24,6 +23,7 @@ const deleteUnfollow = async (
 
 export const useDeleteUnfollow = () => {
   const { closeModal } = useModalActions();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (friendId: number) => deleteUnfollow(friendId),

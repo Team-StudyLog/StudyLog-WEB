@@ -2,8 +2,7 @@ import type { QuizDetailResponse } from "../../types/apis/quiz";
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import { END_POINT } from "../../constants/api.ts";
-import { useMutation } from "@tanstack/react-query";
-import queryClient from "../../utils/queryClient.ts";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryKey } from "../../constants/queryKey.ts";
 import { toast } from "react-toastify";
 
@@ -26,6 +25,8 @@ const postQuiz = async (
 };
 
 export const usePostQuiz = (recordId: number) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({
       level,

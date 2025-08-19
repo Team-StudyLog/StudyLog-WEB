@@ -1,9 +1,8 @@
 import type { ApiResponse } from "../../types/apis/commonType.ts";
 import type { CategoryResponse } from "../../types/apis/record";
 import { instance } from "../instance.ts";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
-import queryClient from "../../utils/queryClient.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
 
@@ -25,6 +24,7 @@ const postCategory = async (
 
 export const usePostCategory = () => {
   const { goBack } = useEasyNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ name, color }: { name: string; color: string }) =>

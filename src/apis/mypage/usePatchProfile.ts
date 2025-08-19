@@ -1,7 +1,6 @@
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
-import { useMutation } from "@tanstack/react-query";
-import queryClient from "../../utils/queryClient.ts";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import type { UserProfileResponse } from "../../types/apis/mypage";
@@ -34,6 +33,8 @@ const patchProfile = async (
 
 export const usePatchProfile = () => {
   const { goBack } = useEasyNavigate();
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({
       profileImage,
@@ -45,10 +46,10 @@ export const usePatchProfile = () => {
       intro: string;
     }) => patchProfile(profileImage, nickname, intro),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.USER_PROFILE],
       });
-      queryClient.invalidateQueries({
+      void queryClient.invalidateQueries({
         queryKey: [queryKey.MY_PAGE],
       });
       goBack();

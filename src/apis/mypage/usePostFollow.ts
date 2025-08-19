@@ -1,7 +1,6 @@
 import { instance } from "../instance.ts";
 import type { ApiResponse } from "../../types/apis/commonType.ts";
-import { useMutation } from "@tanstack/react-query";
-import queryClient from "../../utils/queryClient.ts";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { END_POINT } from "../../constants/api.ts";
 import { queryKey } from "../../constants/queryKey.ts";
 import { useModalActions } from "../../hooks/useModal.ts";
@@ -24,6 +23,7 @@ const postFollow = async (code: string): Promise<null> => {
 
 export const usePostFollow = () => {
   const { closeModal } = useModalActions();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (code: string) => postFollow(code),

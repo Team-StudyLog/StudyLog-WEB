@@ -1,7 +1,6 @@
 import type { CategoryResponse } from "../../types/apis/record";
 import { instance } from "../instance.ts";
-import { useMutation } from "@tanstack/react-query";
-import queryClient from "../../utils/queryClient.ts";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryKey } from "../../constants/queryKey.ts";
 import { END_POINT } from "../../constants/api.ts";
 
@@ -27,6 +26,8 @@ export const usePutCategory = (
   name: string,
   color: string
 ) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: () => putCategory(categoryId, name, color),
     onSuccess: () => {
