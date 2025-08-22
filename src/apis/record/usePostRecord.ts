@@ -47,13 +47,16 @@ export const usePostRecord = () => {
       title: string;
       content: string;
     }) => postRecord(categoryId, title, content),
-    onSuccess: (data) => {
-      void queryClient.invalidateQueries({
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
         refetchType: "all",
       });
-      void queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, data.record.id],
+      });
+      await queryClient.refetchQueries({
+        queryKey: [queryKey.RECORDS],
       });
       goBack();
     },

@@ -25,13 +25,16 @@ export const useDeleteRecord = (recordId: number) => {
 
   return useMutation({
     mutationFn: () => deleteRecord(recordId),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
         refetchType: "all",
       });
-      void queryClient.removeQueries({
+      await queryClient.removeQueries({
         queryKey: [queryKey.RECORD, recordId],
+      });
+      await queryClient.refetchQueries({
+        queryKey: [queryKey.RECORDS],
       });
       closeModal();
       goBack();
