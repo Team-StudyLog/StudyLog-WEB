@@ -22,7 +22,7 @@ const RecordDetailPage = () => {
   const isQuizGenerated = data?.quizzes && data?.quizzes.length > 0;
 
   const { mutate: deleteRecord } = useDeleteRecord(recordId);
-  const { mutate: postQuiz } = usePostQuiz(recordId);
+  const { mutate: postQuiz, isPending } = usePostQuiz(recordId);
 
   const [bottomSheetState, setBottomSheetState] =
     useState<BottomSheetState>("closed");
@@ -47,10 +47,15 @@ const RecordDetailPage = () => {
         requirement: value,
       });
     }
-    setBottomSheetState("closed");
   };
 
-  const isButtonDisabled = !quizLevel || !quizCount || !value;
+  useEffect(() => {
+    if (!isPending && isQuizGenerated) {
+      setBottomSheetState("closed");
+    }
+  }, [isPending, isQuizGenerated]);
+
+  const isButtonDisabled = !quizLevel || !quizCount || !value || isPending;
 
   useEffect(() => {
     if (bottomSheetState === "closed") {
@@ -144,7 +149,7 @@ const RecordDetailPage = () => {
             setValue={setValue}
           />
           <BottomButton
-            text={"퀴즈 생성하기"}
+            text={isPending ? "퀴즈 생성 중..." : "퀴즈 생성하기"}
             onClick={handleGenerateQuiz}
             disabled={isButtonDisabled}
           />

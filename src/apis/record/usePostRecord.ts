@@ -50,6 +50,7 @@ export const usePostRecord = () => {
     onSuccess: (data) => {
       void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
+        refetchType: "all",
       });
       void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, data.record.id],

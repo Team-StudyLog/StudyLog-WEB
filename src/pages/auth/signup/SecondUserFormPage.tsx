@@ -22,14 +22,15 @@ const SecondUserFormPage = ({
   description,
   setDescription,
 }: SecondUserFormPageProps) => {
-  const { mutate: postSignup } = usePostSignup();
+  const { mutate: postSignup, isPending } = usePostSignup();
   const { mutate: patchProfile } = usePatchProfile();
 
   const isButtonDisabled =
     nickname.length === 0 ||
     nickname.length > 20 ||
     description.length === 0 ||
-    description.length > 100;
+    description.length > 100 ||
+    isPending;
 
   const handleSubmit = async () => {
     let imageFile: File | undefined = undefined;

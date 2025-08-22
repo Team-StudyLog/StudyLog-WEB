@@ -46,6 +46,7 @@ export const usePostQuiz = (recordId: number) => {
       });
       void queryClient.invalidateQueries({
         queryKey: [queryKey.QUIZZES],
+        refetchType: "all",
       });
     },
     onError: () => {

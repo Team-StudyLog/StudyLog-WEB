@@ -48,5 +48,6 @@ export const useFetchRecordList = (categoryId?: number, date?: string) => {
     },
     initialPageParam: undefined,
     refetchOnWindowFocus: true,
+    enabled: true,
   });
 };

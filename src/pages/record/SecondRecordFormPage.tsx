@@ -28,14 +28,17 @@ const SecondRecordFormPage = ({
   setContent = () => {},
 }: SecondRecordFormPageProps) => {
   const recordId = Number(useParams<{ recordId: string }>().recordId);
-  const { mutate: postRecord } = usePostRecord();
-  const { mutate: editRecord } = usePutRecord(recordId);
+  const { mutate: postRecord, isPending: isRecordPosting } = usePostRecord();
+  const { mutate: editRecord, isPending: isRecordEditing } =
+    usePutRecord(recordId);
 
   const isButtonDisabled =
     title.length === 0 ||
     title.length > 20 ||
     content.length === 0 ||
-    content.length > 200;
+    content.length > 200 ||
+    isRecordPosting ||
+    isRecordEditing;
 
   const handleSubmit = () => {
     if (type === "write" && selectedCategory?.id)

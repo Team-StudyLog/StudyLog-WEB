@@ -61,5 +61,6 @@ export const useFetchQuizList = (
       lastPage.hasNext ? lastPage.lastId : undefined,
     initialPageParam: undefined,
     refetchOnWindowFocus: true,
+    enabled: true,
   });
 };

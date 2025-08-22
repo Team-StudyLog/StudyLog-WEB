@@ -28,8 +28,9 @@ export const useDeleteRecord = (recordId: number) => {
     onSuccess: () => {
       void queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
+        refetchType: "all",
       });
-      void queryClient.invalidateQueries({
+      void queryClient.removeQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
       closeModal();

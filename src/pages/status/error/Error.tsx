@@ -18,8 +18,7 @@ const Error = ({ error, resetErrorBoundary }: FallbackProps) => {
     resetErrorBoundary();
     goHomePage();
   };
-  const statusCode = error.status.code;
-  alert(`에러가 발생했습니다. 상태 코드: ${statusCode}`);
+  console.error("Error occurred:", error);
 
   return (
     <div className={loginPageStyle}>
