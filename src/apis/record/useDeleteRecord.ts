@@ -30,7 +30,7 @@ export const useDeleteRecord = (recordId: number) => {
         queryKey: [queryKey.RECORDS],
         refetchType: "all",
       });
-      await queryClient.removeQueries({
+      queryClient.removeQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
       await queryClient.refetchQueries({
