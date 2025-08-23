@@ -70,7 +70,10 @@ const QuizGenerateContent = ({
         </div>
       </div>
       <div className="flex flex-col gap-y-[16px]">
-        <h3 className="font-head06-semibold-16 text-gray-700">퀴즈 요구사항</h3>
+        <h3 className="font-head06-semibold-16 text-gray-700">
+          퀴즈 요구사항
+          <span className="text-red"> *</span>
+        </h3>
         <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}

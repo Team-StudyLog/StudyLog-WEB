@@ -130,7 +130,7 @@ const RecordDetailPage = () => {
       {isOpen && content && (
         <Modal
           title={"삭제"}
-          text={"기록 삭제 시 스트릭이 내역이 취소됩니다."}
+          text={"기록 삭제 시 스트릭 내역이 취소됩니다."}
           onConfirm={handleDelete}
         />
       )}

@@ -33,8 +33,9 @@ export const useDeleteRecord = (recordId: number) => {
       queryClient.removeQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
-      await queryClient.refetchQueries({
-        queryKey: [queryKey.RECORDS],
+      await queryClient.invalidateQueries({
+        queryKey: [queryKey.QUIZZES],
+        refetchType: "all",
       });
       closeModal();
       goBack();

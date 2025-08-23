@@ -29,9 +29,12 @@ export const usePostCategory = () => {
   return useMutation({
     mutationFn: ({ name, color }: { name: string; color: string }) =>
       postCategory(name, color),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.CATEGORIES],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: [queryKey.USER_MAIN],
       });
       goBack();
     },

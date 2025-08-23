@@ -70,8 +70,10 @@ const ProfileSection = ({
             />
           ) : (
             <p
-              className={`font-body02-semibold-14 ${
-                following ? "text-red" : "text-green-500"
+              className={`font-body02-semibold-14 cursor-pointer ${
+                following
+                  ? "text-red hover:text-red-500"
+                  : "text-green-500 hover:text-green-600"
               }`}
               onClick={() => {
                 if (pending) return;

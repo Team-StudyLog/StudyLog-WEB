@@ -22,7 +22,7 @@ const fetchOtherMain = async (code: string): Promise<OtherMainResponse> => {
 
 export const useFetchOtherMain = (code: string) => {
   return useQuery({
-    queryKey: [queryKey.OTHER_MAIN],
+    queryKey: [queryKey.OTHER_MAIN, code],
     queryFn: () => fetchOtherMain(code),
     enabled: !!code,
   });

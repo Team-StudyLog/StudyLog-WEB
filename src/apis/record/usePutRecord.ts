@@ -51,11 +51,12 @@ export const usePutRecord = (recordId: number) => {
       title: string;
       content: string;
     }) => putRecord(recordId, categoryId, title, content),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.RECORDS],
+        refetchType: "all",
       });
-      void queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, recordId],
       });
       goBack();

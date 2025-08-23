@@ -37,14 +37,19 @@ export const usePostQuiz = (recordId: number) => {
       quizCount: number;
       requirement: string;
     }) => postQuiz(recordId, level, quizCount, requirement),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [queryKey.RECORDS],
+        refetchType: "all",
+      });
+      await queryClient.refetchQueries({
         queryKey: [queryKey.RECORDS],
       });
-      void queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, recordId],
+        refetchType: "all",
       });
-      void queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: [queryKey.QUIZZES],
         refetchType: "all",
       });
