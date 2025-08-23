@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { dateFormatWithDot, dateToSlash } from "../../utils/dateFormat";
+// import { DatePicker } from "antd";
+import DatePicker from "react-datepicker";
+// import "./DatePicker.css";
 
 interface DateFilterChipProps {
   defaultLabel: string;
@@ -65,6 +67,7 @@ const DateFilterChip = ({
       {datePickerOpen && (
         <div className="absolute mt-2 z-20">
           <DatePicker selected={selected} onChange={handleDateChange} inline />
+          {/*<DatePicker onChange={(date) => console.log(date)} />*/}
         </div>
       )}
     </div>

@@ -55,8 +55,9 @@ export const usePostRecord = () => {
       await queryClient.invalidateQueries({
         queryKey: [queryKey.RECORD, data.record.id],
       });
-      await queryClient.refetchQueries({
-        queryKey: [queryKey.RECORDS],
+      await queryClient.invalidateQueries({
+        queryKey: [queryKey.USER_STREAK],
+        refetchType: "all",
       });
       goBack();
     },

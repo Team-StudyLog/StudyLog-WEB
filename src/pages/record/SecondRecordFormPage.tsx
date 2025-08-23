@@ -35,7 +35,7 @@ const SecondRecordFormPage = ({
   const isButtonDisabled =
     title.length === 0 ||
     title.length > 20 ||
-    content.length === 0 ||
+    content.length < 10 ||
     content.length > 200 ||
     isRecordPosting ||
     isRecordEditing;
@@ -80,7 +80,7 @@ const SecondRecordFormPage = ({
           onChange={(e) => setContent(e.target.value)}
           id={"content"}
           placeholder={
-            "학습한 내용을 구체적으로 적을수록 AI가 정확하고 수준에 맞는 퀴즈를 만들어 드릴 수 있어요."
+            "학습한 내용을 구체적으로 적을수록 AI가 정확하고 수준에 맞는 퀴즈를 만들어 드릴 수 있어요. (10~200자)"
           }
           maxLength={200}
         />
