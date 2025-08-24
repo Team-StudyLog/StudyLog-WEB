@@ -6,27 +6,25 @@ import MyPageItem from "./components/MyPageItem.tsx";
 import { useModalActions, useModalInfo } from "../../hooks/useModal.ts";
 import Modal from "../../components/Modal/Modal.tsx";
 import { useFetchMyPage } from "../../apis/mypage/useFetchMyPage.ts";
+import { usePostLogout } from "../../apis/mypage/usePostLogout.ts";
+import { useDeleteUser } from "../../apis/mypage/useDeleteUser.ts";
 
 const MyPage = () => {
   const { data } = useFetchMyPage();
-  const { goHomePage, goFriendPage, goMyPageEdit } = useEasyNavigate();
+  const { goFriendPage, goMyPageEdit } = useEasyNavigate();
   const { isOpen, content } = useModalInfo();
-  const { openModal, closeModal } = useModalActions();
+  const { openModal } = useModalActions();
+  const { mutate: logout } = usePostLogout();
+  const { mutate: signOut } = useDeleteUser();
 
   const handleLogout = () => {
     if (!content) return;
-    closeModal();
-    alert("로그아웃 되었습니다.");
-    goHomePage();
-    localStorage.clear();
+    logout();
   };
 
   const handleSignOut = () => {
     if (!content) return;
-    closeModal();
-    alert("회원탈퇴 되었습니다.");
-    goHomePage();
-    localStorage.clear();
+    signOut();
   };
 
   return (
