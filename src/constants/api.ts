@@ -6,6 +6,8 @@ export const END_POINT = {
   POST_SIGNUP: "/users/profile",
   FETCH_USER_PROFILE: "/users/profile",
   PATCH_USER_PROFILE: "/users/profile",
+  POST_LOGOUT: "/users/logout",
+  DELETE_USER: "/users",
   FETCH_FRIEND_LIST: "/friends",
   POST_FOLLOW: "/friends",
   FETCH_FRIEND_CODE: "/friends/by-code",
