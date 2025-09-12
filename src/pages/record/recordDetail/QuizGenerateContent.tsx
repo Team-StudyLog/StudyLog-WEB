@@ -77,7 +77,9 @@ const QuizGenerateContent = ({
         <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          placeholder="퀴즈를 생성하기 위한 요구사항을 입력해주세요"
+          placeholder={
+            "퀴즈를 생성하기 위한 요구사항을 입력해주세요\n(ex. '000'을 중심으로 퀴즈를 생성해줘)"
+          }
           className="w-full bg-gray-100 rounded-[10px] px-[20px] py-[24px] font-body05-medium-14 text-gray-700 placeholder-gray-500 outline-none min-h-[144px] resize-none"
         />
       </div>
