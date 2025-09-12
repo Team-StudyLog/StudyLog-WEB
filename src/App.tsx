@@ -3,6 +3,7 @@ import queryClient from "./utils/queryClient.ts";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import pageRoutes from "./routes/pageRoutes.tsx";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter(pageRoutes);
 
@@ -11,6 +12,11 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
       {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+      <ToastContainer
+        position={"bottom-center"}
+        autoClose={2000}
+        pauseOnHover={false}
+      />
     </QueryClientProvider>
   );
 }

@@ -1,7 +1,38 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/api.ts";
+import { storageKey } from "../constants/storageKey.ts";
+import { postTokenReissue } from "./auth/postTokenReissue.ts";
 
 export const instance = axios.create({
   baseURL: BASE_URL,
-  withCredentials: false,
+  withCredentials: true,
 });
+
+instance.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem(storageKey.ACCESS_TOKEN);
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
+instance.interceptors.response.use(
+  (res) => res,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        await postTokenReissue();
+        return instance(originalRequest);
+      } catch (e) {
+        localStorage.clear();
+        window.location.replace("/");
+        return Promise.reject(e);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);

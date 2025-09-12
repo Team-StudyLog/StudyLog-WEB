@@ -1,0 +1,66 @@
+import React, { type TextareaHTMLAttributes } from "react";
+import { Info } from "lucide-react";
+import type { InputType } from "../../types/inputType.ts";
+
+interface TextInputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  type?: InputType;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  id: string;
+  placeholder?: string;
+  maxLength?: number;
+}
+
+const TextInput = ({
+  type = "title",
+  value,
+  onChange,
+  id,
+  placeholder = "제목을 입력하세요",
+  maxLength = 20,
+}: TextInputProps) => {
+  const isError = value.length > maxLength;
+
+  return (
+    <div className="flex flex-col gap-[6px] w-full">
+      <div
+        className={`bg-white rounded-[8px] border p-[20px] w-full
+        ${type === "title" ? "flex" : "flex-col"} 
+          ${isError ? "border-red" : "border-gray-400"}
+        `}
+      >
+        <textarea
+          id={id}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          rows={1}
+          className={`
+            w-full resize-none overflow-hidden
+            font-body07-regular-14 text-gray-700 placeholder-gray-500
+            outline-none bg-transparent
+          `}
+          style={{
+            minHeight: type === "title" ? "auto" : "80px",
+          }}
+        />
+        <div className="flex justify-end font-body07-regular-14 text-gray-500">
+          <span className={isError ? "text-red" : "text-gray-500"}>
+            {value.length}
+          </span>
+          /{maxLength}
+        </div>
+      </div>
+      {isError && (
+        <div className="flex items-center gap-2 ps-1 text-red">
+          <Info size={12} />
+          <span className="font-body09-medium-10">
+            {maxLength}자 내외로 입력해주세요
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default TextInput;

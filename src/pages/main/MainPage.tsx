@@ -1,0 +1,97 @@
+import Header from "../../components/Header/Header.tsx";
+import FriendHeader from "./components/FriendHeader.tsx";
+import backgroundImage from "../../assets/main-background.jpg";
+import ProfileSection from "./components/ProfileSection.tsx";
+import NavigateButton from "./components/NavigateButton.tsx";
+import CategorySection from "./components/CategorySection.tsx";
+import { useEffect, useMemo, useState } from "react";
+import Streak from "./components/Streak.tsx";
+import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
+import ImageInput from "../../components/Input/ImageInput.tsx";
+import useCurrentDate from "../../hooks/useCurrentDate.ts";
+import { usePatchBackground } from "../../apis/main/usePatchBackground.ts";
+import { useFetchFriendList } from "../../apis/mypage/useFetchFriendList.ts";
+import { useFetchUserStreak } from "../../apis/main/useFetchUserStreak.ts";
+import mockStreaks from "../../data/mockStreaks.ts";
+import { useFetchUserMain } from "../../apis/main/useFetchUserMain.ts";
+import useBackgroundImageInput from "../../hooks/useBackgroundImageInput.tsx";
+
+const MainPage = () => {
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const { fileInputRef, handleImageChange, handleImageClick } =
+    useBackgroundImageInput(setSelectedImage);
+  const { goRecordPage, goQuizPage } = useEasyNavigate();
+  const { currentDate, handleLeftClick, handleRightClick } = useCurrentDate();
+
+  const { data: friends, isPending: isFriendsPending } = useFetchFriendList();
+  const { data: user, isPending: isUserPending } = useFetchUserMain();
+
+  const year = currentDate.getFullYear().toString();
+  const month = (currentDate.getMonth() + 1).toString();
+  const { data: streaks } = useFetchUserStreak(year, month);
+
+  const { mutate: patchBackground } = usePatchBackground();
+
+  const previewUrl = useMemo(() => {
+    if (!selectedImage) return null;
+    return URL.createObjectURL(selectedImage);
+  }, [selectedImage]);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
+
+  // 이미지가 변경될 때마다 배경 이미지 업데이트
+  useEffect(() => {
+    if (!selectedImage) return;
+    patchBackground(selectedImage);
+  }, [selectedImage, patchBackground]);
+
+  return (
+    <>
+      <div className={`flex flex-col`}>
+        <Header />
+        <FriendHeader isPending={isFriendsPending} friends={friends || []} />
+        <ImageInput ref={fileInputRef} onChange={handleImageChange} />
+        {isUserPending ? (
+          <div
+            className={`w-full h-[187px] mb-[12px] bg-gray-200 animate-pulse`}
+          />
+        ) : (
+          <img
+            src={previewUrl ?? (user?.profile.coverImage || backgroundImage)}
+            loading={"lazy"}
+            alt="메인 배경 이미지"
+            className={`w-full h-[187px] object-cover mb-[12px] cursor-pointer`}
+            onClick={handleImageClick}
+          />
+        )}
+        <div className={`flex flex-col items-center px-[26px]`}>
+          <ProfileSection
+            isPending={isUserPending}
+            user={user?.profile}
+            type={"me"}
+          />
+          <div
+            className={`flex w-full justify-between gap-x-[11px] mt-[8px] mb-[30px]`}
+          >
+            <NavigateButton type={"archive"} onClick={goRecordPage} />
+            <NavigateButton type={"quiz"} onClick={goQuizPage} />
+          </div>
+          <Streak
+            streakDays={user?.streak.maxStreak || 0}
+            streaks={streaks || mockStreaks}
+            currentDate={currentDate}
+            handleLeftClick={handleLeftClick}
+            handleRightClick={handleRightClick}
+          />
+          <CategorySection categories={user?.categories || []} />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default MainPage;

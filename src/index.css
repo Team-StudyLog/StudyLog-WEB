@@ -1,8 +1,227 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: PretendardRegular;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/Pretendard-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardMedium;
+  font-style: normal;
+  font-weight: 500;
+  src: url('../public/fonts/Pretendard-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardSemiBold;
+  font-style: normal;
+  font-weight: 600;
+  src: url('../public/fonts/Pretendard-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PretendardBold;
+  font-style: normal;
+  font-weight: 700;
+  src: url('../public/fonts/Pretendard-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: PartialSansKR;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/PartialSansKR-Regular.otf') format('opentype');
+}
+
+@layer utilities {
+  .font-head01-bold-24 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head02-bold-20 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head03-bold-18 {
+      font-family: PretendardBold, sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-head04-bold-16 {
+      font-family: PretendardBold, sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-head05-semibold-20 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head06-semibold-16 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head07-medium-20 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head08-medium-18 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-head09-regular-18 {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body01-bold-14 {
+    font-family: PretendardBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body02-semibold-14 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body03-semibold-12 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body04-medium-16 {
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+  }
+
+  .font-body05-medium-14 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body06-regular-16 {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body07-regular-14 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body08-regular-12 {
+      font-family: PretendardRegular, sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: -0.6px;
+      line-height: normal;
+  }
+
+  .font-body09-medium-10 {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-body10-regular-10 {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 1rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+
+  .font-logo-partial-24 {
+    font-family: PartialSansKR, sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: -0.32px;
+    line-height: normal;
+  }
+
+  .font-logo-partial-30 {
+    font-family: PartialSansKR, sans-serif;
+    font-size: 3rem;
+    letter-spacing: -0.6px;
+    line-height: normal;
+  }
+}
+
+@theme {
+  --color-green-100: #BBEFDA;
+  --color-green-200: #52D38A;
+  --color-green-300: #44D496;
+  --color-green-400: linear-gradient(to bottom, var(--color-green-300), var(--color-green-200));
+  --color-green-500: #17B36F;
+  --color-green-600: #036239;
+  --color-red: #FD7563;
+
+  /*Gray Scale*/
+  --color-white: #FFFFFF;
+  --color-gray-100: #F8F8F8;
+  --color-gray-200: #EEEEEE;
+  --color-gray-300: #E4E4E4;
+  --color-gray-400: #D9D9D9;
+  --color-gray-500:#9E9E9E;
+  --color-gray-600: #616161;
+  --color-gray-700: #212222;
+
+  --color-kakao-yellow: #FAE100;
+  --color-rose-pink: #D895A6;
+  --color-baby-blue: #A7C9F7;
+  --color-baby-pink: #E8C1C1;
+  --color-cool-gray: #CAD1E0;
+  --color-melon-green: #B5E1B2;
+  --color-lavender-purple: #A0A3FE;
+  --color-pale-yellow: #F6D68C;
+  --color-lilac-purple: #C9BAF3;
+  --color-cement-gray: #9E9EA3;
+  --color-pale-orange: #FFB877;
+}
+
 :root {
   --min-width: 375px;
   --max-width: 430px;
+  --toastify-font-family: 'Pretendard';
+  --toastify-color-error: var(--color-red);
+  --toastify-text-color-light: var(--color-gray-700);
+  --toastify-toast-bd-radius: 8px;
 }
 
 html,
@@ -14,10 +233,10 @@ body {
   scroll-behavior: smooth;
   overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 62.5%;
 }
 
 #root {
@@ -25,7 +244,7 @@ body {
   min-width: var(--min-width);
   max-width: var(--max-width);
   min-height: 100dvh;
-  background-color: #fff;
+  background-color: #F8F8F8;
   margin: 0 auto;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
 }
