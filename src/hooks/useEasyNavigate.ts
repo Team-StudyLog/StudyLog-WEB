@@ -71,6 +71,10 @@ const useEasyNavigate = () => {
     navigate(routePath.ALARM);
   };
 
+  const goRankPage = () => {
+    navigate(routePath.RANK);
+  };
+
   const goFriendPage = () => {
     navigate(routePath.FRIEND);
   };
@@ -97,6 +101,7 @@ const useEasyNavigate = () => {
     goMyPage,
     goMyPageEdit,
     goAlarmPage,
+    goRankPage,
     goFriendPage,
     goFriendAddPage,
   };
