@@ -40,7 +40,7 @@ const SecondRecordFormPage = ({
     title.length === 0 ||
     title.length > 20 ||
     content.length < 10 ||
-    content.length > 200 ||
+    content.length > 400 ||
     isRecordPosting ||
     isRecordEditing;
 

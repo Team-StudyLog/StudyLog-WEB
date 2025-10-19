@@ -1,5 +1,6 @@
-import TextHeader from "../../../components/Header/TextHeader.tsx";
+import type { UploadFile } from "antd";
 import { useState } from "react";
+import TextHeader from "../../../components/Header/TextHeader.tsx";
 import SecondRecordFormPage from "../form/SecondRecordFormPage.tsx";
 import FirstRecordFormPage from "../form/FirstRecordFormPage.tsx";
 import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
@@ -17,6 +18,7 @@ const RecordWritePage = () => {
   );
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   return (
     <div className={formPageStyle}>
@@ -42,6 +44,10 @@ const RecordWritePage = () => {
         <RecordPdfFormPage
           currentPage={2}
           totalPage={3}
+          fileList={fileList}
+          setFileList={setFileList}
+          setTitle={setTitle}
+          setContent={setContent}
           onNext={() => setCurrentPage(3)}
         />
       ) : (
