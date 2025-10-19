@@ -36,12 +36,12 @@ const TextInput = ({
           placeholder={placeholder}
           rows={1}
           className={`
-            w-full resize-none overflow-hidden
+            w-full resize-none overflow-y-auto
             font-body07-regular-14 text-gray-700 placeholder-gray-500
             outline-none bg-transparent
           `}
           style={{
-            minHeight: type === "title" ? "auto" : "80px",
+            minHeight: type === "title" ? "auto" : "100px",
           }}
         />
         <div className="flex justify-end font-body07-regular-14 text-gray-500">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import pdfToText from "react-pdftotext";
 import type { UploadProps, UploadFile } from "antd";
 import { message, Upload } from "antd";
@@ -13,6 +13,10 @@ import { summarizeText } from "../../../utils/summarizeText";
 interface RecordPdfFormPageProps {
   currentPage: number;
   totalPage: number;
+  fileList: UploadFile[];
+  setFileList: (fileList: UploadFile[]) => void;
+  setTitle: (title: string) => void;
+  setContent: (content: string) => void;
   onNext: () => void;
 }
 
@@ -21,23 +25,13 @@ const { Dragger } = Upload;
 const RecordPdfFormPage = ({
   currentPage = 2,
   totalPage = 3,
+  fileList,
+  setFileList,
+  setTitle,
+  setContent,
   onNext,
 }: RecordPdfFormPageProps) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [pdfText, setPdfText] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState(false);
-
-  useEffect(() => {
-    if (pdfText.length > 0) {
-      summarizeText(pdfText)
-        .then((result) => {
-          console.log("PDF 요약 결과:", result);
-        })
-        .catch((error) => {
-          console.error("PDF 요약 실패:", error);
-        });
-    }
-  }, [pdfText]);
 
   const props: UploadProps = {
     name: "pdfFile",
@@ -56,25 +50,29 @@ const RecordPdfFormPage = ({
     onChange(info) {
       setFileList(info.fileList);
       if (info.fileList.length > 0) {
-        const file = info.file.originFileObj;
+        const file = info.fileList[0].originFileObj;
         if (file) {
           setIsProcessing(true);
-          console.log("PDF 파일 추출 시작:", file);
-          pdfToText(file)
-            .then((text) => {
-              console.log("PDF 텍스트 추출 결과:", text);
-              setPdfText(text);
-            })
-            .catch((error) => {
-              console.error("PDF 텍스트 추출 실패:", error);
-              setPdfText("");
-            });
-          setIsProcessing(false);
+          pdfToText(file).then((text) => {
+            summarizeText(text)
+              .then((result) => {
+                setTitle(result.title);
+                setContent(result.summary);
+              })
+              .catch(() => {
+                message.error("PDF 추출에 실패했습니다.");
+              })
+              .finally(() => {
+                setIsProcessing(false);
+              });
+          });
         }
       }
     },
     onRemove() {
       setFileList([]);
+      setTitle("");
+      setContent?.("");
       message.info("파일이 제거되었습니다.");
     },
     onDrop(e) {
@@ -115,7 +113,11 @@ const RecordPdfFormPage = ({
           </p>
         </Dragger>
       </div>
-      <BottomButton text={"다음"} disabled={isProcessing} onClick={onNext} />
+      <BottomButton
+        text={isProcessing ? "처리 중..." : "다음"}
+        disabled={isProcessing}
+        onClick={onNext}
+      />
     </>
   );
 };
