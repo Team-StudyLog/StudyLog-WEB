@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import pageRoutes from "./routes/pageRoutes.tsx";
 import { ToastContainer } from "react-toastify";
+import "@ant-design/v5-patch-for-react-19";
 
 const router = createBrowserRouter(pageRoutes);
 

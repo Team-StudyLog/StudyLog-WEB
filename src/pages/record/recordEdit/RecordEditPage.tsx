@@ -1,7 +1,7 @@
 import TextHeader from "../../../components/Header/TextHeader.tsx";
 import { formPageStyle } from "../../auth/signup/SignupPage.styles.ts";
-import FirstRecordFormPage from "../FirstRecordFormPage.tsx";
-import SecondRecordFormPage from "../SecondRecordFormPage.tsx";
+import FirstRecordFormPage from "../form/FirstRecordFormPage.tsx";
+import SecondRecordFormPage from "../form/SecondRecordFormPage.tsx";
 import { useEffect, useState } from "react";
 import { useFetchRecordDetail } from "../../../apis/record/useFetchRecordDetail.ts";
 import { useParams } from "react-router-dom";
@@ -34,12 +34,16 @@ const RecordEditPage = () => {
       />
       {currentPage === 1 ? (
         <FirstRecordFormPage
+          currentPage={1}
+          totalPage={2}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           onNext={() => setCurrentPage(2)}
         />
       ) : (
         <SecondRecordFormPage
+          currentPage={2}
+          totalPage={2}
           type="edit"
           selectedCategory={selectedCategory}
           title={title}

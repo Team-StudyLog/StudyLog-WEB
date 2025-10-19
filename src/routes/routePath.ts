@@ -38,6 +38,10 @@ const alarmPages = {
   ALARM: "/alarm",
 };
 
+const rankPages = {
+  RANK: "/rank",
+};
+
 const friendPages = {
   FRIEND: "/friend",
   FRIEND_ADD: "/friend/add",
@@ -51,5 +55,6 @@ export default {
   ...myPages,
   ...authPages,
   ...alarmPages,
+  ...rankPages,
   ...friendPages,
 };

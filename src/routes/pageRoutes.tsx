@@ -11,6 +11,7 @@ import quizRoutes from "./quizRoutes.tsx";
 import mainRoutes from "./mainRoutes.tsx";
 import PublicLayout from "./layout/PublicLayout.tsx";
 import ProtectedLayout from "./layout/ProtectedLayout.tsx";
+import rankRoutes from "./rankRoutes.tsx";
 
 const publicRoutes = [...homeRoutes, ...authRoutes];
 
@@ -21,6 +22,7 @@ const protectedRoutes = [
   ...myPageRoutes,
   ...alarmRoutes,
   ...friendRoutes,
+  ...rankRoutes,
 ];
 
 const pageRoutes: RouteObject[] = [

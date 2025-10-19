@@ -1,5 +1,5 @@
 import useEasyNavigate from "../../hooks/useEasyNavigate.ts";
-import { Bell, User } from "lucide-react";
+import { Bell, Trophy, User } from "lucide-react";
 import { storageKey } from "../../constants/storageKey.ts";
 import { useFetchAlarmList } from "../../apis/alarm/useFetchAlarmList.ts";
 
@@ -7,7 +7,8 @@ const Header = () => {
   const { data: alarms } = useFetchAlarmList(false);
   const hasNewAlarm = alarms && alarms.some((alarm) => !alarm.read);
 
-  const { goMainPage, goHomePage, goMyPage, goAlarmPage } = useEasyNavigate();
+  const { goMainPage, goHomePage, goMyPage, goAlarmPage, goRankPage } =
+    useEasyNavigate();
   const isLoggedIn = Boolean(localStorage.getItem(storageKey.IS_LOGGED_IN));
   const userCode = localStorage.getItem(storageKey.USER_CODE);
   const handleLogoClick = () => {
@@ -27,6 +28,7 @@ const Header = () => {
         StudyLog
       </p>
       <div className={`flex items-center gap-4`}>
+        <Trophy size={24} className={`text-gray-600`} onClick={goRankPage} />
         <div className={`relative`}>
           <Bell size={24} className={`text-gray-600`} onClick={goAlarmPage} />
           {hasNewAlarm && (

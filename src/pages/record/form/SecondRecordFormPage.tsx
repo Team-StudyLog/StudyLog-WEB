@@ -1,16 +1,18 @@
-import InputLabel from "../../components/Label/InputLabel.tsx";
-import TextInput from "../../components/Input/TextInput.tsx";
-import BottomButton from "../../components/Button/BottomButton.tsx";
+import InputLabel from "../../../components/Label/InputLabel.tsx";
+import TextInput from "../../../components/Input/TextInput.tsx";
+import BottomButton from "../../../components/Button/BottomButton.tsx";
 import {
   formContent,
   formHeaderWrapper,
-} from "../auth/signup/SignupPage.styles.ts";
-import { usePostRecord } from "../../apis/record/usePostRecord.ts";
-import type { Category } from "./recordWrite/RecordWritePage.tsx";
-import { usePutRecord } from "../../apis/record/usePutRecord.ts";
+} from "../../auth/signup/SignupPage.styles.ts";
+import { usePostRecord } from "../../../apis/record/usePostRecord.ts";
+import type { Category } from "../recordWrite/RecordWritePage.tsx";
+import { usePutRecord } from "../../../apis/record/usePutRecord.ts";
 import { useParams } from "react-router-dom";
 
 interface SecondRecordFormPageProps {
+  currentPage: number;
+  totalPage: number;
   type: "write" | "edit";
   selectedCategory?: Category | null;
   title?: string;
@@ -20,6 +22,8 @@ interface SecondRecordFormPageProps {
 }
 
 const SecondRecordFormPage = ({
+  currentPage = 2,
+  totalPage = 2,
   type = "write",
   selectedCategory,
   title = "",
@@ -60,8 +64,8 @@ const SecondRecordFormPage = ({
     <>
       <div className={formContent}>
         <div className={`${formHeaderWrapper} mb-[8px]`}>
-          <p className={`text-gray-700`}>2</p>
-          <p className={`text-gray-400`}>/2</p>
+          <p className={`text-gray-700`}>{currentPage}</p>
+          <p className={`text-gray-400`}>/{totalPage}</p>
         </div>
         <InputLabel label={"제목을 입력해주세요"} htmlFor={"title"} />
         <TextInput
@@ -82,7 +86,7 @@ const SecondRecordFormPage = ({
           placeholder={
             "학습한 내용을 구체적으로 적을수록 AI가 정확하고 수준에 맞는 퀴즈를 만들어 드릴 수 있어요. (10~200자)"
           }
-          maxLength={200}
+          maxLength={400}
         />
       </div>
       <BottomButton
