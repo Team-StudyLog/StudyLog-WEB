@@ -13,7 +13,7 @@ import PublicLayout from "./layout/PublicLayout.tsx";
 import ProtectedLayout from "./layout/ProtectedLayout.tsx";
 import rankRoutes from "./rankRoutes.tsx";
 
-const publicRoutes = [...homeRoutes, ...authRoutes];
+const publicRoutes = [...homeRoutes, ...authRoutes, ...rankRoutes];
 
 const protectedRoutes = [
   ...mainRoutes,
@@ -22,7 +22,7 @@ const protectedRoutes = [
   ...myPageRoutes,
   ...alarmRoutes,
   ...friendRoutes,
-  ...rankRoutes,
+  // ...rankRoutes,
 ];
 
 const pageRoutes: RouteObject[] = [

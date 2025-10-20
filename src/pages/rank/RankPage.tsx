@@ -14,14 +14,26 @@ const RankPage = () => {
         {friends && friends.length > 0 ? (
           <>
             <section className={`flex justify-center items-end gap-x-[28px]`}>
-              <RankTopItem rank={2} profileImage={"https://placehold.co/80"} />
+              <RankTopItem
+                rank={2}
+                profileImage={"https://placehold.co/80"}
+                nickname={"유저2"}
+              />
               <img
                 src={IcCrown}
                 alt="crown"
                 className={`absolute top-[-30px] left-1/2 transform -translate-x-1/2`}
               />
-              <RankTopItem rank={1} profileImage={"https://placehold.co/100"} />
-              <RankTopItem rank={3} profileImage={"https://placehold.co/80"} />
+              <RankTopItem
+                rank={1}
+                profileImage={"https://placehold.co/100"}
+                nickname={"유저1"}
+              />
+              <RankTopItem
+                rank={3}
+                profileImage={"https://placehold.co/80"}
+                nickname={"유저3"}
+              />
             </section>
             <hr
               className={`w-full mt-[38px] mb-[16px] h-[1px] text-gray-200`}

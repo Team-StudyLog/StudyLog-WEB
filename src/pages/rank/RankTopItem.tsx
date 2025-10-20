@@ -1,11 +1,12 @@
 interface RankTopItemProps {
   rank: number;
   profileImage: string;
+  nickname: string;
 }
 
-const RankTopItem = ({ rank, profileImage }: RankTopItemProps) => {
+const RankTopItem = ({ rank, profileImage, nickname }: RankTopItemProps) => {
   return (
-    <div className={`flex flex-col items-center gap-y-[12px]`}>
+    <div className={`flex flex-col items-center`}>
       <img
         src={profileImage}
         alt="rank"
@@ -15,7 +16,14 @@ const RankTopItem = ({ rank, profileImage }: RankTopItemProps) => {
             : `w-[80px] h-[80px] rounded-full object-cover`
         }
       />
-      <p className={`font-body01-bold-14 text-gray-700`}>{rank}등</p>
+      <p className={`mt-[12px] text-center font-body01-bold-14 text-green-300`}>
+        {rank}등
+      </p>
+      <p
+        className={`mt-[6px] text-center font-body03-semibold-12 text-gray-700`}
+      >
+        {nickname}
+      </p>
     </div>
   );
 };
