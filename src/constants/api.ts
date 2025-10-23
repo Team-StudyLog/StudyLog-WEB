@@ -31,4 +31,5 @@ export const END_POINT = {
   FETCH_USER_STREAK: "/streak",
   FETCH_OTHER_MAIN: "/main",
   FETCH_OTHER_STREAK: "/streak",
+  FETCH_RANK_LIST: "/rankings",
 };

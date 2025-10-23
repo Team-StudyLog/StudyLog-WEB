@@ -12,4 +12,5 @@ export const queryKey = {
   USER_STREAK: "userStreak",
   OTHER_MAIN: "otherMain",
   OTHER_STREAK: "otherStreak",
+  RANK_LIST: "rankList",
 };
