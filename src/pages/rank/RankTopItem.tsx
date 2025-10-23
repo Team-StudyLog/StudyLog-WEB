@@ -1,20 +1,26 @@
+import useEasyNavigate from "../../hooks/useEasyNavigate";
+
 interface RankTopItemProps {
   rank: number;
   profileImage: string;
   nickname: string;
+  code: string;
 }
 
-const RankTopItem = ({ rank, profileImage, nickname }: RankTopItemProps) => {
+const RankTopItem = ({
+  rank,
+  profileImage,
+  nickname,
+  code,
+}: RankTopItemProps) => {
+  const { goOtherUserPage } = useEasyNavigate();
   return (
     <div className={`flex flex-col items-center`}>
       <img
         src={profileImage}
         alt="rank"
-        className={
-          rank === 1
-            ? `w-[100px] h-[100px] rounded-full object-cover`
-            : `w-[80px] h-[80px] rounded-full object-cover`
-        }
+        className={`cursor-pointer rounded-full object-cover ${rank === 1 ? `w-[100px] h-[100px]` : `w-[80px] h-[80px]`}`}
+        onClick={() => goOtherUserPage(code)}
       />
       <p className={`mt-[12px] text-center font-body01-bold-14 text-green-300`}>
         {rank}등

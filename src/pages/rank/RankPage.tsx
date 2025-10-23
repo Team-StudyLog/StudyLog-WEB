@@ -3,59 +3,63 @@ import IcCrown from "../../assets/ic-crown.svg";
 import RankItem from "./RankItem";
 import RankTopItem from "./RankTopItem";
 import IcRank from "../../assets/ic-rank.svg";
-import { useFetchFriendList } from "../../apis/mypage/useFetchFriendList";
+import { useFetchRankList } from "../../apis/rank/useFetchRankList";
 
 const RankPage = () => {
-  const { data: friends } = useFetchFriendList();
+  const { data: rankList } = useFetchRankList();
+
   return (
     <div className="flex flex-col">
       <TextHeader text="이달의 기록왕" />
       <div className={`relative flex flex-col mt-[40px] px-[26px]`}>
-        {friends && friends.length > 0 ? (
+        {rankList && rankList.length > 0 ? (
           <>
             <section className={`flex justify-center items-end gap-x-[28px]`}>
-              <RankTopItem
-                rank={2}
-                profileImage={"https://placehold.co/80"}
-                nickname={"유저2"}
-              />
-              <img
-                src={IcCrown}
-                alt="crown"
-                className={`absolute top-[-30px] left-1/2 transform -translate-x-1/2`}
-              />
-              <RankTopItem
-                rank={1}
-                profileImage={"https://placehold.co/100"}
-                nickname={"유저1"}
-              />
-              <RankTopItem
-                rank={3}
-                profileImage={"https://placehold.co/80"}
-                nickname={"유저3"}
-              />
+              {rankList[1] && (
+                <RankTopItem
+                  rank={2}
+                  profileImage={rankList[1].profileImage}
+                  nickname={rankList[1].nickname}
+                  code={rankList[1].code}
+                />
+              )}
+              <div className="relative">
+                <img
+                  src={IcCrown}
+                  alt="crown"
+                  className={`absolute top-[-30px] left-1/2 transform -translate-x-1/2`}
+                />
+                <RankTopItem
+                  rank={1}
+                  profileImage={rankList[0].profileImage}
+                  nickname={rankList[0].nickname}
+                  code={rankList[0].code}
+                />
+              </div>
+              {rankList[2] && (
+                <RankTopItem
+                  rank={3}
+                  profileImage={rankList[2].profileImage}
+                  nickname={rankList[2].nickname}
+                  code={rankList[2].code}
+                />
+              )}
             </section>
             <hr
               className={`w-full mt-[38px] mb-[16px] h-[1px] text-gray-200`}
             />
-            <RankItem
-              rank={4}
-              profileImage={"https://placehold.co/46"}
-              nickname={"채영"}
-              count={100}
-            />
-            <RankItem
-              rank={5}
-              profileImage={"https://placehold.co/46"}
-              nickname={"채영"}
-              count={90}
-            />
-            <RankItem
-              rank={6}
-              profileImage={"https://placehold.co/46"}
-              nickname={"채영"}
-              count={70}
-            />
+            {rankList.length > 3 &&
+              rankList
+                .slice(3)
+                .map((item, index) => (
+                  <RankItem
+                    key={item.id}
+                    rank={index + 4}
+                    profileImage={item.profileImage}
+                    nickname={item.nickname}
+                    count={item.recordCount}
+                  />
+                ))}
           </>
         ) : (
           <div
