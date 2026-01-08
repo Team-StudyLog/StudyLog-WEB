@@ -4,6 +4,7 @@
 <a href="https://studylog-nine.vercel.app/UX320" target="_blank" rel="noopener noreferrer">
   웹사이트 바로가기
 </a>
+<img width="1423" height="727" alt="image" src="https://github.com/user-attachments/assets/b9334d85-0264-4f14-ab13-94b4b27d899f" />
 <br />
 <br />
 
